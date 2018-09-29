@@ -7,6 +7,7 @@ package proyectomeia;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -220,6 +221,15 @@ public class RegistroUsuario extends javax.swing.JFrame {
 
     private void btnRegitrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegitrarActionPerformed
         // TODO add your handling code here:
+        proyectomeia.Usuario usuario = new proyectomeia.Usuario(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtContraseña.getText()
+                , txtCorreo.getText(), txtPathfoto.getText(), Integer.parseInt(txtTelefono.getText()), 1);
+        
+        if(!VerSiExisteUsuario(usuario)){
+            //Escribir en el archivo
+        }
+        else{
+            //Mostrar que ya existe
+        }
         
     }//GEN-LAST:event_btnRegitrarActionPerformed
 
@@ -258,10 +268,27 @@ public class RegistroUsuario extends javax.swing.JFrame {
         });
     }
     
-    void VerSiExisteUsuario(){
-        if(Lector.Obtener("C:/MEIA/usuario.txt") == "No existe el archivo"){
-            
-        }
+    boolean VerSiExisteUsuario(proyectomeia.Usuario us){
+        try{
+            String cadena = Lector.Obtener("C:/MEIA/usuario.txt");
+            if(cadena == "No existe el archivo"){
+                String[] usuarios = cadena.split("\n");
+                
+                for (int i = 0; i < usuarios.length; i++) {
+                    if(us.getUsuario() == usuarios[i].split("|")[0]){
+                        return true;
+                    }
+                }        
+                return false;
+            }                                    
+            else{
+                JOptionPane.showMessageDialog(this,"No existe el archivo usuarios.txt");
+                return true;                
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this,"Error al leer el archivo");
+            return true;
+        }        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
