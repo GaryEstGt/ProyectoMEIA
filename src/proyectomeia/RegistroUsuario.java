@@ -222,7 +222,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
     private void btnRegitrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegitrarActionPerformed
         // TODO add your handling code here:
         proyectomeia.Usuario usuario = new proyectomeia.Usuario(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtContraseña.getText()
-                , txtCorreo.getText(), txtPathfoto.getText(), Integer.parseInt(txtTelefono.getText()), 1);
+                , CalendarFecha.getDateFormatString(),txtCorreo.getText(), txtPathfoto.getText(), Integer.parseInt(txtTelefono.getText()), 1);
         
         if(!VerSiExisteUsuario(usuario)){
             //Escribir en el archivo

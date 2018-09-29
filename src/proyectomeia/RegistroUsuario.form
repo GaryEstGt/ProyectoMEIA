@@ -54,20 +54,23 @@
                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtCorreo" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="txtCalendar" pref="199" max="32767" attributes="0"/>
+                                          <Component id="txtContraseña" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txtApellido" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtNombre" max="32767" attributes="0"/>
-                                          <Component id="txtApellido" max="32767" attributes="0"/>
-                                          <Component id="txtUsuario" max="32767" attributes="0"/>
-                                          <Component id="txtContraseña" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="CalendarFecha" alignment="0" min="-2" pref="208" max="-2" attributes="0"/>
+                                          <Component id="txtUsuario" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="lblNivelContraseña" min="-2" pref="89" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="txtCorreo" alignment="0" min="-2" pref="208" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -117,11 +120,11 @@
                   <Component id="lblNivelContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <Component id="CalendarFecha" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCalendar" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   <Component id="txtCorreo" min="-2" max="-2" attributes="0"/>
@@ -183,8 +186,6 @@
         <Property name="text" type="java.lang.String" value="Fecha de Nacimiento"/>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="CalendarFecha">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Telefono"/>
@@ -239,6 +240,8 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel11"/>
       </Properties>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="txtCalendar">
     </Component>
   </SubComponents>
 </Form>
