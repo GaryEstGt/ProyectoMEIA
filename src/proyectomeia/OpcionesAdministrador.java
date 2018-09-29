@@ -70,14 +70,15 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
         Chooser.setFileFilter(new FileNameExtensionFilter("txt", "txt"));
 
         File fFile=Chooser.getSelectedFile();
-        Chooser.setCurrentDirectory(new File("MEIA_Backup.txt"));//situarnos en el directorio actual
+        Chooser.setCurrentDirectory(new File("MEIA_Backup.txt"));
         Chooser.setSelectedFile (fFile);
         String ruta = ""; 
        try{ 
         if(Chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){ 
         ruta = Chooser.getSelectedFile().getAbsolutePath(); 
-        Escritor.Escribir(ruta, "Hola olvidenlo mejor no escribo mejor si mejor no sdfsdfsfd", "");
-//Aqui ya tiens la ruta,,,ahora puedes crear un fichero n esa ruta y escribir lo k kieras... 
+       String contenidoUsuario= Lector.Obtener("C:\\MEIA\\Usuarios.txt");
+       contenidoUsuario+=Lector.Obtener("C:\\MEIA\\Bitacora_Usuario.txt");
+        Escritor.Escribir(ruta, contenidoUsuario);
 } 
 }catch (HeadlessException ex){ 
 } 
