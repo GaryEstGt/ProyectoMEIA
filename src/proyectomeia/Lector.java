@@ -16,7 +16,7 @@ import java.io.IOException;
  * @author garya
  */
 public class Lector {
-    public static String Obtener(String strPath,String strError)
+    public static String Obtener(String strPath)
     {
         File Archivo=new File(strPath);
         String cadena = "";
