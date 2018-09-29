@@ -84,6 +84,11 @@ public class RegistroUsuario extends javax.swing.JFrame {
         });
 
         btnRegitrar.setText("Registrarse");
+        btnRegitrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegitrarActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("Registro de Usuario");
@@ -213,6 +218,11 @@ public class RegistroUsuario extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSeleccionarfotoActionPerformed
 
+    private void btnRegitrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegitrarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnRegitrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -246,6 +256,12 @@ public class RegistroUsuario extends javax.swing.JFrame {
                 new RegistroUsuario().setVisible(true);
             }
         });
+    }
+    
+    void VerSiExisteUsuario(){
+        if(Lector.Obtener("C:/MEIA/usuario.txt") == "No existe el archivo"){
+            
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

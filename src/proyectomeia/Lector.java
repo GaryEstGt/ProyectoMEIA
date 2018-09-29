@@ -16,42 +16,40 @@ import java.io.IOException;
  * @author garya
  */
 public class Lector {
-    public boolean Obtener(String strPath,String strError)
+    public static String Obtener(String strPath,String strError)
     {
         File Archivo=new File(strPath);
+        String cadena = "";
         if(Archivo.exists()==true)
         {
             FileReader LecturaArchivo;
             try {
                 LecturaArchivo = new FileReader(Archivo);
                 BufferedReader LeerArchivo = new BufferedReader(LecturaArchivo);
-                String Linea="";
+                String Linea;
                 try {
                     Linea=LeerArchivo.readLine();
-                    String[] split;
+                    cadena += Linea;                    
                     while(Linea != null)
                     {
                         Linea=LeerArchivo.readLine();
+                        cadena += Linea;
                     }
 
                     LecturaArchivo.close();
-                    LeerArchivo.close();
-                    strError="";
-                    return true;
+                    LeerArchivo.close();                                        
+                    return cadena;
                     
                 } catch (IOException ex) {
-                    strError= ex.getMessage();
-                    return false;
+                    return ex.getMessage();                    
                 }
             } catch (FileNotFoundException ex) {
-                strError= ex.getMessage();
-                return false;
+                return ex.getMessage();                
             }            
         }
         else
         {
-            strError="No existe el archivo";
-            return false;
+            return "No existe el archivo";            
         }
 }
 
