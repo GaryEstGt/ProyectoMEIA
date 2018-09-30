@@ -130,6 +130,7 @@ public class LogIn extends javax.swing.JFrame {
                 for (int i = 0; i < lista.size(); i++) {
                     if(lista.get(i).getUsuario().equals(txtUsuario.getText()) && lista.get(i).getContraseña().equals(txtContraseña.getText())){
                         JOptionPane.showMessageDialog(null,lista.get(i).getUsuario() + (lista.get(i).getRol() == 1 ? "Administrador" : "Usuario") + lista.get(i).getPathFoto());
+                        ProyectoMEIA.usuarioEnUso = lista.get(i);
                     }
                 }
             }
