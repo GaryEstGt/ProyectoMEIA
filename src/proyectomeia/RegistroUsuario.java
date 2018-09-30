@@ -105,7 +105,7 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
 
         txtPathfoto.setEditable(false);
 
-        lblNivelContraseña.setText("jLabel11");
+        lblNivelContraseña.setText("Ingrese la contraseña");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,7 +170,7 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
                 .addGap(330, 330, 330))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -193,7 +193,7 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNivelContraseña)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(txtCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -215,7 +215,7 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                             .addComponent(txtPathfoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegitrar)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,25 +242,30 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
     private void btnRegitrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegitrarActionPerformed
         // TODO add your handling code here:
         if(VerificarCampos()){
-            Usuario usuario = new proyectomeia.Usuario(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtContraseña1.getText()
+            if(!lblNivelContraseña.getText().equals("Contraseña muy insegura")){
+                Usuario usuario = new proyectomeia.Usuario(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtContraseña1.getText()
                 , txtCalendar.getDate().toString(),txtCorreo.getText(), txtPathfoto.getText(), Integer.parseInt(txtTelefono.getText()), 1);
 
-        if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros()!=0){
-           if(!VerSiExisteUsuario(usuario)){
-               //Escribir en el archivo
-               String textoAnterior=Lector.Obtener("C:/MEIA/bitacora_usuario.txt");
-               usuario.setRol(0);
+                if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros()!=0){
+                    if(!VerSiExisteUsuario(usuario)){
+                    //Escribir en el archivo
+                    String textoAnterior=Lector.Obtener("C:/MEIA/bitacora_usuario.txt");
+                    usuario.setRol(0);
                
-               Escritor.Escribir("C:/MEIA/bitacora_usuario.txt", textoAnterior+usuario.toString());               
-           }
-           else{
-               //cambiar despriptor
-           }
-       }else{
-           usuario.setRol(1);
-           Escritor.Escribir("C:/MEIA/bitacora_usuario.txt",usuario.toString());
-           //cambiard descriptor
-       }
+                    Escritor.Escribir("C:/MEIA/bitacora_usuario.txt", textoAnterior+usuario.toString());               
+                    }
+                else{
+                    //cambiar despriptor
+                }
+                }else{
+                    usuario.setRol(1);
+                    Escritor.Escribir("C:/MEIA/bitacora_usuario.txt",usuario.toString());
+                    //cambiard descriptor
+                }                
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Debe mejorar la seguridad de su contraseña");
+            }            
         }
         else{
             JOptionPane.showMessageDialog(null,"Debe llenar todos los campos");
@@ -357,10 +362,8 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
     public void insertUpdate(DocumentEvent e) {
         if (!txtContraseña1.getText().equals(null) && !txtContraseña1.getText().isEmpty()){ 
             int punteo = verificarContraseña(txtContraseña1.getText());
-            if(punteo == 0){
-                lblNivelContraseña.setText("La contraseña debe tener al menos 6 caracteres");
-            }
-            else if (punteo >= 1 && punteo <= 25){
+            
+            if (punteo >= 0 && punteo <= 25){
                 lblNivelContraseña.setText("Contraseña muy insegura");
             }
             else if (punteo >= 26 && punteo <= 50){
@@ -372,6 +375,9 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
             else if (punteo >= 76){
                 lblNivelContraseña.setText("Contraseña muy segura");
             }                  
+        }
+        else{
+            lblNivelContraseña.setText("Ingrese la contraseña");
         }
     }
     
