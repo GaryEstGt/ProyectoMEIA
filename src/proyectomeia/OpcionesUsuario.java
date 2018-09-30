@@ -6,20 +6,30 @@
 package proyectomeia;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author garya
  */
-public class OpcionesUsuario extends javax.swing.JFrame {
+public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListener{
 
     /**
      * Creates new form OpcionesUsuario
      */
     public OpcionesUsuario() {
         initComponents();
+         txtContraseña.setDocument(new LimitarCaracteres(40));
+        txtContraseña.getDocument().addDocumentListener(this);
+        txtCorreo.setDocument(new LimitarCaracteres(40));
+        txtTelefono.setDocument(new LimitarNumeros());
     }
 
     /**
@@ -36,6 +46,7 @@ public class OpcionesUsuario extends javax.swing.JFrame {
         txtContraseña = new javax.swing.JPasswordField();
         btnCambiarcontraseña = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        lblNivel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         txtCorreo = new javax.swing.JPasswordField();
@@ -58,8 +69,15 @@ public class OpcionesUsuario extends javax.swing.JFrame {
         panelContraseña.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnCambiarcontraseña.setText("Cambiar");
+        btnCambiarcontraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarcontraseñaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Nueva Contraseña");
+
+        lblNivel.setText("nivel");
 
         javax.swing.GroupLayout panelContraseñaLayout = new javax.swing.GroupLayout(panelContraseña);
         panelContraseña.setLayout(panelContraseñaLayout);
@@ -68,22 +86,27 @@ public class OpcionesUsuario extends javax.swing.JFrame {
             .addGroup(panelContraseñaLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(panelContraseñaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
+                    .addGroup(panelContraseñaLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelContraseñaLayout.createSequentialGroup()
                         .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblNivel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCambiarcontraseña)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelContraseñaLayout.setVerticalGroup(
             panelContraseñaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelContraseñaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelContraseñaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(8, 8, 8)
+                .addGroup(panelContraseñaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCambiarcontraseña)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNivel))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -92,10 +115,20 @@ public class OpcionesUsuario extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnCambiarCorreo.setText("Cambiar");
+        btnCambiarCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarCorreoActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Nuevo Correo");
 
         btnCambiarTel.setText("Cambiar");
+        btnCambiarTel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarTelActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Nuevo Telefono");
 
@@ -203,10 +236,10 @@ public class OpcionesUsuario extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(38, 38, 38)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(panelContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(58, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(panelContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(48, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnSalir)
@@ -225,7 +258,7 @@ public class OpcionesUsuario extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalir)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -246,15 +279,115 @@ public class OpcionesUsuario extends javax.swing.JFrame {
                 
             txtFoto.setText(rutaArchivo);            
         }
+         LinkedList<Usuario> lista=OperacionesSecuencial.obtenerUsuarios(1);
+            for (int i = 0; i < lista.size(); i++) {
+                if(lista.get(i).getUsuario().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
+                    lista.get(i).setPathFoto(txtFoto.getText());                    
+                }
+            }
+             OperacionesSecuencial.rellenarUsuarios(lista);
+            DescriptorUsuario user=OperacionesSecuencial.obtenerDescriptorUsuario(1);
+            Date fechaActual=new Date();
+            
+            user.setFechaModificacion(fechaActual.toString());
+            user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
+            OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
+        
     }//GEN-LAST:event_btnCambiarfotoActionPerformed
 
     private void btnCambiarfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarfechaActionPerformed
         // TODO add your handling code here:
+         Date fecha = CalendarFecha.getDate();
+            String formato = CalendarFecha.getDateFormatString();
+            SimpleDateFormat sdf = new SimpleDateFormat(formato);
+             LinkedList<Usuario> lista=OperacionesSecuencial.obtenerUsuarios(1);
+            for (int i = 0; i < lista.size(); i++) {
+                if(lista.get(i).getUsuario().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
+                    lista.get(i).setFechaNacimiento(String.valueOf(sdf.format(fecha)));                    
+                }
+            }
+             OperacionesSecuencial.rellenarUsuarios(lista);
+            DescriptorUsuario user=OperacionesSecuencial.obtenerDescriptorUsuario(1);
+            Date fechaActual=new Date();
+            
+            user.setFechaModificacion(fechaActual.toString());
+            user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
+            OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
+            
     }//GEN-LAST:event_btnCambiarfechaActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+        if(ProyectoMEIA.usuarioEnUso.getRol()==1){
+            OpcionesAdministrador ventana = new OpcionesAdministrador();
+            ventana.show();
+            dispose();
+        }
+        else{
+           LogIn ventana = new LogIn();
+            ventana.show();
+            dispose(); 
+        }
+        
+
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnCambiarcontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarcontraseñaActionPerformed
+        // TODO add your handling code here:
+        if(!lblNivel.getText().equals("Contraseña muy insegura")||!lblNivel.getText().equals("Contraseña insegura")||!lblNivel.getText().equals("Ingrese la contraseña")){
+           LinkedList<Usuario> lista=OperacionesSecuencial.obtenerUsuarios(1);
+            for (int i = 0; i < lista.size(); i++) {
+                if(lista.get(i).getUsuario().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
+                    lista.get(i).setContraseña(txtContraseña.getText());     
+                }
+            }
+            OperacionesSecuencial.rellenarUsuarios(lista);
+            DescriptorUsuario user=OperacionesSecuencial.obtenerDescriptorUsuario(1);
+            Date fechaActual=new Date();
+            
+            user.setFechaModificacion(fechaActual.toString());
+            user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
+            OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
+            
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Contraseña Invalida");
+        }
+    }//GEN-LAST:event_btnCambiarcontraseñaActionPerformed
+
+    private void btnCambiarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarCorreoActionPerformed
+        // TODO add your handling code here:
+        LinkedList<Usuario> lista=OperacionesSecuencial.obtenerUsuarios(1);
+            for (int i = 0; i < lista.size(); i++) {
+                if(lista.get(i).getUsuario().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
+                    lista.get(i).setCorreo(txtCorreo.getText());                    
+                }
+            }
+             OperacionesSecuencial.rellenarUsuarios(lista);
+            DescriptorUsuario user=OperacionesSecuencial.obtenerDescriptorUsuario(1);
+            Date fechaActual=new Date();
+            
+            user.setFechaModificacion(fechaActual.toString());
+            user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
+            OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
+    }//GEN-LAST:event_btnCambiarCorreoActionPerformed
+
+    private void btnCambiarTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarTelActionPerformed
+        // TODO add your handling code here:
+         LinkedList<Usuario> lista=OperacionesSecuencial.obtenerUsuarios(1);
+            for (int i = 0; i < lista.size(); i++) {
+                if(lista.get(i).getUsuario().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
+                    lista.get(i).setTelefono(Integer.parseInt(txtTelefono.getText()));                    
+                }
+            }
+             OperacionesSecuencial.rellenarUsuarios(lista);
+            DescriptorUsuario user=OperacionesSecuencial.obtenerDescriptorUsuario(1);
+            Date fechaActual=new Date();
+            
+            user.setFechaModificacion(fechaActual.toString());
+            user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
+            OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
+    }//GEN-LAST:event_btnCambiarTelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,6 +423,62 @@ public class OpcionesUsuario extends javax.swing.JFrame {
             }
         });
     }
+    @Override
+   public void insertUpdate(DocumentEvent e){
+       if (!txtContraseña.getText().equals(null) && !txtContraseña.getText().isEmpty()){ 
+            int punteo = verificarContraseña(txtContraseña.getText());
+            
+            if (punteo >= 0 && punteo <= 25){
+                lblNivel.setText("Contraseña muy insegura");
+            }
+            else if (punteo >= 26 && punteo <= 50){
+                lblNivel.setText("Contraseña insegura");
+            }
+            else if (punteo >= 51 && punteo <= 75){
+                lblNivel.setText("Contraseña segura");
+            }
+            else if (punteo >= 76){
+                lblNivel.setText("Contraseña muy segura");
+            }                  
+        }
+        else{
+            lblNivel.setText("Ingrese la contraseña");
+        }
+   }
+    public int verificarContraseña(String texto){
+        int puntuacion;
+        
+        if(texto.length() < 6){
+            puntuacion = 0;
+        }
+        else{
+            puntuacion = (texto.length() - 6) * 3;                      
+            puntuacion = puntuacion + (2 * contarCoincidencias("ABCDEFGHIJKLMNOPQRSTUVWXYZ",texto));            
+            int contadorSimbolos = contarCoincidencias("|°¬!#$%&/()=?'¡¿´¨+*~]}{`^[{-_;,:.<> ",texto);            
+            int contadorNumeros = contarCoincidencias("1234567890",texto);
+            if(contadorNumeros == texto.length()){ //si la contraseña es solo numeros
+                puntuacion = 50;
+            }            
+            else{                
+                puntuacion = puntuacion + (contadorNumeros + 5);
+                puntuacion = puntuacion + (contadorSimbolos * 5);
+                
+            }
+                              
+        }
+        return puntuacion;  //retorna cantidad de puntos que obtuvo la contraseña
+    }
+     public int contarCoincidencias(String texto1,String texto2){
+        int contador=0;
+        for (int i = 0; i < texto1.length(); i++) {
+                for (int j = 0; j < texto2.length(); j++) {
+                    if(texto1.charAt(i)==texto2.charAt(j)){
+                        contador++;
+                    }
+                }
+            }
+        return contador;
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser CalendarFecha;
@@ -308,10 +497,21 @@ public class OpcionesUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblNivel;
     private javax.swing.JPanel panelContraseña;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JPasswordField txtCorreo;
     private javax.swing.JPasswordField txtFoto;
     private javax.swing.JPasswordField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        insertUpdate(e);//To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        insertUpdate(e);//To change body of generated methods, choose Tools | Templates.
+    }
 }

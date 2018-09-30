@@ -122,7 +122,7 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
         if(!bitacora.exists()){
             Date fechaActual=new Date();
             descriptor.setFechaCreacion(fechaActual.toString());
-            descriptor.setUsuarioCreacion(LogIn.UsuarioenSesion);
+            descriptor.setUsuarioCreacion(ProyectoMEIA.usuarioEnUso.getUsuario());
             descriptor.setNombre("bitacora_backup");
             descriptor.setNumRegistros(1);
             Escritor.Escribir("C:\\MEIA\\desc_bitacora_backup.txt", descriptor.toString());
@@ -131,11 +131,11 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
             DescriptorBitacoraBackup desc=OperacionesSecuencial.obtenerDescriptorBB();
             Date fechaAct=new Date();
             desc.setFechaModificacion(fechaAct.toString());
-            desc.setUsuarioModificacion(LogIn.UsuarioenSesion);
+            desc.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
             desc.setNumRegistros(desc.getNumRegistros()+1);
             Escritor.Escribir("C:\\MEIA\\desc_bitacora_backup.txt", desc.toString());
         }
-        AgregarBitacora(new BitacoraBackup(ruta,LogIn.UsuarioenSesion,fecha.toString()));
+        AgregarBitacora(new BitacoraBackup(ruta,ProyectoMEIA.usuarioEnUso.getUsuario(),fecha.toString()));
 } 
 }catch (HeadlessException ex){ 
 } 

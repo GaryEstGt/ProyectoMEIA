@@ -6,20 +6,31 @@
 package proyectomeia;
 
 import java.io.File;
+import java.util.LinkedList;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author garya
  */
-public class BuscarUsuarios extends javax.swing.JFrame {
+public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListener {
 
     /**
      * Creates new form BuscarUsuarios
      */
     public BuscarUsuarios() {
         initComponents();
+        txtUsuario.setDocument(new LimitarCaracteres(20));        
+        txtApellido.setDocument(new LimitarCaracteres(30));
+        txtContraseña.setDocument(new LimitarCaracteres(40));
+        txtContraseña.getDocument().addDocumentListener(this);
+        txtCorreo.setDocument(new LimitarCaracteres(40));
+        txtNombre.setDocument(new LimitarCaracteres(30)); 
+        txtTelefono.setDocument(new LimitarNumeros());
     }
 
     /**
@@ -42,7 +53,6 @@ public class BuscarUsuarios extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JTextField();
         txtFoto = new javax.swing.JTextField();
         btnModificar = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         rbUsuario = new javax.swing.JRadioButton();
         rbAdmin = new javax.swing.JRadioButton();
         btnSeleccionar = new javax.swing.JButton();
@@ -58,12 +68,19 @@ public class BuscarUsuarios extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        lblNivelContraseña = new javax.swing.JLabel();
+        txtCalendar = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Ingrese Usuario a buscar");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,6 +161,14 @@ public class BuscarUsuarios extends javax.swing.JFrame {
 
         jLabel11.setText("Estado");
 
+        lblNivelContraseña.setText("jLabel12");
+
+        txtCalendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCalendarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,9 +204,7 @@ public class BuscarUsuarios extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtContraseña, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
+                                .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -191,7 +214,9 @@ public class BuscarUsuarios extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnModificar)
-                            .addComponent(btnSeleccionar))))
+                            .addComponent(btnSeleccionar)
+                            .addComponent(lblNivelContraseña)))
+                    .addComponent(txtCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
@@ -219,12 +244,13 @@ public class BuscarUsuarios extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(lblNivelContraseña))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbUsuario)
                     .addComponent(rbAdmin)
@@ -303,6 +329,48 @@ public class BuscarUsuarios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        LinkedList<Usuario> lista=OperacionesSecuencial.obtenerUsuarios(1);
+        boolean encontrado=false;
+        for (int i = 0; i < lista.size(); i++) {
+            if(lista.get(i).getUsuario().equals(txtBuscar.getText())){
+                txtUsuario.setText(lista.get(i).getUsuario());
+                txtNombre.setText(lista.get(i).getNombre());
+                txtApellido.setText(lista.get(i).getApellido());
+                txtContraseña.setText(lista.get(i).getContraseña());
+                txtCalendar.setText(lista.get(i).getFechaNacimiento());
+                if(lista.get(i).getRol()==1){
+                    rbAdmin.setSelected(true);
+                }
+                else if(lista.get(i).getRol()==0){
+                    rbUsuario.setSelected(true);
+                }
+                txtCorreo.setText(lista.get(i).getCorreo());
+                txtTelefono.setText(String.valueOf(lista.get(i).getTelefono()));
+                txtFoto.setText(lista.get(i).getPathFoto());
+                 if(lista.get(i).getEstatus()==1){
+                    rbActivo.setSelected(true);
+                }
+                else if(lista.get(i).getEstatus()==0){
+                    rbInactivo.setSelected(true);
+                }              
+                 encontrado=true;
+                 break;
+            }
+            else{
+                encontrado=false;
+            }
+        }
+        if(!encontrado){
+            JOptionPane.showMessageDialog(null, "Usuario no Encontrado");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalendarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCalendarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -342,7 +410,6 @@ public class BuscarUsuarios extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSeleccionar;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -354,12 +421,14 @@ public class BuscarUsuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblNivelContraseña;
     private javax.swing.JRadioButton rbActivo;
     private javax.swing.JRadioButton rbAdmin;
     private javax.swing.JRadioButton rbInactivo;
     private javax.swing.JRadioButton rbUsuario;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCalendar;
     private javax.swing.JTextField txtContraseña;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtFoto;
@@ -367,4 +436,113 @@ public class BuscarUsuarios extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        if (!txtContraseña.getText().equals(null) && !txtContraseña.getText().isEmpty()){ 
+            int punteo = verificarContraseña(txtContraseña.getText());
+            
+            if (punteo >= 0 && punteo <= 25){
+                lblNivelContraseña.setText("Contraseña muy insegura");
+            }
+            else if (punteo >= 26 && punteo <= 50){
+                lblNivelContraseña.setText("Contraseña insegura");
+            }
+            else if (punteo >= 51 && punteo <= 75){
+                lblNivelContraseña.setText("Contraseña segura");
+            }
+            else if (punteo >= 76){
+                lblNivelContraseña.setText("Contraseña muy segura");
+            }                  
+        }
+        else{
+            lblNivelContraseña.setText("Ingrese la contraseña");
+        }
+    }
+     public int verificarContraseña(String texto){
+        int puntuacion;
+        
+        if(texto.length() < 6){
+            puntuacion = 0;
+        }
+        else{
+            puntuacion = (texto.length() - 6) * 3;                      
+            puntuacion = puntuacion + (2 * contarCoincidencias("ABCDEFGHIJKLMNOPQRSTUVWXYZ",texto));            
+            int contadorSimbolos = contarCoincidencias("|°¬!#$%&/()=?'¡¿´¨+*~]}{`^[{-_;,:.<> ",texto);            
+            int contadorNumeros = contarCoincidencias("1234567890",texto);
+            if(contadorNumeros == texto.length()){ //si la contraseña es solo numeros
+                puntuacion = 50;
+            }            
+            else{                
+                puntuacion = puntuacion + (contadorNumeros + 5);
+                puntuacion = puntuacion + (contadorSimbolos * 5);
+                
+            }
+                              
+        }
+        return puntuacion;  //retorna cantidad de puntos que obtuvo la contraseña
+    }
+    public boolean VerificarCampos(){
+        if(txtUsuario.getText().isEmpty())
+            return false;
+        if(txtNombre.getText().isEmpty())
+            return false;
+        if(txtApellido.getText().isEmpty())
+            return false;
+        if(txtContraseña.getText().isEmpty())
+            return false;
+        if(txtCalendar.getText().isEmpty())
+            return false;
+        if(txtCorreo.getText().isEmpty())
+            return false;
+        if(txtTelefono.getText().isEmpty())
+            return false;
+        if(txtFoto.getText().isEmpty())
+            return false;
+        
+        return true;
+    }
+    boolean VerSiExisteUsuario(Usuario us){
+        try{
+            LinkedList<Usuario> usuarios = OperacionesSecuencial.obtenerUsuarios(1);
+            for (int i = 0; i < usuarios.size(); i++) {
+                if(us.getUsuario().equals(usuarios.get(i))){
+                    return true;
+                }
+            }
+            
+            usuarios = OperacionesSecuencial.obtenerUsuarios(2);
+            for (int i = 0; i < usuarios.size(); i++) {
+                if(us.getUsuario().equals(usuarios.get(i))){
+                    return true;
+                }
+            }
+            
+            return false;
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this,"Error al leer el archivo");
+            return true;
+        }        
+    }
+    public int contarCoincidencias(String texto1,String texto2){
+        int contador=0;
+        for (int i = 0; i < texto1.length(); i++) {
+                for (int j = 0; j < texto2.length(); j++) {
+                    if(texto1.charAt(i)==texto2.charAt(j)){
+                        contador++;
+                    }
+                }
+            }
+        return contador;
+    } 
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        insertUpdate(e);//To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        insertUpdate(e); //To change body of generated methods, choose Tools | Templates.
+    }
 }

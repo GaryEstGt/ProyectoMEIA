@@ -57,10 +57,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="txtCorreo" alignment="0" min="-2" pref="198" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jDateChooser1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtContraseña" alignment="0" pref="198" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="txtContraseña" min="-2" pref="198" max="-2" attributes="0"/>
                               <Component id="txtTelefono" alignment="1" min="-2" pref="198" max="-2" attributes="0"/>
                               <Component id="txtFoto" alignment="1" min="-2" pref="198" max="-2" attributes="0"/>
                           </Group>
@@ -74,8 +71,10 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnModificar" min="-2" max="-2" attributes="0"/>
                           <Component id="btnSeleccionar" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblNivelContraseña" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Component id="txtCalendar" min="-2" pref="198" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
@@ -112,13 +111,14 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblNivelContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCalendar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="rbUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rbAdmin" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -171,6 +171,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtUsuario">
       <Events>
@@ -211,8 +214,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Modificar"/>
       </Properties>
-    </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbUsuario">
       <Properties>
@@ -291,6 +292,16 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Estado"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblNivelContrase&#xf1;a">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel12"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtCalendar">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCalendarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
