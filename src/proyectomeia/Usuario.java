@@ -11,14 +11,30 @@ package proyectomeia;
  */
 public class Usuario {
     private String usuario,nombre,apellido,contraseña,correo,
-            pathFoto,fechaNacimiento;   
+            pathFoto,fechaNacimiento;  
+    
+    private int rol,telefono,estatus, FixedSize;  
+
+    public static int getFixedSize() {
+        return 393;
+    }
+
+    public void setFixedSize(int FixedSize) {
+        this.FixedSize = 393;
+    }
 
     @Override
     public String toString() {
         return usuario + "|" + nombre + "|" + apellido + "|" + contraseña + "|" + fechaNacimiento + "|" + correo + "|"
-                + pathFoto + "|" + telefono + "|" + estatus + "|" + rol;
+                + pathFoto + "|" + telefono + "|" + rol + "|" + estatus;
+    }     
+    
+    public String toFixedSizeString(){
+        return String.format("%-20s", usuario) + "|" + String.format("%-30s", nombre) + "|" + String.format("%-30s", apellido) + "|" + 
+                String.format("%-40s", contraseña) + "|" + String.format("%-10s", fechaNacimiento) + "|" + String.format("%-40s", correo) + "|" + 
+                String.format("%-200s", pathFoto) + "|" + String.format("%-12s", telefono) + "|" + rol + "|" + estatus;                
     }
-    private int rol,telefono,estatus;   
+    
 
     public Usuario(String usuario, String nombre, String apellido, String contraseña, String fechaNacimiento,String correo, 
             String pathFoto, int telefono, int estatus) {

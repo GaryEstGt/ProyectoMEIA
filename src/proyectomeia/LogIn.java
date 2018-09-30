@@ -5,6 +5,9 @@
  */
 package proyectomeia;
 
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author garya
@@ -49,6 +52,11 @@ public class LogIn extends javax.swing.JFrame {
         jLabel2.setText("Contraseña");
 
         btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("¿No estas registrado?");
 
@@ -112,6 +120,28 @@ public class LogIn extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        // TODO add your handling code here:
+        if(!txtUsuario.getText().isEmpty()){
+            if(!txtContraseña.getText().isEmpty()){
+                LinkedList<Usuario> lista = OperacionesSecuencial.obtenerUsuarios(1);
+                
+                for (int i = 0; i < lista.size(); i++) {
+                    if(lista.get(i).getUsuario().equals(txtUsuario.getText()) && lista.get(i).getContraseña().equals(txtContraseña.getText())){
+                        JOptionPane.showMessageDialog(null,lista.get(i).getUsuario() + (lista.get(i).getRol() == 1 ? "Administrador" : "Usuario") + lista.get(i).getPathFoto());
+                    }
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Debe ingresar la contraseña");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Debe ingresar el usuario");
+        }
+        
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments

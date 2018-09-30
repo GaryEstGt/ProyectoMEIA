@@ -26,8 +26,8 @@ public class OperacionesSecuencial {
         LinkedList<Usuario> users=new LinkedList<>();
         for (int i = 0; i < usuarios.length; i++){
             String[] camposUsuario=usuarios[i].split("\\|");
-            Usuario usuarioObtenido=new Usuario(camposUsuario[0],camposUsuario[1],camposUsuario[2],camposUsuario[3],camposUsuario[4],camposUsuario[5],camposUsuario[6],Integer.parseInt(camposUsuario[7]),Integer.parseInt(camposUsuario[8]));
-            usuarioObtenido.setRol(Integer.parseInt(camposUsuario[9]));
+            Usuario usuarioObtenido=new Usuario(camposUsuario[0],camposUsuario[1],camposUsuario[2],camposUsuario[3],camposUsuario[4],camposUsuario[5],camposUsuario[6],Integer.parseInt(camposUsuario[7]),Integer.parseInt(camposUsuario[9]));
+            usuarioObtenido.setRol(Integer.parseInt(camposUsuario[8]));
             users.add(usuarioObtenido);
         }
         return users;

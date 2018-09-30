@@ -16,6 +16,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.MaskFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -242,9 +244,13 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
     private void btnRegitrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegitrarActionPerformed
         // TODO add your handling code here:
         if(VerificarCampos()){
+            Date fecha = txtCalendar.getDate();
+            String formato = txtCalendar.getDateFormatString();
+            SimpleDateFormat sdf = new SimpleDateFormat(formato);
+            
             if(!lblNivelContraseña.getText().equals("Contraseña muy insegura")){
                 Usuario usuario = new proyectomeia.Usuario(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtContraseña1.getText()
-                , txtCalendar.getDate().toString(),txtCorreo.getText(), txtPathfoto.getText(), Integer.parseInt(txtTelefono.getText()), 1);
+                , String.valueOf(sdf.format(fecha)),txtCorreo.getText(), txtPathfoto.getText(), Integer.parseInt(txtTelefono.getText()), 1);                                
 
                 if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros()!=0){
                     if(!VerSiExisteUsuario(usuario)){
