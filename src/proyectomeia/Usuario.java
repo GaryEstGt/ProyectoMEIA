@@ -15,7 +15,8 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return usuario + "|" + nombre + "|" + apellido + "|" + contraseña + "|" + correo + "|" + pathFoto + "|" + fechaNacimiento + "|" + rol + "|" + telefono + "|" + estatus;
+        return usuario + "|" + nombre + "|" + apellido + "|" + contraseña + "|" + fechaNacimiento + "|" + correo + "|"
+                + pathFoto + "|" + telefono + "|" + estatus + "|" + rol;
     }
     private int rol,telefono,estatus;   
 

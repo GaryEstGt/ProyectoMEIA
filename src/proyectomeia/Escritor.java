@@ -33,8 +33,7 @@ public class Escritor {
                 for (int i = 0; i < spli.length; i++) {
                 bw.write(spli[i]+",");
                 bw.newLine();
-            }
-                
+            }               
 
                 
                 bw.close();

@@ -6,28 +6,35 @@
 package proyectomeia;
 
 import java.io.File;
-import java.util.HashSet;
+import java.text.ParseException;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
  * @author garya
  */
-public class RegistroUsuario extends javax.swing.JFrame {
+public class RegistroUsuario extends javax.swing.JFrame implements DocumentListener {
     public static int usuariosIngresados=0;
     /**
      * Creates new form RegistroUsuario
      */
-    public RegistroUsuario() {
+    public RegistroUsuario() throws ParseException {
         initComponents();
-        txtUsuario.setDocument(new LimitarCaracteres(20));
+        txtUsuario.setDocument(new LimitarCaracteres(20));        
         txtApellido.setDocument(new LimitarCaracteres(30));
-        txtContraseña.setDocument(new LimitarCaracteres(40));
+        txtContraseña1.setDocument(new LimitarCaracteres(40));
+        txtContraseña1.getDocument().addDocumentListener(this);
         txtCorreo.setDocument(new LimitarCaracteres(40));
-        txtNombre.setDocument(new LimitarCaracteres(30));                        
+        txtNombre.setDocument(new LimitarCaracteres(30)); 
+        txtTelefono.setDocument(new LimitarNumeros());
     }
 
     /**
@@ -45,10 +52,9 @@ public class RegistroUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtContraseña = new javax.swing.JPasswordField();
+        txtContraseña1 = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        CalendarFecha = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -60,6 +66,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JTextField();
         txtPathfoto = new javax.swing.JTextField();
         lblNivelContraseña = new javax.swing.JLabel();
+        txtCalendar = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,9 +112,43 @@ public class RegistroUsuario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2))
+                            .addComponent(jLabel4))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(lblNivelContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+                                    .addComponent(txtUsuario)
+                                    .addComponent(txtApellido)
+                                    .addComponent(txtContraseña1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jLabel10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCorreo)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,34 +162,10 @@ public class RegistroUsuario extends javax.swing.JFrame {
                                         .addComponent(btnSeleccionarfoto))
                                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel3)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2))
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtNombre)
-                                            .addComponent(txtApellido)
-                                            .addComponent(txtUsuario)
-                                            .addComponent(txtContraseña)
-                                            .addComponent(CalendarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblNivelContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addComponent(jLabel10))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(btnRegitrar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(166, 166, 166)
+                                .addComponent(btnRegitrar)))
+                        .addGap(0, 1, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,18 +189,19 @@ public class RegistroUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(lblNivelContraseña))
+                    .addComponent(txtContraseña1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNivelContraseña)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(CalendarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -197,7 +215,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
                             .addComponent(txtPathfoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegitrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -223,26 +241,30 @@ public class RegistroUsuario extends javax.swing.JFrame {
 
     private void btnRegitrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegitrarActionPerformed
         // TODO add your handling code here:
-        proyectomeia.Usuario usuario = new proyectomeia.Usuario(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtContraseña.getText()
-                , CalendarFecha.getDateFormatString(),txtCorreo.getText(), txtPathfoto.getText(), Integer.parseInt(txtTelefono.getText()), 1);
-       if(usuariosIngresados!=0){
+        if(VerificarCampos()){
+            Usuario usuario = new proyectomeia.Usuario(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtContraseña1.getText()
+                , txtCalendar.getDate().toString(),txtCorreo.getText(), txtPathfoto.getText(), Integer.parseInt(txtTelefono.getText()), 1);
+
+        if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros()!=0){
            if(!VerSiExisteUsuario(usuario)){
                //Escribir en el archivo
                String textoAnterior=Lector.Obtener("C:/MEIA/bitacora_usuario.txt");
                usuario.setRol(0);
                
-               Escritor.Escribir("C:/MEIA/bitacora_usuario.txt", textoAnterior+usuario.toString());
-               usuariosIngresados++;
+               Escritor.Escribir("C:/MEIA/bitacora_usuario.txt", textoAnterior+usuario.toString());               
            }
            else{
-               //Mostrar que ya existe
+               //cambiar despriptor
            }
        }else{
            usuario.setRol(1);
            Escritor.Escribir("C:/MEIA/bitacora_usuario.txt",usuario.toString());
-           usuariosIngresados++;
+           //cambiard descriptor
        }
-        
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Debe llenar todos los campos");
+        }                
     }//GEN-LAST:event_btnRegitrarActionPerformed
 
     /**
@@ -275,28 +297,32 @@ public class RegistroUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistroUsuario().setVisible(true);
+                try {
+                    new RegistroUsuario().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(RegistroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
     
-    boolean VerSiExisteUsuario(proyectomeia.Usuario us){
+    boolean VerSiExisteUsuario(Usuario us){
         try{
-            String cadena = Lector.Obtener("C:/MEIA/usuario.txt");
-            if(cadena != "No existe el archivo"){
-                String[] usuarios = cadena.split("\n");
-                
-                for (int i = 0; i < usuarios.length; i++) {
-                    if(us.getUsuario() == usuarios[i].split("|")[0]){
-                        return true;
-                    }
-                }        
-                return false;
-            }                                    
-            else{
-                JOptionPane.showMessageDialog(this,"No existe el archivo usuarios.txt");
-                return true;                
+            LinkedList<Usuario> usuarios = OperacionesSecuencial.obtenerUsuarios(1);
+            for (int i = 0; i < usuarios.size(); i++) {
+                if(us.getUsuario().equals(usuarios.get(i))){
+                    return true;
+                }
             }
+            
+            usuarios = OperacionesSecuencial.obtenerUsuarios(2);
+            for (int i = 0; i < usuarios.size(); i++) {
+                if(us.getUsuario().equals(usuarios.get(i))){
+                    return true;
+                }
+            }
+            
+            return false;
         }catch (Exception e){
             JOptionPane.showMessageDialog(this,"Error al leer el archivo");
             return true;
@@ -304,7 +330,6 @@ public class RegistroUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser CalendarFecha;
     private javax.swing.JButton btnRegitrar;
     private javax.swing.JButton btnSeleccionarfoto;
     private javax.swing.JLabel jLabel1;
@@ -319,11 +344,101 @@ public class RegistroUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lblNivelContraseña;
     private javax.swing.JTextField txtApellido;
-    private javax.swing.JPasswordField txtContraseña;
+    private com.toedter.calendar.JDateChooser txtCalendar;
+    private javax.swing.JPasswordField txtContraseña1;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPathfoto;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+    
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        if (!txtContraseña1.getText().equals(null) && !txtContraseña1.getText().isEmpty()){ 
+            int punteo = verificarContraseña(txtContraseña1.getText());
+            if(punteo == 0){
+                lblNivelContraseña.setText("La contraseña debe tener al menos 6 caracteres");
+            }
+            else if (punteo >= 1 && punteo <= 25){
+                lblNivelContraseña.setText("Contraseña muy insegura");
+            }
+            else if (punteo >= 26 && punteo <= 50){
+                lblNivelContraseña.setText("Contraseña insegura");
+            }
+            else if (punteo >= 51 && punteo <= 75){
+                lblNivelContraseña.setText("Contraseña segura");
+            }
+            else if (punteo >= 76){
+                lblNivelContraseña.setText("Contraseña muy segura");
+            }                  
+        }
+    }
+    
+    public int verificarContraseña(String texto){
+        int puntuacion;
+        
+        if(texto.length() < 6){
+            puntuacion = 0;
+        }
+        else{
+            puntuacion = (texto.length() - 6) * 3;                      
+            puntuacion = puntuacion + (2 * contarCoincidencias("ABCDEFGHIJKLMNOPQRSTUVWXYZ",texto));            
+            int contadorSimbolos = contarCoincidencias("|°¬!#$%&/()=?'¡¿´¨+*~]}{`^[{-_;,:.<> ",texto);            
+            int contadorNumeros = contarCoincidencias("1234567890",texto);
+            if(contadorNumeros == texto.length()){ //si la contraseña es solo numeros
+                puntuacion = 50;
+            }            
+            else{                
+                puntuacion = puntuacion + (contadorNumeros + 5);
+                puntuacion = puntuacion + (contadorSimbolos * 5);
+                
+            }
+                              
+        }
+        return puntuacion;  //retorna cantidad de puntos que obtuvo la contraseña
+    }
+    
+    public int contarCoincidencias(String texto1,String texto2){
+        int contador=0;
+        for (int i = 0; i < texto1.length(); i++) {
+                for (int j = 0; j < texto2.length(); j++) {
+                    if(texto1.charAt(i)==texto2.charAt(j)){
+                        contador++;
+                    }
+                }
+            }
+        return contador;
+    } 
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        insertUpdate(e);
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {                
+        insertUpdate(e);
+    }   
+    
+    public boolean VerificarCampos(){
+        if(txtUsuario.getText().isEmpty())
+            return false;
+        if(txtNombre.getText().isEmpty())
+            return false;
+        if(txtApellido.getText().isEmpty())
+            return false;
+        if(txtContraseña1.getText().isEmpty())
+            return false;
+        if(txtCalendar.getDate().toString().isEmpty())
+            return false;
+        if(txtCorreo.getText().isEmpty())
+            return false;
+        if(txtTelefono.getText().isEmpty())
+            return false;
+        if(txtPathfoto.getText().isEmpty())
+            return false;
+        
+        return true;
+    }
 }
