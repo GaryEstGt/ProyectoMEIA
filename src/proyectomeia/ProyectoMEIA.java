@@ -14,6 +14,7 @@ public class ProyectoMEIA {
     /**
      * @param args the command line arguments
      */
+    public static Usuario usuarioEnUso;
     public static void main(String[] args) {
         // TODO code application logic here        
     }

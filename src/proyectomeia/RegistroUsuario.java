@@ -23,8 +23,7 @@ import java.util.Date;
  *
  * @author garya
  */
-public class RegistroUsuario extends javax.swing.JFrame implements DocumentListener {
-    public static int usuariosIngresados=0;
+public class RegistroUsuario extends javax.swing.JFrame implements DocumentListener {    
     /**
      * Creates new form RegistroUsuario
      */
@@ -259,10 +258,8 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                     usuario.setRol(0);
                
                     Escritor.Escribir("C:/MEIA/bitacora_usuario.txt", textoAnterior+usuario.toString());               
-                    }
-                else{
-                    //cambiar despriptor
-                }
+                    //cambiar despriptor                
+                    }                                    
                 }else{
                     usuario.setRol(1);
                     Escritor.Escribir("C:/MEIA/bitacora_usuario.txt",usuario.toString());
