@@ -8,6 +8,7 @@ package proyectomeia;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.util.Date;
+import java.util.Set;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -34,6 +35,10 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
     private void initComponents() {
 
         btnBackUp = new javax.swing.JButton();
+        BtnIngresarUsuarios = new javax.swing.JButton();
+        btnModificarDatos = new javax.swing.JButton();
+        btnBuscarUsuarios = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,21 +49,51 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
             }
         });
 
+        BtnIngresarUsuarios.setText("Ingresar Usuarios");
+
+        btnModificarDatos.setText("Modificar Datos");
+
+        btnBuscarUsuarios.setText("Buscar Usuarios");
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
-                .addComponent(btnBackUp)
-                .addGap(117, 117, 117))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(121, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnBackUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnIngresarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnModificarDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(117, 117, 117))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(196, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(BtnIngresarUsuarios)
+                .addGap(18, 18, 18)
+                .addComponent(btnModificarDatos)
+                .addGap(18, 18, 18)
+                .addComponent(btnBuscarUsuarios)
+                .addGap(18, 18, 18)
                 .addComponent(btnBackUp)
-                .addGap(81, 81, 81))
+                .addGap(18, 18, 18)
+                .addComponent(btnSalir)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -82,11 +117,33 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
       
         Escritor.Escribir(ruta,contenidoUsuario);
         Date fecha=new Date();
+        File bitacora=new File("C:\\MEIA\\desc_bitacora_backup.txt");
+        DescriptorBitacoraBackup descriptor=new DescriptorBitacoraBackup();
+        if(!bitacora.exists()){
+            Date fechaActual=new Date();
+            descriptor.setFechaCreacion(fechaActual.toString());
+            descriptor.setUsuarioCreacion(LogIn.UsuarioenSesion);
+            descriptor.setNombre("bitacora_backup");
+            descriptor.setNumRegistros(1);
+            Escritor.Escribir("C:\\MEIA\\desc_bitacora_backup.txt", descriptor.toString());
+        }
+        else{
+            DescriptorBitacoraBackup desc=OperacionesSecuencial.obtenerDescriptorBB();
+            Date fechaAct=new Date();
+            desc.setFechaModificacion(fechaAct.toString());
+            desc.setUsuarioModificacion(LogIn.UsuarioenSesion);
+            desc.setNumRegistros(desc.getNumRegistros()+1);
+            Escritor.Escribir("C:\\MEIA\\desc_bitacora_backup.txt", desc.toString());
+        }
         AgregarBitacora(new BitacoraBackup(ruta,LogIn.UsuarioenSesion,fecha.toString()));
 } 
 }catch (HeadlessException ex){ 
 } 
     }//GEN-LAST:event_btnBackUpActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,6 +183,7 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
         File ArchivoBitacora=new File("C:\\MEIA\\bitacora_backup.txt");
         if(!ArchivoBitacora.exists()){
             Escritor.Escribir("C:\\MEIA\\bitacora_backup.txt", datosBitacora.toString());
+            
         }else{
             String contenidoExistente=Lector.Obtener("C:\\MEIA\\bitacora_backup.txt");
             contenidoExistente+=datosBitacora.toString();
@@ -134,6 +192,10 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnIngresarUsuarios;
     private javax.swing.JButton btnBackUp;
+    private javax.swing.JButton btnBuscarUsuarios;
+    private javax.swing.JButton btnModificarDatos;
+    private javax.swing.JButton btnSalir;
     // End of variables declaration//GEN-END:variables
 }
