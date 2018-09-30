@@ -15,7 +15,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author garya
  */
 public class RegistroUsuario extends javax.swing.JFrame {
-
+    public static int usuariosIngresados=0;
     /**
      * Creates new form RegistroUsuario
      */
@@ -223,13 +223,20 @@ public class RegistroUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         proyectomeia.Usuario usuario = new proyectomeia.Usuario(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtContraseña.getText()
                 , CalendarFecha.getDateFormatString(),txtCorreo.getText(), txtPathfoto.getText(), Integer.parseInt(txtTelefono.getText()), 1);
-        
-        if(!VerSiExisteUsuario(usuario)){
-            //Escribir en el archivo
-        }
-        else{
-            //Mostrar que ya existe
-        }
+       if(usuariosIngresados!=0){
+           if(!VerSiExisteUsuario(usuario)){
+               //Escribir en el archivo
+               String textoAnterior=Lector.Obtener("C:/MEIA/usuario.txt");
+               Escritor.Escribir("C:/MEIA/usuario.txt", textoAnterior+usuario.toString());
+               usuariosIngresados++;
+           }
+           else{
+               //Mostrar que ya existe
+           }
+       }else{
+           Escritor.Escribir("C:/MEIA/usuario.txt",usuario.toString());
+           usuariosIngresados++;
+       }
         
     }//GEN-LAST:event_btnRegitrarActionPerformed
 
@@ -271,7 +278,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
     boolean VerSiExisteUsuario(proyectomeia.Usuario us){
         try{
             String cadena = Lector.Obtener("C:/MEIA/usuario.txt");
-            if(cadena == "No existe el archivo"){
+            if(cadena != "No existe el archivo"){
                 String[] usuarios = cadena.split("\n");
                 
                 for (int i = 0; i < usuarios.length; i++) {
