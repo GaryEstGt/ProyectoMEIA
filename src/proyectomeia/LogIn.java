@@ -5,7 +5,12 @@
  */
 package proyectomeia;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,8 +22,29 @@ public class LogIn extends javax.swing.JFrame {
     /**
      * Creates new form LogIn
      */    
-    public LogIn() {
+    public LogIn() throws IOException {
         initComponents();
+        File usuario, usuarioMaestro, descriptorBitacora, descriptorMaestro;
+        
+        usuario = new File("C:/MEIA/bitacora_usuario.txt");
+        usuarioMaestro = new File("C:/MEIA/usuario.txt");
+        descriptorBitacora = new File("C:/MEIA/desc_usuariobitacora.txt");
+        descriptorMaestro = new File("C:/MEIA/desc_usuario.txt");
+        
+        if(!usuario.exists())usuario.createNewFile();        
+        if(!usuarioMaestro.exists())usuarioMaestro.createNewFile();        
+        
+        if(!descriptorBitacora.exists()){
+            descriptorBitacora.createNewFile();
+            DescriptorUsuario desc = new DescriptorUsuario("bitacora_usuario.txt"," "," "," "," ",0,0,0,10);
+            Escritor.Escribir("C:/MEIA/desc_usuariobitacora.txt", desc.toString());
+        }
+        
+        if(!descriptorMaestro.exists()){
+            descriptorMaestro.createNewFile();
+            DescriptorUsuario desc = new DescriptorUsuario("usuario.txt"," "," "," "," ",0,0,0,Integer.MAX_VALUE);
+            Escritor.Escribir("C:/MEIA/desc_usuario.txt", desc.toString());
+        }
     }
 
     /**
@@ -60,6 +86,11 @@ public class LogIn extends javax.swing.JFrame {
         jLabel3.setText("¿No estas registrado?");
 
         btnRegistrar.setText("Registrarse");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,11 +157,31 @@ public class LogIn extends javax.swing.JFrame {
             if(!txtContraseña.getText().isEmpty()){
                 LinkedList<Usuario> lista = OperacionesSecuencial.obtenerUsuarios(1);
                 
-                for (int i = 0; i < lista.size(); i++) {
-                    if(lista.get(i).getUsuario().equals(txtUsuario.getText()) && lista.get(i).getContraseña().equals(txtContraseña.getText())){
-                        JOptionPane.showMessageDialog(null,lista.get(i).getUsuario() + (lista.get(i).getRol() == 1 ? "Administrador" : "Usuario") + lista.get(i).getPathFoto());
-                        ProyectoMEIA.usuarioEnUso = lista.get(i);
+                if(lista != null){
+                    for (int i = 0; i < lista.size(); i++) {
+                        if(lista.get(i).getUsuario().equals(txtUsuario.getText()) && lista.get(i).getContraseña().equals(txtContraseña.getText())){
+                            JOptionPane.showMessageDialog(null,lista.get(i).getUsuario() + (lista.get(i).getRol() == 1 ? "Administrador" : "Usuario") + lista.get(i).getPathFoto());
+                            ProyectoMEIA.usuarioEnUso = lista.get(i);
+                        }
+                    }                    
+                }    
+                else if(lista == null){
+                    lista = OperacionesSecuencial.obtenerUsuarios(2);
+                    
+                    if(lista != null){
+                        for (int i = 0; i < lista.size(); i++) {
+                            if(lista.get(i).getUsuario().equals(txtUsuario.getText()) && lista.get(i).getContraseña().equals(txtContraseña.getText())){
+                                JOptionPane.showMessageDialog(null,lista.get(i).getUsuario() + (lista.get(i).getRol() == 1 ? "\nAdministrador" : "\nUsuario") + lista.get(i).getPathFoto());
+                                ProyectoMEIA.usuarioEnUso = lista.get(i);
+                            }
+                        }                    
                     }
+                }  
+                if(ProyectoMEIA.usuarioEnUso == null && lista == null){
+                    JOptionPane.showMessageDialog(null,"No existen usuarios en el sistema, debe registrarse");
+                }                
+                else if(ProyectoMEIA.usuarioEnUso == null){
+                    JOptionPane.showMessageDialog(null,"El nombre de usuario y contraseña que ingreso son incorrectos");
                 }
             }
             else{
@@ -142,6 +193,17 @@ public class LogIn extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        try {
+            // TODO add your handling code here:
+            RegistroUsuario registro = new RegistroUsuario(true);
+            registro.setVisible(true);
+            this.setVisible(false);
+        } catch (ParseException ex) {
+            Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,7 +235,11 @@ public class LogIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LogIn().setVisible(true);
+                try {
+                    new LogIn().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

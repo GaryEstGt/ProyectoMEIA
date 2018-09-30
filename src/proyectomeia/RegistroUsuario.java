@@ -6,6 +6,7 @@
 package proyectomeia;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -27,7 +28,10 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
     /**
      * Creates new form RegistroUsuario
      */
-    public RegistroUsuario() throws ParseException {
+    
+    static boolean login;
+    public RegistroUsuario(boolean login) throws ParseException {
+        this.login = login;
         initComponents();
         txtUsuario.setDocument(new LimitarCaracteres(20));        
         txtApellido.setDocument(new LimitarCaracteres(30));
@@ -251,20 +255,55 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                 Usuario usuario = new proyectomeia.Usuario(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtContraseña1.getText()
                 , String.valueOf(sdf.format(fecha)),txtCorreo.getText(), txtPathfoto.getText(), Integer.parseInt(txtTelefono.getText()), 1);                                
 
-                if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros()!=0){
-                    if(!VerSiExisteUsuario(usuario)){
-                    //Escribir en el archivo
-                    String textoAnterior=Lector.Obtener("C:/MEIA/bitacora_usuario.txt");
-                    usuario.setRol(0);
+                if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros()!=0 && OperacionesSecuencial.obtenerDescriptorUsuario(2).getNumRegistros()!=0){
+                    if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros() < OperacionesSecuencial.obtenerDescriptorUsuario(1).getMaxReorganizacion()){
+                        if(!VerSiExisteUsuario(usuario)){
+                            //Escribir en el archivo
+                            String textoAnterior=Lector.Obtener("C:/MEIA/bitacora_usuario.txt");
+                            usuario.setRol(0);
                
-                    Escritor.Escribir("C:/MEIA/bitacora_usuario.txt", textoAnterior+usuario.toString());               
-                    //cambiar despriptor                
-                    }                                    
+                            Escritor.Escribir("C:/MEIA/bitacora_usuario.txt", textoAnterior+usuario.toString());               
+                            DescriptorUsuario des = OperacionesSecuencial.obtenerDescriptorUsuario(1);
+                            
+                            des.setNumRegistros(des.getNumRegistros()+1);
+                            des.setRegistrosActivos(des.getRegistrosActivos()+1);                            
+                            des.setUsuarioModificacion(usuario.getUsuario());
+                            //falta poner fecha de modificacion
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null,"Ya existe un usuario con el nombre de usuario " + txtUsuario.getText());
+                            txtUsuario.setText("");
+                            txtUsuario.requestFocus();
+                        }
+                    }
+                    else{
+                        //Pasar al maestro
+                    }
                 }else{
                     usuario.setRol(1);
                     Escritor.Escribir("C:/MEIA/bitacora_usuario.txt",usuario.toString());
-                    //cambiard descriptor
-                }                
+                    
+                    DescriptorUsuario des = OperacionesSecuencial.obtenerDescriptorUsuario(1);
+                            
+                    des.setNumRegistros(des.getNumRegistros()+1);
+                    des.setRegistrosActivos(des.getRegistrosActivos()+1);                            
+                    des.setUsuarioCreacion(usuario.getUsuario());
+                    des.setUsuarioModificacion(usuario.getUsuario());
+                    //falta poner la fecha de modificacion y creacion 
+                }   
+                
+                if(login){
+                    try {
+                        LogIn log = new LogIn();
+                        log.setVisible(true);                    
+                        this.setVisible(false);
+                    } catch (IOException ex) {
+                        Logger.getLogger(RegistroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else{
+                    limpiarCampos();
+                }
             }
             else{
                 JOptionPane.showMessageDialog(null,"Debe mejorar la seguridad de su contraseña");
@@ -306,12 +345,23 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new RegistroUsuario().setVisible(true);
+                    new RegistroUsuario(login).setVisible(true);
                 } catch (ParseException ex) {
                     Logger.getLogger(RegistroUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
+    }
+    
+    void limpiarCampos(){
+        txtUsuario.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");  
+        txtContraseña1.setText("");
+        txtCalendar.cleanup();
+        txtCorreo.setText("");
+        txtTelefono.setText("");            
+        txtPathfoto.setText("");
     }
     
     boolean VerSiExisteUsuario(Usuario us){
@@ -332,7 +382,7 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
             
             return false;
         }catch (Exception e){
-            JOptionPane.showMessageDialog(this,"Error al leer el archivo");
+            JOptionPane.showMessageDialog(null,"Error al leer el archivo");
             return true;
         }        
     }

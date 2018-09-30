@@ -16,6 +16,7 @@ public class ProyectoMEIA {
      */
     public static Usuario usuarioEnUso;
     public static void main(String[] args) {
+        usuarioEnUso = null;
         // TODO code application logic here        
     }
     

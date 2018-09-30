@@ -22,15 +22,20 @@ public class OperacionesSecuencial {
             contenido=Lector.Obtener("C:/MEIA/usuario.txt");
         }
         
-        String[] usuarios=contenido.split(",");
-        LinkedList<Usuario> users=new LinkedList<>();
-        for (int i = 0; i < usuarios.length; i++){
-            String[] camposUsuario=usuarios[i].split("\\|");
-            Usuario usuarioObtenido=new Usuario(camposUsuario[0],camposUsuario[1],camposUsuario[2],camposUsuario[3],camposUsuario[4],camposUsuario[5],camposUsuario[6],Integer.parseInt(camposUsuario[7]),Integer.parseInt(camposUsuario[9]));
-            usuarioObtenido.setRol(Integer.parseInt(camposUsuario[8]));
-            users.add(usuarioObtenido);
+        if(!contenido.isEmpty()){
+            String[] usuarios=contenido.split(",");
+            LinkedList<Usuario> users=new LinkedList<>();
+            for (int i = 0; i < usuarios.length; i++){
+                String[] camposUsuario=usuarios[i].split("\\|");
+                Usuario usuarioObtenido=new Usuario(camposUsuario[0].trim(),camposUsuario[1].trim(),camposUsuario[2].trim(),camposUsuario[3].trim(),camposUsuario[4].trim(),camposUsuario[5].trim(),camposUsuario[6].trim(),Integer.parseInt(camposUsuario[7].trim()),Integer.parseInt(camposUsuario[9].trim()));
+                usuarioObtenido.setRol(Integer.parseInt(camposUsuario[8].trim()));
+                users.add(usuarioObtenido);
+            }
+            return users;            
+        }   
+        else{
+            return null;
         }
-        return users;
     }
     public static void rellenarUsuarios(LinkedList<Usuario> usuarios){
         String textoEscribir="";
@@ -48,6 +53,7 @@ public class OperacionesSecuencial {
             contenido=Lector.Obtener("C:/MEIA/desc_usuariobitacora.txt");
         }
         String[] campos=contenido.split(",");
+        
         return new DescriptorUsuario(campos[0],campos[1],campos[2],campos[3],campos[4],Integer.parseInt(campos[5]),Integer.parseInt(campos[6]),Integer.parseInt(campos[7]),Integer.parseInt(campos[8]));
       
     }
