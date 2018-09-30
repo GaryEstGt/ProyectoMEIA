@@ -11,10 +11,15 @@ package proyectomeia;
  */
 public class Usuario {
     private String usuario,nombre,apellido,contraseña,correo,
-            pathFoto;   
+            pathFoto,fechaNacimiento;   
+
+    @Override
+    public String toString() {
+        return usuario + "|" + nombre + "|" + apellido + "|" + contraseña + "|" + correo + "|" + pathFoto + "|" + fechaNacimiento + "|" + rol + "|" + telefono + "|" + estatus;
+    }
     private int rol,telefono,estatus;   
 
-    public Usuario(String usuario, String nombre, String apellido, String contraseña, String correo, 
+    public Usuario(String usuario, String nombre, String apellido, String contraseña, String fechaNacimiento,String correo, 
             String pathFoto, int telefono, int estatus) {
         this.usuario = usuario;
         this.nombre = nombre;
@@ -24,6 +29,7 @@ public class Usuario {
         this.pathFoto = pathFoto;
         this.telefono = telefono;
         this.estatus = estatus;
+        this.fechaNacimiento=fechaNacimiento;
     }
 
     public String getUsuario() {
@@ -96,5 +102,13 @@ public class Usuario {
 
     public void setEstatus(int estatus) {
         this.estatus = estatus;
-    }             
+    }
+     public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fecha) {
+        this.fechaNacimiento = fecha;
+    }
+
 }

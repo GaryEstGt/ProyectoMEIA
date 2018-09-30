@@ -7,6 +7,7 @@ package proyectomeia;
 
 import java.awt.HeadlessException;
 import java.io.File;
+import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -76,9 +77,12 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
        try{ 
         if(Chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){ 
         ruta = Chooser.getSelectedFile().getAbsolutePath(); 
-       String contenidoUsuario= Lector.Obtener("C:\\MEIA\\Usuarios.txt");
+       String contenidoUsuario= Lector.Obtener("C:\\MEIA\\usuario.txt");
        contenidoUsuario+=Lector.Obtener("C:\\MEIA\\Bitacora_Usuario.txt");
-        Escritor.Escribir(ruta, contenidoUsuario);
+      
+        Escritor.Escribir(ruta,contenidoUsuario);
+        Date fecha=new Date();
+        AgregarBitacora(new BitacoraBackup(ruta,LogIn.UsuarioenSesion,fecha.toString()));
 } 
 }catch (HeadlessException ex){ 
 } 
@@ -117,6 +121,16 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
                 new OpcionesAdministrador().setVisible(true);
             }
         });
+    }
+        public void AgregarBitacora(BitacoraBackup datosBitacora){
+        File ArchivoBitacora=new File("C:\\MEIA\\bitacora_backup.txt");
+        if(!ArchivoBitacora.exists()){
+            Escritor.Escribir("C:\\MEIA\\bitacora_backup.txt", datosBitacora.toString());
+        }else{
+            String contenidoExistente=Lector.Obtener("C:\\MEIA\\bitacora_backup.txt");
+            contenidoExistente+=datosBitacora.toString();
+            Escritor.Escribir("C:\\MEIA\\bitacora_backup.txt", contenidoExistente);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

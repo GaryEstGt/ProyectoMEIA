@@ -15,17 +15,28 @@ import java.io.IOException;
  * @author garya
  */
 public class Escritor {
-    public static boolean Escribir(String strPath,String strContenido,String strError)
+    public static boolean Escribir(String strPath,String strContenido)
     {
         File Archivo = new File(strPath);
+         String[] spli=strContenido.split(",");
         try
         {
             if(!Archivo.exists()){
             Archivo.createNewFile();
             }
+            else{
+                Archivo.delete();
+                Archivo.createNewFile();
+            }
                 FileWriter Escribir = new FileWriter(Archivo,true);
                 BufferedWriter bw = new BufferedWriter(Escribir);
-                bw.write(strContenido + System.getProperty( "line.separator" ));
+                for (int i = 0; i < spli.length; i++) {
+                bw.write(spli[i]+",");
+                bw.newLine();
+            }
+                
+
+                
                 bw.close();
                 Escribir.close();
                 
@@ -33,7 +44,6 @@ public class Escritor {
         }
         catch(IOException ex)
         {
-            strError= ex.getMessage();
             return false;
         } 
         

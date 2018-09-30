@@ -27,12 +27,9 @@ public class Lector {
                 LecturaArchivo = new FileReader(Archivo);
                 BufferedReader LeerArchivo = new BufferedReader(LecturaArchivo);
                 String Linea;
-                try {
-                    Linea=LeerArchivo.readLine();
-                    cadena += Linea;                    
-                    while(Linea != null)
+                try {                    
+                    while((Linea=LeerArchivo.readLine()) != null)
                     {
-                        Linea=LeerArchivo.readLine();
                         cadena += Linea;
                     }
 
