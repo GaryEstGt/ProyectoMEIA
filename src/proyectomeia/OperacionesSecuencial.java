@@ -38,7 +38,7 @@ public class OperacionesSecuencial {
         }
         Escritor.Escribir("C:/MEIA/usuario.txt", textoEscribir);
     }
-    /*public static DescriptorUsuario obtenerDescriptorUsuario(int OpcionObtener){
+    public static DescriptorUsuario obtenerDescriptorUsuario(int OpcionObtener){
           String contenido="";
         if(OpcionObtener==1){
             contenido=Lector.Obtener("C:/MEIA/desc_usuario.txt");
@@ -46,7 +46,17 @@ public class OperacionesSecuencial {
         else if(OpcionObtener==2){
             contenido=Lector.Obtener("C:/MEIA/desc_usuariobitacora.txt");
         }
-        String[] campos=contenido.split("|");
+        String[] campos=contenido.split(",");
+        return new DescriptorUsuario(campos[0],campos[1],campos[2],campos[3],campos[4],Integer.parseInt(campos[5]),Integer.parseInt(campos[6]),Integer.parseInt(campos[7]),Integer.parseInt(campos[8]));
       
-    }*///Metodo en proceso, falta terminar
+    }
+    public static void rellenarDescriptorUsuario(DescriptorUsuario descriptor,int OpcionObtener){
+        if(OpcionObtener==1){
+            Escritor.Escribir("C:/MEIA/desc_usuario.txt", descriptor.toString());
+        }
+        else if(OpcionObtener==2){
+           Escritor.Escribir("C:/MEIA/desc_usuariobitacora.txt", descriptor.toString()); 
+        }
+        
+    }
 }
