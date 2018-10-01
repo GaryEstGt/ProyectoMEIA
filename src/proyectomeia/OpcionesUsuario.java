@@ -31,8 +31,12 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
         initComponents();
          txtContraseña.setDocument(new LimitarCaracteres(40));
         txtContraseña.getDocument().addDocumentListener(this);
-        txtCorreo.setDocument(new LimitarCaracteres(40));
-        txtFoto.setDocument(new LimitarNumeros());
+        txtCorreo.setDocument(new LimitarCaracteres(40));        
+        txtTelefono.setDocument(new LimitarNumeros());
+        
+        if(ProyectoMEIA.usuarioEnUso.getRol() == 1){
+            btnDarBaja.setEnabled(false);
+        }
     }
 
     /**
@@ -64,10 +68,11 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
         txtCorreo = new javax.swing.JTextField();
         txtFoto = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
+        btnDarBaja = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         panelContraseña.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -96,7 +101,7 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
                         .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblNivel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                         .addComponent(btnCambiarcontraseña)))
                 .addContainerGap())
         );
@@ -144,6 +149,8 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
             }
         });
 
+        CalendarFecha.setFocusable(false);
+
         jLabel7.setText("Nuevo Cumpleaños");
 
         btnCambiarfecha.setText("Cambiar");
@@ -155,6 +162,13 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
 
         txtFoto.setEditable(false);
 
+        btnDarBaja.setText("Darse de baja");
+        btnDarBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDarBajaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -162,27 +176,31 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCambiarTel))
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCambiarCorreo))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addComponent(btnDarBaja)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CalendarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(CalendarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(btnCambiarfecha))
+                            .addComponent(jLabel7))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCambiarfecha)
-                            .addComponent(btnCambiarfoto)))
-                    .addComponent(jLabel7))
-                .addContainerGap(72, Short.MAX_VALUE))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCambiarTel))
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCambiarCorreo))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(btnCambiarfoto)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,13 +226,15 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCambiarfoto)
                     .addComponent(txtFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCambiarfecha)
                     .addComponent(CalendarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(btnDarBaja)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Cambiar Otros Datos");
@@ -248,23 +268,21 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
                 .addContainerGap(38, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addGap(110, 110, 110))
+                .addComponent(btnSalir))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addComponent(btnSalir)
+                .addGap(3, 3, 3)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalir)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -272,8 +290,9 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
 
     private void btnCambiarfotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarfotoActionPerformed
         // TODO add your handling code here:
-                String rutaArchivo="";
-         DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
+        if(!txtFoto.getText().isEmpty()){
+            String rutaArchivo="";
+        DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
         if(descBitacora.getNumRegistros()!=0){
             try {
                 OperacionesSecuencial.LlenarUsuariosMaestro();
@@ -306,13 +325,18 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
             user.setFechaModificacion(fechaActual.toString());
             user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
             OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
-             JOptionPane.showMessageDialog(null, "foto Modificada");
-        
+             JOptionPane.showMessageDialog(null, "Foto Modificada");
+             txtFoto.setText("");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe ingresar la nueva foto");
+        }                
     }//GEN-LAST:event_btnCambiarfotoActionPerformed
 
     private void btnCambiarfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarfechaActionPerformed
         // TODO add your handling code here:
-         DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
+        if(!CalendarFecha.getDate().toString().isEmpty()){
+            DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
         if(descBitacora.getNumRegistros()!=0){
             try {
                 OperacionesSecuencial.LlenarUsuariosMaestro();
@@ -337,14 +361,18 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
             user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
             OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
              JOptionPane.showMessageDialog(null, "Fecha Modificada");
-            
+             
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe ingresar la nueva fecha de cumpleaños");
+        }                     
     }//GEN-LAST:event_btnCambiarfechaActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         if(ProyectoMEIA.usuarioEnUso.getRol()==1){
             OpcionesAdministrador ventana = new OpcionesAdministrador();
-            ventana.show();
+            ventana.setVisible(true);
             dispose();
         }
         else{
@@ -354,7 +382,7 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
             } catch (IOException ex) {
                 Logger.getLogger(OpcionesUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
-            ventana.show();
+            ventana.setVisible(true);
             dispose(); 
         }
         
@@ -387,6 +415,7 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
             OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
             
              JOptionPane.showMessageDialog(null, "Contraseña Modificada");
+             txtContraseña.setText("");
         }else{
             JOptionPane.showMessageDialog(null, "Contraseña Invalida");
         }
@@ -394,7 +423,8 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
 
     private void btnCambiarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarCorreoActionPerformed
         // TODO add your handling code here:
-         DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
+        if(!txtCorreo.getText().isEmpty()){
+            DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
         if(descBitacora.getNumRegistros()!=0){
             try {
                 OperacionesSecuencial.LlenarUsuariosMaestro();
@@ -415,12 +445,18 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
             user.setFechaModificacion(fechaActual.toString());
             user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
             OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
-             JOptionPane.showMessageDialog(null, "Correo Modificado");
+             JOptionPane.showMessageDialog(null, "Correo Modificado");  
+             txtCorreo.setText("");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe ingresar el nuevo correo");
+        }         
     }//GEN-LAST:event_btnCambiarCorreoActionPerformed
 
     private void btnCambiarTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarTelActionPerformed
         // TODO add your handling code here:
-         DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
+        if(!txtTelefono.getText().isEmpty()){
+            DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
         if(descBitacora.getNumRegistros()!=0){
             try {
                 OperacionesSecuencial.LlenarUsuariosMaestro();
@@ -441,8 +477,39 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
             user.setFechaModificacion(fechaActual.toString());
             user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
             OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
-             JOptionPane.showMessageDialog(null, "Telefono Modificado");
+             JOptionPane.showMessageDialog(null, "Telefono Modificado");   
+             txtTelefono.setText("");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe ingresar el nuevo teléfono");
+        }         
     }//GEN-LAST:event_btnCambiarTelActionPerformed
+
+    private void btnDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaActionPerformed
+        // TODO add your handling code here:
+        DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
+        if(descBitacora.getNumRegistros()!=0){
+            try {
+                OperacionesSecuencial.LlenarUsuariosMaestro();
+            } catch (IOException ex) {
+                Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+         LinkedList<Usuario> lista=OperacionesSecuencial.obtenerUsuarios(2);
+            for (int i = 0; i < lista.size(); i++) {
+                if(lista.get(i).getUsuario().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
+                    lista.get(i).setEstatus(0);                    
+                }
+            }
+             OperacionesSecuencial.rellenarUsuariosMaestro(lista);
+            DescriptorUsuario user=OperacionesSecuencial.obtenerDescriptorUsuario(1);
+            Date fechaActual=new Date();
+            
+            user.setFechaModificacion(fechaActual.toString());
+            user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
+            OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
+             JOptionPane.showMessageDialog(null, "Usuario dado de baja del sistema");
+    }//GEN-LAST:event_btnDarBajaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -542,6 +609,7 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
     private javax.swing.JButton btnCambiarcontraseña;
     private javax.swing.JButton btnCambiarfecha;
     private javax.swing.JButton btnCambiarfoto;
+    private javax.swing.JButton btnDarBaja;
     private javax.swing.JButton btnSalir;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;

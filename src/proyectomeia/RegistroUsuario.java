@@ -73,7 +73,7 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
         lblNivelContraseña = new javax.swing.JLabel();
         txtCalendar = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setText("Usuario");
 
@@ -132,18 +132,16 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(lblNivelContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(lblNivelContraseña, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                                     .addComponent(txtUsuario)
                                     .addComponent(txtApellido)
-                                    .addComponent(txtContraseña1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                    .addComponent(txtContraseña1))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,6 +266,8 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                             des.setNumRegistros(des.getNumRegistros()+1);
                             des.setRegistrosActivos(des.getRegistrosActivos()+1);                            
                             des.setUsuarioModificacion(usuario.getUsuario());
+                            Date fechaActual = new Date();
+                            des.setFechaModificacion(fechaActual.toString());
                             OperacionesSecuencial.rellenarDescriptorUsuario(des, 2);
                         }
                         else{
@@ -294,9 +294,13 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                     des.setRegistrosActivos(des.getRegistrosActivos()+1);                            
                     des.setUsuarioCreacion(usuario.getUsuario());
                     des.setUsuarioModificacion(usuario.getUsuario());
-                    OperacionesSecuencial.rellenarDescriptorUsuario(des, 2);
-                    //falta poner la fecha de modificacion y creacion 
+                    Date fechaActual = new Date();
+                    des.setFechaCreacion(fechaActual.toString());
+                    des.setFechaModificacion(fechaActual.toString());
+                    OperacionesSecuencial.rellenarDescriptorUsuario(des, 2);                    
                 }   
+                
+                JOptionPane.showMessageDialog(null,"Usuario registrado con éxito");
                 
                 if(login){
                     try {
@@ -309,10 +313,12 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                 }
                 else{
                     limpiarCampos();
-                      OpcionesAdministrador registro = new OpcionesAdministrador();
+                                        
+                    if(JOptionPane.showConfirmDialog(null, "¿Desea ingresar otro usuario?", "Seleccione una opción", JOptionPane.YES_NO_OPTION) == 1){
+                        OpcionesAdministrador registro = new OpcionesAdministrador();
                         registro.setVisible(true);
                         this.setVisible(false);
-                   
+                    }                                         
                 }
             }
             else{
@@ -378,14 +384,14 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
         try{
             LinkedList<Usuario> usuarios = OperacionesSecuencial.obtenerUsuarios(1);
             for (int i = 0; i < usuarios.size(); i++) {
-                if(us.getUsuario().equals(usuarios.get(i))){
+                if(us.getUsuario().equals(usuarios.get(i).getUsuario())){
                     return true;
                 }
             }
          if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros()!=0){
               usuarios = OperacionesSecuencial.obtenerUsuarios(2);
             for (int i = 0; i < usuarios.size(); i++) {
-                if(us.getUsuario().equals(usuarios.get(i))){
+                if(us.getUsuario().equals(usuarios.get(i).getUsuario())){
                     return true;
                 }
             }

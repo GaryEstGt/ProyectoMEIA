@@ -19,8 +19,8 @@ public class ProyectoMEIA {
     public static Usuario usuarioEnUso;
     public static void main(String[] args) throws IOException {
         usuarioEnUso = null;
-        LogIn inicio=new LogIn();
-        inicio.setVisible(true);
+        PantallaCarga pantalla = new PantallaCarga();
+        pantalla.setVisible(true);
         // TODO code application logic here        
     }
     

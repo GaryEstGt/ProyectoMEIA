@@ -44,7 +44,7 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
         btnBuscarUsuarios = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         btnBackUp.setText("Realizar copia de seguridad");
         btnBackUp.addActionListener(new java.awt.event.ActionListener() {
