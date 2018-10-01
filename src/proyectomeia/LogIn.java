@@ -42,7 +42,7 @@ public class LogIn extends javax.swing.JFrame {
         
         if(!descriptorMaestro.exists()){
             descriptorMaestro.createNewFile();
-            DescriptorUsuario desc = new DescriptorUsuario("usuario.txt"," "," "," "," ",0,0,0,Integer.MAX_VALUE);
+            DescriptorUsuario desc = new DescriptorUsuario("usuario.txt"," "," "," "," ",0,0,0,5);
             Escritor.Escribir("C:/MEIA/desc_usuario.txt", desc.toString());
         }
     }
@@ -65,6 +65,7 @@ public class LogIn extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnRegistrar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -92,6 +93,13 @@ public class LogIn extends javax.swing.JFrame {
             }
         });
 
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,26 +107,31 @@ public class LogIn extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(btnIngresar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnRegistrar))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtUsuario)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2)
-                                .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(label_Titulo)
-                        .addGap(57, 57, 57)))
-                .addComponent(jLabel4)
+                                .addGap(69, 69, 69)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(51, 51, 51)
+                                        .addComponent(btnIngresar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnRegistrar))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtUsuario)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel2)
+                                        .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(label_Titulo)
+                                .addGap(57, 57, 57)))
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(123, 123, 123)
+                        .addComponent(btnSalir)))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -145,7 +158,9 @@ public class LogIn extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(btnRegistrar))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addContainerGap())
         );
 
         pack();
@@ -183,6 +198,20 @@ public class LogIn extends javax.swing.JFrame {
                 else if(ProyectoMEIA.usuarioEnUso == null){
                     JOptionPane.showMessageDialog(null,"El nombre de usuario y contraseña que ingreso son incorrectos");
                 }
+                else{
+                    if(ProyectoMEIA.usuarioEnUso.getRol()==1){
+                        // TODO add your handling code here:
+                        OpcionesAdministrador registro = new OpcionesAdministrador();
+                        registro.setVisible(true);
+                        this.setVisible(false);
+                    }
+                    else{
+                        OpcionesUsuario registro = new OpcionesUsuario();
+                        registro.setVisible(true);
+                        this.setVisible(false);
+                    }
+                     
+                }
             }
             else{
                 JOptionPane.showMessageDialog(null,"Debe ingresar la contraseña");
@@ -204,6 +233,20 @@ public class LogIn extends javax.swing.JFrame {
             Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
+        if(descBitacora.getNumRegistros()!=0){
+            try {
+                OperacionesSecuencial.LlenarUsuariosMaestro();
+            } catch (IOException ex) {
+                Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        System.exit(0); 
+        setDefaultCloseOperation(LogIn.EXIT_ON_CLOSE);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,6 +290,7 @@ public class LogIn extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

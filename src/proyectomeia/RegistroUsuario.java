@@ -254,21 +254,21 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
             if(!lblNivelContraseña.getText().equals("Contraseña muy insegura")){
                 Usuario usuario = new proyectomeia.Usuario(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtContraseña1.getText()
                 , String.valueOf(sdf.format(fecha)),txtCorreo.getText(), txtPathfoto.getText(), Integer.parseInt(txtTelefono.getText()), 1);                                
-
-                if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros()!=0 && OperacionesSecuencial.obtenerDescriptorUsuario(2).getNumRegistros()!=0){
-                    if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros() < OperacionesSecuencial.obtenerDescriptorUsuario(1).getMaxReorganizacion()){
+                 
+                if(OperacionesSecuencial.obtenerDescriptorUsuario(2).getNumRegistros()!=0){
+                    if(OperacionesSecuencial.obtenerDescriptorUsuario(2).getNumRegistros() < OperacionesSecuencial.obtenerDescriptorUsuario(2).getMaxReorganizacion()){
                         if(!VerSiExisteUsuario(usuario)){
                             //Escribir en el archivo
                             String textoAnterior=Lector.Obtener("C:/MEIA/bitacora_usuario.txt");
                             usuario.setRol(0);
                
                             Escritor.Escribir("C:/MEIA/bitacora_usuario.txt", textoAnterior+usuario.toString());               
-                            DescriptorUsuario des = OperacionesSecuencial.obtenerDescriptorUsuario(1);
+                            DescriptorUsuario des = OperacionesSecuencial.obtenerDescriptorUsuario(2);
                             
                             des.setNumRegistros(des.getNumRegistros()+1);
                             des.setRegistrosActivos(des.getRegistrosActivos()+1);                            
                             des.setUsuarioModificacion(usuario.getUsuario());
-                            //falta poner fecha de modificacion
+                            OperacionesSecuencial.rellenarDescriptorUsuario(des, 2);
                         }
                         else{
                             JOptionPane.showMessageDialog(null,"Ya existe un usuario con el nombre de usuario " + txtUsuario.getText());
@@ -277,18 +277,24 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                         }
                     }
                     else{
-                        //Pasar al maestro
+                        //llenar maestro
+                         try {
+                            OperacionesSecuencial.LlenarUsuariosMaestro();
+                           } catch (IOException ex) {
+                            Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                     }
                 }else{
                     usuario.setRol(1);
                     Escritor.Escribir("C:/MEIA/bitacora_usuario.txt",usuario.toString());
                     
-                    DescriptorUsuario des = OperacionesSecuencial.obtenerDescriptorUsuario(1);
+                    DescriptorUsuario des = OperacionesSecuencial.obtenerDescriptorUsuario(2);
                             
                     des.setNumRegistros(des.getNumRegistros()+1);
                     des.setRegistrosActivos(des.getRegistrosActivos()+1);                            
                     des.setUsuarioCreacion(usuario.getUsuario());
                     des.setUsuarioModificacion(usuario.getUsuario());
+                    OperacionesSecuencial.rellenarDescriptorUsuario(des, 2);
                     //falta poner la fecha de modificacion y creacion 
                 }   
                 
@@ -303,6 +309,10 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                 }
                 else{
                     limpiarCampos();
+                      OpcionesAdministrador registro = new OpcionesAdministrador();
+                        registro.setVisible(true);
+                        this.setVisible(false);
+                   
                 }
             }
             else{
@@ -372,13 +382,15 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                     return true;
                 }
             }
-            
-            usuarios = OperacionesSecuencial.obtenerUsuarios(2);
+         if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros()!=0){
+              usuarios = OperacionesSecuencial.obtenerUsuarios(2);
             for (int i = 0; i < usuarios.size(); i++) {
                 if(us.getUsuario().equals(usuarios.get(i))){
                     return true;
                 }
             }
+         }   
+           
             
             return false;
         }catch (Exception e){

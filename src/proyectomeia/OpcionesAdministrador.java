@@ -7,8 +7,12 @@ package proyectomeia;
 
 import java.awt.HeadlessException;
 import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -50,10 +54,25 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
         });
 
         BtnIngresarUsuarios.setText("Ingresar Usuarios");
+        BtnIngresarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnIngresarUsuariosActionPerformed(evt);
+            }
+        });
 
         btnModificarDatos.setText("Modificar Datos");
+        btnModificarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarDatosActionPerformed(evt);
+            }
+        });
 
         btnBuscarUsuarios.setText("Buscar Usuarios");
+        btnBuscarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarUsuariosActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -143,7 +162,44 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+         LogIn ventana=null;
+            try {
+                ventana = new LogIn();
+            } catch (IOException ex) {
+                Logger.getLogger(OpcionesUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ventana.show();
+            dispose(); 
+        this.setVisible(false);
+        
+        
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void BtnIngresarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIngresarUsuariosActionPerformed
+        // TODO add your handling code here:
+          try {
+            // TODO add your handling code here:
+            RegistroUsuario registro = new RegistroUsuario(false);
+            registro.setVisible(true);
+            this.setVisible(false);
+        } catch (ParseException ex) {
+            Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BtnIngresarUsuariosActionPerformed
+
+    private void btnModificarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarDatosActionPerformed
+        // TODO add your handling code here:
+          OpcionesUsuario registro = new OpcionesUsuario();
+                        registro.setVisible(true);
+                        this.setVisible(false);
+    }//GEN-LAST:event_btnModificarDatosActionPerformed
+
+    private void btnBuscarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuariosActionPerformed
+        // TODO add your handling code here:
+          BuscarUsuarios registro = new BuscarUsuarios();
+                        registro.setVisible(true);
+                        this.setVisible(false);
+    }//GEN-LAST:event_btnBuscarUsuariosActionPerformed
 
     /**
      * @param args the command line arguments

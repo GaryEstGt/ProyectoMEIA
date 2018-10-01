@@ -5,8 +5,12 @@
  */
 package proyectomeia;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
 
 /**
  *
@@ -41,6 +45,13 @@ public class OperacionesSecuencial {
         String textoEscribir="";
         for(Usuario user:usuarios){
             textoEscribir+=user.toString()+",";
+        }
+        Escritor.Escribir("C:/MEIA/usuario.txt", textoEscribir);
+    }
+    public static void rellenarUsuariosMaestro(LinkedList<Usuario> usuarios){
+        String textoEscribir="";
+        for(Usuario user:usuarios){
+            textoEscribir+=user.toFixedSizeString()+",";
         }
         Escritor.Escribir("C:/MEIA/usuario.txt", textoEscribir);
     }
@@ -79,5 +90,56 @@ public class OperacionesSecuencial {
        desc.setUsuarioModificacion(campos[4]);
        desc.setNumRegistros(Integer.parseInt(campos[5]));
         return desc;
+    }
+    public static void LlenarUsuariosMaestro() throws IOException{
+        LinkedList<Usuario> listaBitacora=obtenerUsuarios(1);
+        LinkedList<Usuario> listaUsuarios=obtenerUsuarios(2);
+        DescriptorUsuario descUser=obtenerDescriptorUsuario(1);
+        DescriptorUsuario descBitacora=obtenerDescriptorUsuario(2);
+        LinkedList<Usuario> nuevaLista=new LinkedList<>();
+        if(descUser.getNumRegistros()!=0){
+            listaBitacora.forEach((user) -> {nuevaLista.add(user);});
+            listaUsuarios.forEach((user) -> {nuevaLista.add(user);}); 
+        }else{
+            listaBitacora.forEach((user) -> {nuevaLista.add(user);});
+        }
+        Collections.sort(nuevaLista, new CompareByName());
+        rellenarUsuariosMaestro(nuevaLista);
+        Date fecha=new Date();
+        descBitacora.setFechaModificacion(fecha.toString());
+        descBitacora.setNumRegistros(0);
+        descBitacora.setRegistrosActivos(0);
+        descBitacora.setRegistrosInactivos(0);
+        File bitacora=new File("C:/MEIA/bitacora_usuario.txt");
+        bitacora.delete();
+        bitacora.createNewFile();
+        descUser.setFechaModificacion(fecha.toString());
+        descUser.setNumRegistros(nuevaLista.size());
+        descUser.setRegistrosActivos(contarActivos(nuevaLista,1));
+        descUser.setRegistrosInactivos(contarActivos(nuevaLista,2));
+        rellenarDescriptorUsuario(descUser,1);
+        rellenarDescriptorUsuario(descBitacora,2); 
+        
+    }
+    public static int contarActivos(LinkedList<Usuario> lista,int retorno){
+        int contActivos=0;
+        int contInactivos=0;
+        int contretorno=0;
+        for(Usuario user:lista){
+            if(user.getEstatus()==1){
+                contActivos++;
+            }      
+            else if(user.getEstatus()==0){
+                contInactivos++;
+            }
+                
+        }
+        if(retorno==1){
+            contretorno=contActivos;
+        }
+        else if(retorno==2){
+            contretorno=contInactivos;
+        }
+        return contretorno;
     }
 }

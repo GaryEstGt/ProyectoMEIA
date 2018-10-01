@@ -6,7 +6,13 @@
 package proyectomeia;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -18,7 +24,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author garya
  */
 public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListener {
-
+    boolean activoAntes=false,activoDespues=false;
+    boolean adminAntes=true,adminDespues=true;
     /**
      * Creates new form BuscarUsuarios
      */
@@ -70,6 +77,7 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
         jLabel11 = new javax.swing.JLabel();
         lblNivelContraseña = new javax.swing.JLabel();
         txtCalendar = new javax.swing.JTextField();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,6 +133,11 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         rbUsuario.setText("Usuario");
 
@@ -166,6 +179,13 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
         txtCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCalendarActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -213,9 +233,11 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
                                 .addComponent(rbInactivo)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnModificar)
                             .addComponent(btnSeleccionar)
-                            .addComponent(lblNivelContraseña)))
+                            .addComponent(lblNivelContraseña)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addComponent(txtCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
@@ -278,7 +300,9 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
                             .addComponent(rbActivo)
                             .addComponent(rbInactivo)
                             .addComponent(jLabel11))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSalir)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -331,7 +355,15 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        LinkedList<Usuario> lista=OperacionesSecuencial.obtenerUsuarios(1);
+        DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
+        if(descBitacora.getNumRegistros()!=0){
+            try {
+                OperacionesSecuencial.LlenarUsuariosMaestro();
+            } catch (IOException ex) {
+                Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        LinkedList<Usuario> lista=OperacionesSecuencial.obtenerUsuarios(2);
         boolean encontrado=false;
         for (int i = 0; i < lista.size(); i++) {
             if(lista.get(i).getUsuario().equals(txtBuscar.getText())){
@@ -342,20 +374,25 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
                 txtCalendar.setText(lista.get(i).getFechaNacimiento());
                 if(lista.get(i).getRol()==1){
                     rbAdmin.setSelected(true);
+                    adminAntes=true;
                 }
                 else if(lista.get(i).getRol()==0){
                     rbUsuario.setSelected(true);
+                    adminAntes=false;
                 }
                 txtCorreo.setText(lista.get(i).getCorreo());
                 txtTelefono.setText(String.valueOf(lista.get(i).getTelefono()));
                 txtFoto.setText(lista.get(i).getPathFoto());
                  if(lista.get(i).getEstatus()==1){
                     rbActivo.setSelected(true);
+                    activoAntes=true;
                 }
                 else if(lista.get(i).getEstatus()==0){
                     rbInactivo.setSelected(true);
+                    activoAntes=false;
                 }              
                  encontrado=true;
+                 txtBuscar.enable(false);
                  break;
             }
             else{
@@ -370,6 +407,73 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
     private void txtCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalendarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCalendarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        LinkedList<Usuario> lista=OperacionesSecuencial.obtenerUsuarios(2);
+        for (int i = 0; i < lista.size(); i++) {
+            if(lista.get(i).getUsuario().equals(txtBuscar.getText())){
+                lista.get(i).setUsuario(txtUsuario.getText());
+                lista.get(i).setNombre(txtNombre.getText());
+                lista.get(i).setApellido(txtApellido.getText());
+                lista.get(i).setContraseña(txtContraseña.getText());
+                lista.get(i).setFechaNacimiento(txtCalendar.getText());
+                lista.get(i).setCorreo(txtCorreo.getText());
+                lista.get(i).setTelefono(Integer.parseInt(txtTelefono.getText()));
+                lista.get(i).setPathFoto(txtFoto.getText());
+                 if(rbAdmin.isSelected()){
+                lista.get(i).setRol(1);   
+                adminDespues=true;
+                }
+                else{
+                lista.get(i).setRol(0);
+                adminDespues=false;
+                }
+                if(rbActivo.isSelected()){
+                lista.get(i).setEstatus(1);
+                activoDespues=true;
+                 }
+                else{
+                lista.get(i).setEstatus(0);
+                activoDespues=false;
+                } 
+             }          
+        }
+        OperacionesSecuencial.rellenarUsuariosMaestro(lista);
+        DescriptorUsuario user= OperacionesSecuencial.obtenerDescriptorUsuario(1);
+        Date fecha=new Date();
+        user.setFechaModificacion(fecha.toString());
+        user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
+        if(activoAntes==true&&activoDespues==false){
+            user.setRegistrosInactivos(user.getRegistrosInactivos()+1);
+            user.setRegistrosActivos(user.getRegistrosActivos()-1);          
+        }else if(activoAntes==false&&activoDespues==true){
+             user.setRegistrosInactivos(user.getRegistrosInactivos()-1);
+            user.setRegistrosActivos(user.getRegistrosActivos()+1); 
+        }
+        OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
+        JOptionPane.showMessageDialog(null, "Usuario Modificado");
+        
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+         if(ProyectoMEIA.usuarioEnUso.getRol()==1){
+            OpcionesAdministrador ventana = new OpcionesAdministrador();
+            ventana.show();
+            dispose();
+        }
+        else{
+           LogIn ventana=null;
+            try {
+                ventana = new LogIn();
+            } catch (IOException ex) {
+                Logger.getLogger(OpcionesUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ventana.show();
+            dispose(); 
+        }
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,6 +513,7 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

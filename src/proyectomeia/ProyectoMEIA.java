@@ -5,6 +5,8 @@
  */
 package proyectomeia;
 
+import java.io.IOException;
+
 /**
  *
  * @author garya
@@ -15,8 +17,10 @@ public class ProyectoMEIA {
      * @param args the command line arguments
      */
     public static Usuario usuarioEnUso;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         usuarioEnUso = null;
+        LogIn inicio=new LogIn();
+        inicio.setVisible(true);
         // TODO code application logic here        
     }
     

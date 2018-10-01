@@ -5,6 +5,8 @@
  */
 package proyectomeia;
 
+import java.util.Comparator;
+
 /**
  *
  * @author luise
@@ -126,6 +128,13 @@ public class Usuario {
 
     public void setFechaNacimiento(String fecha) {
         this.fechaNacimiento = fecha;
+    }
+
+}
+class CompareByName implements Comparator<Usuario> {
+    @Override
+    public int compare(Usuario o1, Usuario o2) {
+          return o1.getUsuario().compareTo(o2.getUsuario());
     }
 
 }
