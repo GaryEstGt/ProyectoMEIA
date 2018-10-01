@@ -67,6 +67,7 @@ public class LogIn extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -101,45 +102,49 @@ public class LogIn extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\garya\\Documents\\Gary URL\\Cuarto Ciclo 2018\\Manejo e implementación de archivos\\logo pequeño.png")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(162, 162, 162)
+                .addComponent(jLabel5)
+                .addGap(98, 98, 98)
+                .addComponent(jLabel4)
+                .addContainerGap(48, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnRegistrar))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtUsuario)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(btnIngresar))))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRegistrar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtUsuario)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnIngresar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(btnSalir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addComponent(label_Titulo)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(95, 95, 95))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(btnSalir)
-                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(label_Titulo)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -155,7 +160,9 @@ public class LogIn extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(btnRegistrar))
-                .addGap(0, 40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSalir)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,7 +176,7 @@ public class LogIn extends javax.swing.JFrame {
                 
                 if(lista != null){
                     for (int i = 0; i < lista.size(); i++) {
-                        if(lista.get(i).getUsuario().equals(txtUsuario.getText()) && lista.get(i).getContraseña().equals(txtContraseña.getText()) && lista.get(i).getEstatus() != 0){
+                        if(lista.get(i).getUsuario().equals(txtUsuario.getText()) && lista.get(i).getContraseña().equals(OperacionesSecuencial.getMD5(txtContraseña.getText())) && lista.get(i).getEstatus() != 0){
                             JOptionPane.showMessageDialog(null,lista.get(i).getUsuario() + (lista.get(i).getRol() == 1 ? "Administrador" : "Usuario") + lista.get(i).getPathFoto());
                             ProyectoMEIA.usuarioEnUso = lista.get(i);
                         }
@@ -180,7 +187,7 @@ public class LogIn extends javax.swing.JFrame {
                     
                     if(lista != null){
                         for (int i = 0; i < lista.size(); i++) {
-                            if(lista.get(i).getUsuario().equals(txtUsuario.getText()) && lista.get(i).getContraseña().equals(txtContraseña.getText()) && lista.get(i).getEstatus() != 0){
+                            if(lista.get(i).getUsuario().equals(txtUsuario.getText()) && lista.get(i).getContraseña().equals(OperacionesSecuencial.getMD5(txtContraseña.getText())) && lista.get(i).getEstatus() != 0){
                                 JOptionPane.showMessageDialog(null,lista.get(i).getUsuario() + (lista.get(i).getRol() == 1 ? "\nAdministrador" : "\nUsuario") + lista.get(i).getPathFoto());
                                 ProyectoMEIA.usuarioEnUso = lista.get(i);
                             }
@@ -289,6 +296,7 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel label_Titulo;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtUsuario;

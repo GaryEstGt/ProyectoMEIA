@@ -7,6 +7,9 @@ package proyectomeia;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -44,6 +47,8 @@ public class OperacionesSecuencial {
     public static void rellenarUsuarios(LinkedList<Usuario> usuarios){
         String textoEscribir="";
         for(Usuario user:usuarios){
+            String contraseña=user.getContraseña();
+            user.setContraseña(getMD5(contraseña));
             textoEscribir+=user.toString()+",";
         }
         Escritor.Escribir("C:/MEIA/usuario.txt", textoEscribir);
@@ -142,4 +147,20 @@ public class OperacionesSecuencial {
         }
         return contretorno;
     }
+    public static String getMD5(String input) {
+        try {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] messageDigest = md.digest(input.getBytes());
+        BigInteger number = new BigInteger(1, messageDigest);
+        String hashtext = number.toString(16);
+
+        while (hashtext.length() < 32) {
+        hashtext = "0" + hashtext;
+        }
+        return hashtext;
+        }
+        catch (NoSuchAlgorithmException e) {
+        throw new RuntimeException(e);
+        }
+ }
 }

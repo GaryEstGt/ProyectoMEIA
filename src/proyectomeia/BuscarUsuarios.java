@@ -26,6 +26,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListener {
     boolean activoAntes=false,activoDespues=false;
     boolean adminAntes=true,adminDespues=true;  
+    boolean esAdmin=false;
     Usuario usuarioBuscado;
     /**
      * Creates new form BuscarUsuarios
@@ -50,7 +51,6 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblNivelContraseña = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -148,6 +148,7 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
             }
         });
 
+        txtContraseña.setEditable(false);
         txtContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtContraseñaActionPerformed(evt);
@@ -348,7 +349,6 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
                     .addComponent(txtFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSeleccionar)
                     .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -374,9 +374,7 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblNivelContraseña)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 19, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -387,17 +385,11 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
-                        .addComponent(lblNivelContraseña)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(12, Short.MAX_VALUE)
-                        .addComponent(jLabel12)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel12)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalir)
                 .addContainerGap())
         );
@@ -538,6 +530,8 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
                 activoDespues=false;
                 } 
                 else{
+                    lista.get(i).setEstatus(1);
+                    esAdmin=true;
                     JOptionPane.showMessageDialog(null, "No se dio de baja ya que es administrador");
                 }
              }          
@@ -547,13 +541,18 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
         Date fecha=new Date();
         user.setFechaModificacion(fecha.toString());
         user.setUsuarioModificacion(ProyectoMEIA.usuarioEnUso.getUsuario());
-        if(activoAntes==true&&activoDespues==false){
+       if(esAdmin!=true){
+             if(activoAntes==true&&activoDespues==false){
             user.setRegistrosInactivos(user.getRegistrosInactivos()+1);
             user.setRegistrosActivos(user.getRegistrosActivos()-1);          
-        }else if(activoAntes==false&&activoDespues==true){
+             }else if(activoAntes==false&&activoDespues==true){
              user.setRegistrosInactivos(user.getRegistrosInactivos()-1);
             user.setRegistrosActivos(user.getRegistrosActivos()+1); 
-        }
+            }
+       }
+                  
+        
+
         OperacionesSecuencial.rellenarDescriptorUsuario(user, 1);
         JOptionPane.showMessageDialog(null, "Usuario Modificado");
         
@@ -652,14 +651,10 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JLabel lblNivelContraseña;
     private javax.swing.JRadioButton rbActivo;
-    private javax.swing.JRadioButton rbActivo2;
     private javax.swing.JRadioButton rbAdmin;
     private javax.swing.JRadioButton rbInactivo;
-    private javax.swing.JRadioButton rbInactivo2;
     private javax.swing.JRadioButton rbUsuario;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtBuscar;
@@ -678,20 +673,20 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
             int punteo = verificarContraseña(txtContraseña.getText());
             
             if (punteo >= 0 && punteo <= 25){
-                lblNivelContraseña.setText("Contraseña muy insegura");
+                //lblNivelContraseña.setText("Contraseña muy insegura");
             }
             else if (punteo >= 26 && punteo <= 50){
-                lblNivelContraseña.setText("Contraseña insegura");
+                //lblNivelContraseña.setText("Contraseña insegura");
             }
             else if (punteo >= 51 && punteo <= 75){
-                lblNivelContraseña.setText("Contraseña segura");
+               // lblNivelContraseña.setText("Contraseña segura");
             }
             else if (punteo >= 76){
-                lblNivelContraseña.setText("Contraseña muy segura");
+                //lblNivelContraseña.setText("Contraseña muy segura");
             }                  
         }
         else{
-            lblNivelContraseña.setText("Ingrese la contraseña");
+           // lblNivelContraseña.setText("Ingrese la contraseña");
         }
     }
      public int verificarContraseña(String texto){
