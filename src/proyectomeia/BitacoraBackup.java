@@ -23,7 +23,7 @@ public class BitacoraBackup {
     }
     @Override
     public String toString() {
-        return "rutaAbsoluta=" + rutaAbsoluta + "| usuario=" + usuario + "| fecha=" + fecha +",";
+        return "rutaAbsoluta=" + rutaAbsoluta + "| usuario=" + usuario + "| fecha=" + fecha +"\n";
     }
 
     public String getRutaAbsoluta() {
