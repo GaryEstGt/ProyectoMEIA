@@ -5,12 +5,14 @@
  */
 package proyectomeia;
 
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.LinkedList;
 
 /**
  *
@@ -20,20 +22,19 @@ public class Lector {
     public static String Obtener(String strPath)
     {
         File Archivo=new File(strPath);
-        String cadena = "";
+        String cadena="";
         if(Archivo.exists()==true)
         {
             FileReader LecturaArchivo;
             try {
                 LecturaArchivo = new FileReader(Archivo);
                 BufferedReader LeerArchivo = new BufferedReader(LecturaArchivo);
-                String Linea;
+                String Linea="";
                 try {                    
                     while((Linea=LeerArchivo.readLine()) != null)
                     {
-                        cadena += Linea;
+                        cadena+=Linea+"\n";
                     }
-
                     LecturaArchivo.close();
                     LeerArchivo.close();                                        
                     return cadena;
@@ -50,4 +51,5 @@ public class Lector {
             return "No existe el archivo";            
         }
 }
+
 }

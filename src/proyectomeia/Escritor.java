@@ -20,7 +20,7 @@ public class Escritor {
     public static boolean Escribir(String strPath,String strContenido)
     {
         File Archivo = new File(strPath);
-         String[] spli=strContenido.split(",");
+         String[] spli=strContenido.split("\n");
         try
         {
             if(!Archivo.exists()){
@@ -33,7 +33,7 @@ public class Escritor {
                 FileWriter Escribir = new FileWriter(Archivo,true);
                 BufferedWriter bw = new BufferedWriter(Escribir);
                 for (int i = 0; i < spli.length; i++) {
-                bw.write(spli[i]+",");
+                bw.write(spli[i]);
                 bw.newLine();
             }               
 

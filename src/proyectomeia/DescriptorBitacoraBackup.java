@@ -15,7 +15,7 @@ public class DescriptorBitacoraBackup {
 
     @Override
     public String toString() {
-        return nombre + "," + fechaCreacion + "," + usuarioCreacion + "," + fechaModificacion + "," + usuarioModificacion + "," + numRegistros;
+        return nombre + "\n" + fechaCreacion + "\n" + usuarioCreacion + "\n" + fechaModificacion + "\n" + usuarioModificacion + "\n" + numRegistros;
     }
     public String getNombre() {
         return nombre;

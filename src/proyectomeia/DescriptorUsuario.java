@@ -14,7 +14,7 @@ public class DescriptorUsuario {
 
     @Override
     public String toString() {
-        return nombre + "," + fechaCreacion + "," + usuarioCreacion + "," + fechaModificacion + "," + usuarioModificacion + "," + numRegistros + "," + registrosActivos + "," + registrosInactivos + "," + maxReorganizacion;
+        return nombre + "\n" + fechaCreacion + "\n" + usuarioCreacion + "\n" + fechaModificacion + "\n" + usuarioModificacion + "\n" + numRegistros + "\n" + registrosActivos + "\n" + registrosInactivos + "\n" + maxReorganizacion;
     }
 
     public DescriptorUsuario(String nombre, String fechaCreacion, String usuarioCreacion, String fechaModificacion, String usuarioModificacion, int numRegistros, int registrosActivos, int registrosInactivos, int maxReorganizacion) {

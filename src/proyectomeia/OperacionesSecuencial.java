@@ -30,7 +30,7 @@ public class OperacionesSecuencial {
         }
         
         if(!contenido.isEmpty()){
-            String[] usuarios=contenido.split(",");
+            String[] usuarios=contenido.split("\n");
             LinkedList<Usuario> users=new LinkedList<>();
             for (int i = 0; i < usuarios.length; i++){
                 String[] camposUsuario=usuarios[i].split("\\|");
@@ -49,14 +49,14 @@ public class OperacionesSecuencial {
         for(Usuario user:usuarios){
             String contraseña=user.getContraseña();
             user.setContraseña(getMD5(contraseña));
-            textoEscribir+=user.toString()+",";
+            textoEscribir+=user.toString()+"\n";
         }
         Escritor.Escribir("C:/MEIA/usuario.txt", textoEscribir);
     }
     public static void rellenarUsuariosMaestro(LinkedList<Usuario> usuarios){
         String textoEscribir="";
         for(Usuario user:usuarios){
-            textoEscribir+=user.toFixedSizeString()+",";
+            textoEscribir+=user.toFixedSizeString()+"\n";
         }
         Escritor.Escribir("C:/MEIA/usuario.txt", textoEscribir);
     }
@@ -68,7 +68,7 @@ public class OperacionesSecuencial {
         else if(OpcionObtener==2){
             contenido=Lector.Obtener("C:/MEIA/desc_usuariobitacora.txt");
         }
-        String[] campos=contenido.split(",");
+        String[] campos=contenido.split("\n");
         
         return new DescriptorUsuario(campos[0],campos[1],campos[2],campos[3],campos[4],Integer.parseInt(campos[5]),Integer.parseInt(campos[6]),Integer.parseInt(campos[7]),Integer.parseInt(campos[8]));
       
@@ -86,7 +86,7 @@ public class OperacionesSecuencial {
         String contenido="";
             contenido=Lector.Obtener("C:/MEIA/desc_bitacora_backup.txt");
         
-        String[] campos=contenido.split(",");
+        String[] campos=contenido.split("\n");
        DescriptorBitacoraBackup desc=new DescriptorBitacoraBackup();
        desc.setNombre(campos[0]);
        desc.setFechaCreacion(campos[1]);
