@@ -293,6 +293,26 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                         //llenar maestro
                          try {
                             OperacionesSecuencial.LlenarUsuariosMaestro();
+                            if(!VerSiExisteUsuario(usuario)){
+                            //Escribir en el archivo
+                            String textoAnterior=Lector.Obtener("C:/MEIA/bitacora_usuario.txt");
+                            usuario.setRol(0);
+               
+                            Escritor.Escribir("C:/MEIA/bitacora_usuario.txt", textoAnterior+usuario.toString());               
+                            DescriptorUsuario des = OperacionesSecuencial.obtenerDescriptorUsuario(2);
+                            
+                            des.setNumRegistros(des.getNumRegistros()+1);
+                            des.setRegistrosActivos(des.getRegistrosActivos()+1);                            
+                            des.setUsuarioModificacion(usuario.getUsuario());
+                            Date fechaActual = new Date();
+                            des.setFechaModificacion(fechaActual.toString());
+                            OperacionesSecuencial.rellenarDescriptorUsuario(des, 2);
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null,"Ya existe un usuario con el nombre de usuario " + txtUsuario.getText());
+                            txtUsuario.setText("");
+                            txtUsuario.requestFocus();
+                        }
                            } catch (IOException ex) {
                             Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
                             }
