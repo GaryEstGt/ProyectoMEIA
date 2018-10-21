@@ -295,10 +295,10 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                             OperacionesSecuencial.LlenarUsuariosMaestro();
                             if(!VerSiExisteUsuario(usuario)){
                             //Escribir en el archivo
-                            String textoAnterior=Lector.Obtener("C:/MEIA/bitacora_usuario.txt");
+                            //String textoAnterior=Lector.Obtener("C:/MEIA/bitacora_usuario.txt");
                             usuario.setRol(0);
                
-                            Escritor.Escribir("C:/MEIA/bitacora_usuario.txt", textoAnterior+usuario.toString());               
+                            Escritor.Escribir("C:/MEIA/bitacora_usuario.txt", usuario.toString());               
                             DescriptorUsuario des = OperacionesSecuencial.obtenerDescriptorUsuario(2);
                             
                             des.setNumRegistros(des.getNumRegistros()+1);
@@ -421,12 +421,16 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
     
     boolean VerSiExisteUsuario(Usuario us){
         try{
-            LinkedList<Usuario> usuarios = OperacionesSecuencial.obtenerUsuarios(1);
-            for (int i = 0; i < usuarios.size(); i++) {
-                if(us.getUsuario().equals(usuarios.get(i).getUsuario())){
-                    return true;
-                }
+             LinkedList<Usuario> usuarios=null;
+            if(OperacionesSecuencial.obtenerDescriptorUsuario(2).getNumRegistros()!=0){
+                 usuarios = OperacionesSecuencial.obtenerUsuarios(1);
+                for (int i = 0; i < usuarios.size(); i++) {
+                    if(us.getUsuario().equals(usuarios.get(i).getUsuario())){
+                        return true;
+                    }
+                 } 
             }
+
          if(OperacionesSecuencial.obtenerDescriptorUsuario(1).getNumRegistros()!=0){
               usuarios = OperacionesSecuencial.obtenerUsuarios(2);
             for (int i = 0; i < usuarios.size(); i++) {

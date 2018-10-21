@@ -9,33 +9,13 @@ package proyectomeia;
  *
  * @author garya
  */
-public class DescriptorUsuario {
+public class DescriptorLista {
     String nombre, fechaCreacion,usuarioCreacion,fechaModificacion,usuarioModificacion;
        int numRegistros,registrosActivos,registrosInactivos,maxReorganizacion;
 
     @Override
     public String toString() {
         return nombre + "\n" + fechaCreacion + "\n" + usuarioCreacion + "\n" + fechaModificacion + "\n" + usuarioModificacion + "\n" + numRegistros + "\n" + registrosActivos + "\n" + registrosInactivos + "\n" + maxReorganizacion;
-    }
-
-    public DescriptorUsuario(String nombre, String fechaCreacion, String usuarioCreacion, String fechaModificacion, String usuarioModificacion, int numRegistros, int registrosActivos, int registrosInactivos, int maxReorganizacion) {
-        this.nombre = nombre;
-        this.fechaCreacion = fechaCreacion;
-        this.usuarioCreacion = usuarioCreacion;
-        this.fechaModificacion = fechaModificacion;
-        this.usuarioModificacion = usuarioModificacion;
-        this.numRegistros = numRegistros;
-        this.registrosActivos = registrosActivos;
-        this.registrosInactivos = registrosInactivos;
-        this.maxReorganizacion = maxReorganizacion;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getFechaCreacion() {
@@ -101,6 +81,16 @@ public class DescriptorUsuario {
     public void setMaxReorganizacion(int maxReorganizacion) {
         this.maxReorganizacion = maxReorganizacion;
     }
- 
-    
+
+    public DescriptorLista(String nombre, String fechaCreacion, String usuarioCreacion, String fechaModificacion, String usuarioModificacion, int numRegistros, int registrosActivos, int registrosInactivos, int maxReorganizacion) {
+        this.nombre = nombre;
+        this.fechaCreacion = fechaCreacion;
+        this.usuarioCreacion = usuarioCreacion;
+        this.fechaModificacion = fechaModificacion;
+        this.usuarioModificacion = usuarioModificacion;
+        this.numRegistros = numRegistros;
+        this.registrosActivos = registrosActivos;
+        this.registrosInactivos = registrosInactivos;
+        this.maxReorganizacion = maxReorganizacion;
+    }
 }

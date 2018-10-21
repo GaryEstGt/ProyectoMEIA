@@ -25,15 +25,20 @@ public class LogIn extends javax.swing.JFrame {
     public LogIn() throws IOException {
         initComponents();
         ProyectoMEIA.usuarioEnUso = null;
-        File usuario, usuarioMaestro, descriptorBitacora, descriptorMaestro;
+        File usuario, usuarioMaestro, descriptorBitacora, descriptorMaestro,lista,listaMaestro,descBit,descListaM;
         
         usuario = new File("C:/MEIA/bitacora_usuario.txt");
         usuarioMaestro = new File("C:/MEIA/usuario.txt");
         descriptorBitacora = new File("C:/MEIA/desc_usuariobitacora.txt");
         descriptorMaestro = new File("C:/MEIA/desc_usuario.txt");
-        
-        if(!usuario.exists())usuario.createNewFile();        
-        if(!usuarioMaestro.exists())usuarioMaestro.createNewFile();        
+         lista = new File("C:/MEIA/bitacora_lista.txt");
+        listaMaestro = new File("C:/MEIA/lista.txt");
+        descBit = new File("C:/MEIA/desc_listabitacora.txt");
+        descListaM = new File("C:/MEIA/desc_lista.txt");
+        if(!usuario.exists())usuario.createNewFile(); 
+        if(!lista.exists())lista.createNewFile(); 
+        if(!usuarioMaestro.exists())usuarioMaestro.createNewFile();  
+        if(!listaMaestro.exists())listaMaestro.createNewFile(); 
         
         if(!descriptorBitacora.exists()){
             descriptorBitacora.createNewFile();
@@ -45,6 +50,17 @@ public class LogIn extends javax.swing.JFrame {
             descriptorMaestro.createNewFile();
             DescriptorUsuario desc = new DescriptorUsuario("usuario.txt"," "," "," "," ",0,0,0,5);
             Escritor.Escribir("C:/MEIA/desc_usuario.txt", desc.toString());
+        }
+          if(!descBit.exists()){
+            descBit.createNewFile();
+            DescriptorLista desc = new DescriptorLista("bitacora_lista.txt"," "," "," "," ",0,0,0,10);
+            Escritor.Escribir("C:/MEIA/desc_listabitacora.txt", desc.toString());
+        }
+        
+        if(!descListaM.exists()){
+            descListaM.createNewFile();
+            DescriptorLista desc = new DescriptorLista("lista.txt"," "," "," "," ",0,0,0,5);
+            Escritor.Escribir("C:/MEIA/desc_lista.txt", desc.toString());
         }
     }
 

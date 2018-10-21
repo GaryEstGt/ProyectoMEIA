@@ -70,6 +70,7 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
         txtTelefono = new javax.swing.JTextField();
         btnDarBaja = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        btnLista = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -176,6 +177,13 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
             }
         });
 
+        btnLista.setText("Listas de Amigos");
+        btnLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -183,12 +191,13 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDarBaja)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(CalendarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CalendarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnLista))
                                 .addGap(28, 28, 28)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnSalir)
@@ -208,8 +217,9 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txtFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28)
-                                .addComponent(btnCambiarfoto)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnCambiarfoto))))
+                    .addComponent(btnDarBaja))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,14 +247,16 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
                     .addComponent(txtFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCambiarfecha)
                     .addComponent(CalendarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnDarBaja)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalir)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalir)
+                    .addComponent(btnLista))
                 .addContainerGap())
         );
 
@@ -511,6 +523,13 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
              JOptionPane.showMessageDialog(null, "Usuario dado de baja del sistema");
     }//GEN-LAST:event_btnDarBajaActionPerformed
 
+    private void btnListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaActionPerformed
+        // TODO add your handling code here:
+                    ManejodeListas log = new ManejodeListas();
+                        log.setVisible(true);                    
+                        this.setVisible(false);
+    }//GEN-LAST:event_btnListaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -610,6 +629,7 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
     private javax.swing.JButton btnCambiarfecha;
     private javax.swing.JButton btnCambiarfoto;
     private javax.swing.JButton btnDarBaja;
+    private javax.swing.JButton btnLista;
     private javax.swing.JButton btnSalir;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
