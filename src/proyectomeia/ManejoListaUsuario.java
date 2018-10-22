@@ -59,7 +59,7 @@ public class ManejoListaUsuario extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel3.setText("Nueva Lista");
 
@@ -132,8 +132,18 @@ public class ManejoListaUsuario extends javax.swing.JFrame {
         });
 
         RDActivado.setText("Activo");
+        RDActivado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RDActivadoActionPerformed(evt);
+            }
+        });
 
         RDDesactivado.setText("Desactivo");
+        RDDesactivado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RDDesactivadoActionPerformed(evt);
+            }
+        });
 
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -248,6 +258,11 @@ public class ManejoListaUsuario extends javax.swing.JFrame {
         jTabbedPane1.addTab("Eliminar Lista", jPanel2);
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -453,6 +468,24 @@ public class ManejoListaUsuario extends javax.swing.JFrame {
             Logger.getLogger(ManejodeListas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        OpcionesUsuario log=null;
+        log = new OpcionesUsuario();
+                        log.setVisible(true);                    
+                        this.setVisible(false);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void RDActivadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RDActivadoActionPerformed
+        // TODO add your handling code here:
+        RDDesactivado.setSelected(false);
+    }//GEN-LAST:event_RDActivadoActionPerformed
+
+    private void RDDesactivadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RDDesactivadoActionPerformed
+        // TODO add your handling code here:
+        RDActivado.setSelected(false);
+    }//GEN-LAST:event_RDDesactivadoActionPerformed
 
     /**
      * @param args the command line arguments

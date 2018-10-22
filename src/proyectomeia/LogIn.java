@@ -254,9 +254,17 @@ public class LogIn extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
+        DescriptorLista descBitacoraLista=SecuencialLista.obtenerDescriptorLista(2);
         if(descBitacora.getNumRegistros()!=0){
             try {
                 OperacionesSecuencial.LlenarUsuariosMaestro();
+            } catch (IOException ex) {
+                Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+          if(descBitacoraLista.getNumRegistros()!=0){
+            try {
+               SecuencialLista.LlenarListasMaestro();
             } catch (IOException ex) {
                 Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
             }
