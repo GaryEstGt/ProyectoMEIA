@@ -524,10 +524,7 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
     }//GEN-LAST:event_btnDarBajaActionPerformed
 
     private void btnListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaActionPerformed
-        // TODO add your handling code here:
-                    ManejodeListas log = new ManejodeListas();
-                        log.setVisible(true);                    
-                        this.setVisible(false);
+        // TODO add your handling code here:        
     }//GEN-LAST:event_btnListaActionPerformed
 
     /**

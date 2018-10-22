@@ -43,6 +43,7 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
         btnModificarDatos = new javax.swing.JButton();
         btnBuscarUsuarios = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        btnAdminLista = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -81,6 +82,13 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
             }
         });
 
+        btnAdminLista.setText("Administrar Listas");
+        btnAdminLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminListaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,11 +101,12 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
                             .addComponent(btnBackUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnIngresarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnModificarDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBuscarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnBuscarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAdminLista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(117, 117, 117))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
+                        .addGap(25, 25, 25))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,8 +120,10 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnBackUp)
                 .addGap(18, 18, 18)
+                .addComponent(btnAdminLista)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(btnSalir)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -201,6 +212,18 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
                         this.setVisible(false);
     }//GEN-LAST:event_btnBuscarUsuariosActionPerformed
 
+    private void btnAdminListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminListaActionPerformed
+        // TODO add your handling code here:
+         ManejodeListas log=null;
+        try {
+            log = new ManejodeListas();
+        } catch (IOException ex) {
+            Logger.getLogger(OpcionesUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                        log.setVisible(true);                    
+                        this.setVisible(false);
+    }//GEN-LAST:event_btnAdminListaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -249,6 +272,7 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnIngresarUsuarios;
+    private javax.swing.JButton btnAdminLista;
     private javax.swing.JButton btnBackUp;
     private javax.swing.JButton btnBuscarUsuarios;
     private javax.swing.JButton btnModificarDatos;

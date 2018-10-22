@@ -86,15 +86,15 @@ public class Lista  {
     }
 
 }
-class Compare implements Comparator<Lista>{
+class CompareLista implements Comparator<Lista>{
 
     @Override
     public int compare(Lista o1, Lista o2) {
-           if(o1.nombreLista.compareToIgnoreCase(o2.nombreLista) == 0)
+          if(o1.getNombreLista().compareTo(o2.getNombreLista()) == 0)
         {                        
-                return o1.Usuario.compareTo(o2.Usuario);
+                return o1.getUsuario().compareTo(o2.getUsuario());
         } else {
-            return o1.nombreLista.compareToIgnoreCase(o1.nombreLista);
+            return o1.getNombreLista().compareTo(o2.getNombreLista());
         }   
     }
     

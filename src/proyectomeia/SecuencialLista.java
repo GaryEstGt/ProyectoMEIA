@@ -76,18 +76,37 @@ public class SecuencialLista {
         
     }   
     public static void LlenarListasMaestro() throws IOException{
+       
         LinkedList<Lista> listaBitacora=obtenerListas(1);
+        if(obtenerDescriptorLista(2).getNumRegistros()!=0){
+            for (int i = 0; i < listaBitacora.size(); i++) {
+            if(listaBitacora.get(i).getEstatus()==0){
+                listaBitacora.remove(i);
+            }
+         }
+        }
         LinkedList<Lista> listaListas=obtenerListas(2);
+        if(obtenerDescriptorLista(1).getNumRegistros()!=0){
+            for (int i = 0; i < listaListas.size(); i++) {
+            if(listaListas.get(i).getEstatus()==0){
+                listaListas.remove(i);
+            }
+         }
+        }
+
         DescriptorLista descListas=obtenerDescriptorLista(1);
         DescriptorLista descBitacora=obtenerDescriptorLista(2);
         LinkedList<Lista> nuevaLista=new LinkedList<>();
-        if(descListas.getNumRegistros()!=0){
+        if(descListas.getNumRegistros()!=0 && descBitacora.getNumRegistros()!=0){
             listaBitacora.forEach((list) -> {nuevaLista.add(list);});
             listaListas.forEach((list) -> {nuevaLista.add(list);}); 
-        }else{
-            listaBitacora.forEach((list) -> {nuevaLista.add(list);});
+        }else if(descBitacora.getNumRegistros()==0){
+            listaListas.forEach((list) -> {nuevaLista.add(list);}); 
         }
-        Collections.sort(nuevaLista, new Compare());
+        else{
+             listaBitacora.forEach((list) -> {nuevaLista.add(list);});
+        }
+        Collections.sort(nuevaLista, new CompareLista());
         rellenarListasMaestro(nuevaLista);
         Date fecha=new Date();
         descBitacora.setFechaModificacion(fecha.toString());
@@ -107,6 +126,14 @@ public class SecuencialLista {
         rellenarDescriptorLista(descBitacora,2); 
         
     }
+    
+
+    /**
+     *
+     * @param lista
+     * @param retorno
+     * @return
+     */
     public static int contarActivos(LinkedList<Lista> lista,int retorno){
         int contActivos=0;
         int contInactivos=0;
