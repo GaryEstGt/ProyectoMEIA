@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,12 +22,16 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
      */
     public ManejoUsuariosEnListas() throws IOException {        
         initComponents();        
-        LlenarComboboxUsuario();        
+        LlenarComboboxUsuario();                
         
         if(ProyectoMEIA.usuarioEnUso.getRol() == 1){
             cmbUsuario.setEnabled(true);
+            cmbUsuario1.setEnabled(true);
         }else{
             cmbUsuario.setEnabled(false);
+            cmbUsuario1.setEnabled(false);
+            cmbUsuario.setSelectedItem(ProyectoMEIA.usuarioEnUso.getUsuario());
+            cmbUsuario1.setSelectedItem(ProyectoMEIA.usuarioEnUso.getUsuario());
         }
     }
 
@@ -51,6 +56,13 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
         btnAsociarUsuario = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        cmbUsuario1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        cmbLista1 = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        cmbUsuarioAsociado1 = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        btnDesasociarUsuario = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -140,15 +152,69 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Buscar un usuario", jPanel2);
 
+        cmbUsuario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbUsuario1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Seleccione el usuario");
+
+        cmbLista1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbLista1ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Seleccione la lista");
+
+        jLabel6.setText("Seleccione el usuario que desea asociar");
+
+        btnDesasociarUsuario.setText("Eliminar usuario");
+        btnDesasociarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesasociarUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbUsuarioAsociado1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbLista1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)))
+                    .addComponent(btnDesasociarUsuario))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 244, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbLista1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbUsuarioAsociado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(31, 31, 31)
+                .addComponent(btnDesasociarUsuario)
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Eliminar un usuario", jPanel5);
@@ -201,32 +267,23 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(!cmbUsuario.getSelectedItem().toString().isEmpty() && !cmbLista.getSelectedItem().toString().isEmpty()
             && !cmbUsuarioAsociado.getSelectedItem().toString().isEmpty()){
-
-            Lista lista = null;
-            Usuario usuario = null, usuarioAsociado = null;
-            try {
-                lista = Lista_Usuario.EncontrarLista(cmbLista.getSelectedItem().toString(), cmbUsuario.getSelectedItem().toString());
-            } catch (IOException ex) {
-                Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            try {
-                usuario = Lista_Usuario.buscarUsuario(cmbUsuario.getSelectedItem().toString());
-            } catch (IOException ex) {
-                Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            try {
-                usuarioAsociado = Lista_Usuario.buscarUsuario(cmbUsuarioAsociado.getSelectedItem().toString());
-            } catch (IOException ex) {
-                Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            try {
-                Lista_Usuario.AsociarNuevoUsuario(lista, usuario, usuarioAsociado);
-            } catch (IOException ex) {
-                Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            try{
+                Lista lista = null;
+                Usuario usuario = null, usuarioAsociado = null;            
+                
+                lista = Lista_Usuario.EncontrarLista(cmbLista.getSelectedItem().toString(), cmbUsuario.getSelectedItem().toString());            
+            
+                usuario = Lista_Usuario.buscarUsuario(cmbUsuario.getSelectedItem().toString());            
+            
+                usuarioAsociado = Lista_Usuario.buscarUsuario(cmbUsuarioAsociado.getSelectedItem().toString());                                            
+                        
+                Lista_Usuario.AsociarNuevoUsuario(lista, usuario, usuarioAsociado);            
+            }catch(IOException e){
+                JOptionPane.showMessageDialog(null, "Error al asociar usuario");
+            }           
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario, lista y usuario asociado");
         }
     }//GEN-LAST:event_btnAsociarUsuarioActionPerformed
 
@@ -238,6 +295,52 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
             Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cmbUsuarioActionPerformed
+
+    private void cmbUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUsuario1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            LlenarComboboxLista1();
+        } catch (IOException ex) {
+            Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cmbUsuario1ActionPerformed
+
+    private void btnDesasociarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesasociarUsuarioActionPerformed
+        // TODO add your handling code here:
+        if(!cmbUsuario1.getSelectedItem().toString().isEmpty() && !cmbLista1.getSelectedItem().toString().isEmpty()
+            && !cmbUsuarioAsociado1.getSelectedItem().toString().isEmpty()){
+            
+            if(Lista_Usuario.obtenerDescriptorIndice().getRegistrosActivos()!= 0){
+                try{
+                    Lista lista = null;
+                    Usuario usuario = null, usuarioAsociado = null;                
+                    
+                    lista = Lista_Usuario.EncontrarLista(cmbLista1.getSelectedItem().toString(), cmbUsuario1.getSelectedItem().toString());                
+                
+                    usuario = Lista_Usuario.buscarUsuario(cmbUsuario1.getSelectedItem().toString());                
+                
+                    usuarioAsociado = Lista_Usuario.buscarUsuario(cmbUsuarioAsociado1.getSelectedItem().toString());                
+                
+                    Lista_Usuario.EliminarUsuario(lista, usuario, usuarioAsociado);                
+                    
+                }catch(IOException e){
+                    JOptionPane.showMessageDialog(null, "Error al eliminar usuario de la lista");
+                }                
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No hay usuarios asociados");
+            }           
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario, lista y usuario asociado");
+        }
+    }//GEN-LAST:event_btnDesasociarUsuarioActionPerformed
+
+    private void cmbLista1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLista1ActionPerformed
+        
+            // TODO add your handling code here:
+            //LlenarComboboxUsuarioAsociado1();        
+    }//GEN-LAST:event_cmbLista1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,16 +382,23 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
     }
     
     public void LlenarComboboxUsuario() throws IOException{
-        cmbUsuario.removeAllItems();        
-        cmbUsuarioAsociado.removeAllItems();
+        cmbUsuario.removeAllItems();                
+        cmbUsuarioAsociado.removeAllItems();        
+        cmbUsuario1.removeAllItems();                
+        cmbUsuarioAsociado1.removeAllItems(); 
+        
         OperacionesSecuencial.LlenarUsuariosMaestro();
         
         LinkedList<Usuario> usuarios = OperacionesSecuencial.obtenerUsuarios(2);
         for (int i = 0; i < usuarios.size(); i++) {
-            cmbUsuario.addItem(usuarios.get(i).getUsuario());
-            cmbUsuarioAsociado.addItem(usuarios.get(i).getUsuario());
+            if(usuarios.get(i).getEstatus() != 0){
+                cmbUsuario.addItem(usuarios.get(i).getUsuario());
+                cmbUsuarioAsociado.addItem(usuarios.get(i).getUsuario());
+                cmbUsuario1.addItem(usuarios.get(i).getUsuario());            
+                cmbUsuarioAsociado1.addItem(usuarios.get(i).getUsuario());
+            }            
         }                                
-    }
+    }        
     
     public void LlenarComboboxLista() throws IOException{
         cmbLista.removeAllItems();
@@ -296,21 +406,40 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
         
         LinkedList<Lista> listas = SecuencialLista.obtenerListas(2);        
         for (int i = 0; i < listas.size(); i++) {
-            if(listas.get(i).getUsuario().equals(cmbUsuario.getSelectedItem().toString())){
+            if(listas.get(i).getUsuario().equals(cmbUsuario.getSelectedItem().toString()) && listas.get(i).getEstatus() != 0){
                 cmbLista.addItem(listas.get(i).getNombreLista());
+            }
+        }
+    }        
+    
+    public void LlenarComboboxLista1() throws IOException{
+        cmbLista1.removeAllItems();
+        SecuencialLista.LlenarListasMaestro();
+        
+        LinkedList<Lista> listas = SecuencialLista.obtenerListas(2);        
+        for (int i = 0; i < listas.size(); i++) {
+            if(listas.get(i).getUsuario().equals(cmbUsuario1.getSelectedItem().toString()) && listas.get(i).getEstatus() != 0){
+                cmbLista1.addItem(listas.get(i).getNombreLista());
             }
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsociarUsuario;
+    private javax.swing.JButton btnDesasociarUsuario;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cmbLista;
+    private javax.swing.JComboBox<String> cmbLista1;
     private javax.swing.JComboBox<String> cmbUsuario;
+    private javax.swing.JComboBox<String> cmbUsuario1;
     private javax.swing.JComboBox<String> cmbUsuarioAsociado;
+    private javax.swing.JComboBox<String> cmbUsuarioAsociado1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -318,3 +447,4 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
+
