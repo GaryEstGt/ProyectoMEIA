@@ -151,11 +151,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\garya\Documents\Gary URL\Cuarto Ciclo 2018\Manejo e implementaci&#xf3;n de archivos\logo peque&#xf1;o.png"/>
-        </Property>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -103,8 +103,13 @@ public class OperacionesSecuencial {
         DescriptorUsuario descBitacora=obtenerDescriptorUsuario(2);
         LinkedList<Usuario> nuevaLista=new LinkedList<>();
         if(descUser.getNumRegistros()!=0){
-            listaBitacora.forEach((user) -> {nuevaLista.add(user);});
-            listaUsuarios.forEach((user) -> {nuevaLista.add(user);}); 
+            if(listaBitacora !=null){
+                listaBitacora.forEach((user) -> {nuevaLista.add(user);});
+            }            
+            
+            if(listaUsuarios != null){
+                listaUsuarios.forEach((user) -> {nuevaLista.add(user);}); 
+            }            
         }else{
             listaBitacora.forEach((user) -> {nuevaLista.add(user);});
         }

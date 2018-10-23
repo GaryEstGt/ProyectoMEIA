@@ -5,6 +5,11 @@
  */
 package proyectomeia;
 
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author luise
@@ -14,8 +19,15 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
     /**
      * Creates new form ManejoUsuariosEnListas
      */
-    public ManejoUsuariosEnListas() {
-        initComponents();
+    public ManejoUsuariosEnListas() throws IOException {        
+        initComponents();        
+        LlenarComboboxUsuario();        
+        
+        if(ProyectoMEIA.usuarioEnUso.getRol() == 1){
+            cmbUsuario.setEnabled(true);
+        }else{
+            cmbUsuario.setEnabled(false);
+        }
     }
 
     /**
@@ -30,9 +42,16 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        cmbUsuario = new javax.swing.JComboBox<>();
+        cmbLista = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cmbUsuarioAsociado = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        btnAsociarUsuario = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        btnRegresar = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -47,15 +66,63 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        cmbUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbUsuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Seleccione el usuario");
+
+        jLabel2.setText("Seleccione la lista");
+
+        jLabel3.setText("Seleccione el usuario que desea asociar");
+
+        btnAsociarUsuario.setText("Asociar usuario");
+        btnAsociarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsociarUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbUsuarioAsociado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbLista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)))
+                    .addComponent(btnAsociarUsuario))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbUsuarioAsociado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(31, 31, 31)
+                .addComponent(btnAsociarUsuario)
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Agregar un usuario", jPanel1);
@@ -68,23 +135,10 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGap(0, 244, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Buscar un usuario", jPanel2);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Modificar un usuario", jPanel3);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -94,10 +148,17 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGap(0, 244, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Eliminar un usuario", jPanel5);
+
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,16 +167,77 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(209, 209, 209)
+                .addComponent(btnRegresar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRegresar))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        if(ProyectoMEIA.usuarioEnUso.getRol() == 1){
+            OpcionesAdministrador opcionesAdministrador = new OpcionesAdministrador();
+            opcionesAdministrador.setVisible(true);
+            this.setVisible(false);
+        }
+        else{
+            OpcionesUsuario opcionesUsuario = new OpcionesUsuario();
+            opcionesUsuario.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnAsociarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsociarUsuarioActionPerformed
+        // TODO add your handling code here:
+        if(!cmbUsuario.getSelectedItem().toString().isEmpty() && !cmbLista.getSelectedItem().toString().isEmpty()
+            && !cmbUsuarioAsociado.getSelectedItem().toString().isEmpty()){
+
+            Lista lista = null;
+            Usuario usuario = null, usuarioAsociado = null;
+            try {
+                lista = Lista_Usuario.EncontrarLista(cmbLista.getSelectedItem().toString(), cmbUsuario.getSelectedItem().toString());
+            } catch (IOException ex) {
+                Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                usuario = Lista_Usuario.buscarUsuario(cmbUsuario.getSelectedItem().toString());
+            } catch (IOException ex) {
+                Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                usuarioAsociado = Lista_Usuario.buscarUsuario(cmbUsuarioAsociado.getSelectedItem().toString());
+            } catch (IOException ex) {
+                Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                Lista_Usuario.AsociarNuevoUsuario(lista, usuario, usuarioAsociado);
+            } catch (IOException ex) {
+                Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnAsociarUsuarioActionPerformed
+
+    private void cmbUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUsuarioActionPerformed
+        try {
+            // TODO add your handling code here:
+            LlenarComboboxLista();
+        } catch (IOException ex) {
+            Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cmbUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,15 +269,50 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManejoUsuariosEnListas().setVisible(true);
+                try {
+                    new ManejoUsuariosEnListas().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
+    
+    public void LlenarComboboxUsuario() throws IOException{
+        cmbUsuario.removeAllItems();        
+        cmbUsuarioAsociado.removeAllItems();
+        OperacionesSecuencial.LlenarUsuariosMaestro();
+        
+        LinkedList<Usuario> usuarios = OperacionesSecuencial.obtenerUsuarios(2);
+        for (int i = 0; i < usuarios.size(); i++) {
+            cmbUsuario.addItem(usuarios.get(i).getUsuario());
+            cmbUsuarioAsociado.addItem(usuarios.get(i).getUsuario());
+        }                                
+    }
+    
+    public void LlenarComboboxLista() throws IOException{
+        cmbLista.removeAllItems();
+        SecuencialLista.LlenarListasMaestro();
+        
+        LinkedList<Lista> listas = SecuencialLista.obtenerListas(2);        
+        for (int i = 0; i < listas.size(); i++) {
+            if(listas.get(i).getUsuario().equals(cmbUsuario.getSelectedItem().toString())){
+                cmbLista.addItem(listas.get(i).getNombreLista());
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAsociarUsuario;
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<String> cmbLista;
+    private javax.swing.JComboBox<String> cmbUsuario;
+    private javax.swing.JComboBox<String> cmbUsuarioAsociado;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JTabbedPane jTabbedPane1;

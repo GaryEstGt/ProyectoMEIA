@@ -40,8 +40,16 @@ public class DescriptorIndice {
     public void setRegistrosInactivos(int registrosInactivos) {
         this.registrosInactivos = registrosInactivos;
     }  
+    
+    public int getRegistroInicio() {
+        return registroInicio;
+    }
 
-    public DescriptorIndice(int numRegistros, int resitroInicio, int registrosActivos, int registrosInactivos) {        
+    public void setRegistroInicio(int registroInicio) {
+        this.registroInicio = registroInicio;
+    } 
+
+    public DescriptorIndice(int numRegistros, int registroInicio, int registrosActivos, int registrosInactivos) {        
         this.numRegistros = numRegistros;
         this.registroInicio = registroInicio;
         this.registrosActivos = registrosActivos;

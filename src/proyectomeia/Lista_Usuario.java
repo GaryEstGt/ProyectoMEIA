@@ -5,25 +5,209 @@
  */
 package proyectomeia;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author luise
  */
-public class Lista_Usuario {            
-    public static int FixedSize = 116;
+public class Lista_Usuario {                        
     
-    public static String toFixedSizeString(String nombreLista, String usuario, String usuarioAsociado, String descripcion, int estatus){
-        return String.format("%-30s", nombreLista) + "|" + String.format("%-20s", usuario) + "|" + String.format("%-20s", usuarioAsociado) +
-                "|" + String.format("%-40s", descripcion) +"|" + estatus + "\n";
+    public static void AsociarNuevoUsuario(Lista lista, Usuario usuario, Usuario usuarioAsociado) throws IOException{
+        boolean resultado = false;
+        UsuarioLista nuevo = new UsuarioLista(lista.getNombreLista(), usuario.getUsuario(),usuarioAsociado.getUsuario(),lista.getDescripcion(),1);                
+        DescriptorUsuarioLista descriptor = obtenerDescriptorUsuarioLista();
+        
+        if(obtenerDescriptorUsuarioLista().getNumRegistros() == 0){
+            Escritor.Escribir("C:/MEIA/Lista_usuario.txt", nuevo.toFixedSizeString());
+            Date fecha = new Date();
+            descriptor.setFechaCreacion(fecha.toString());
+            descriptor.setUsuarioCreacion(usuario.getUsuario());
+            resultado = true;
+        }
+        else{
+            if(!verSiExisteUsuarioLista(nuevo)){                
+                Escritor.Escribir("C:/MEIA/Lista_usuario.txt", Lector.Obtener("C:/MEIA/Lista_usuario.txt") + nuevo.toFixedSizeString());
+                resultado = true;
+            }                        
+        }
+        
+        if(resultado){            
+            descriptor.setNumRegistros(descriptor.getNumRegistros() + 1);
+            descriptor.setRegistrosActivos(descriptor.getRegistrosActivos() + 1);
+            
+            rellenarDescriptorUsuarioLista(descriptor);
+            
+            AgregarNuevoIndice(nuevo);                        
+            
+            actualizarCantidadUsuarios(lista, true);
+        }                    
     }
     
-    public static void AsociarUsuario(Lista lista, Usuario usuario){
-        String nuevo = toFixedSizeString(lista.nombreLista, ProyectoMEIA.usuarioEnUso.getUsuario(),usuario.getUsuario(),lista.getDescripcion(),1);        
-        EscritorListaUsuario.Escribir("C:/MEIA/bitacora_usuario.txt", nuevo,obtenerDescriptorUsuarioLista().numRegistros + 1, FixedSize);
-        DescriptorUsuarioLista descriptor = obtenerDescriptorUsuarioLista();
-        descriptor.setNumRegistros(descriptor.getNumRegistros() + 1);
-        descriptor.setRegistrosActivos(descriptor.getRegistrosActivos() + 1);
-        rellenarDescriptorUsuarioLista(descriptor);
+    public static void EliminarUsuario(Lista lista, Usuario usuario, Usuario usuarioAsociado){
+        
+    }
+    
+    
+    
+    
+    private static void AgregarNuevoIndice(UsuarioLista nuevo){
+        boolean resultado = true;
+        Indice indiceNuevo = new Indice((obtenerDescriptorIndice().getNumRegistros() + 1), "1." + (obtenerDescriptorIndice().getNumRegistros() + 1), 
+                nuevo.getNombreLista(), nuevo.getUsuario(), nuevo.getUsuarioAsociado(), 0, 1);
+        DescriptorIndice descriptorIndice = obtenerDescriptorIndice();
+                
+        if(obtenerDescriptorIndice().getNumRegistros() == 0){            
+            Escritor.Escribir("C:/MEIA/indice_Lista_usuario.txt", indiceNuevo.toFixedSizeString());            
+            descriptorIndice.setNumRegistros(1);
+            descriptorIndice.setRegistroInicio(1);
+            descriptorIndice.setRegistrosActivos(1);       
+            
+            rellenarDescriptorIndice(descriptorIndice);
+        }else{     
+            LinkedList<Indice> indices = obtenerIndiceListasUsuario();            
+                        
+            int posicion = descriptorIndice.getRegistroInicio() - 1;
+            
+            while(true){
+                if(indiceNuevo.getNombreLista().compareTo(indices.get(posicion).getNombreLista()) <= -1){
+                    break;
+                }
+                else if(indiceNuevo.getNombreLista().compareTo(indices.get(posicion).getNombreLista()) == 0){
+                    if(indiceNuevo.getUsuario().compareTo(indices.get(posicion).getUsuario()) == -1){
+                        break;
+                    }
+                    else if(indiceNuevo.getUsuario().compareTo(indices.get(posicion).getUsuario()) == 0){
+                        if(indiceNuevo.getUsuarioAsociado().compareTo(indices.get(posicion).getUsuarioAsociado()) <= -1){
+                            break;
+                        }          
+                        else if(indiceNuevo.getUsuarioAsociado().compareTo(indices.get(posicion).getUsuarioAsociado()) >= 1){
+                            if(indices.get(posicion).getSiguiente() == 0){                                
+                                break;
+                            }
+                            else if(indiceNuevo.getUsuarioAsociado().compareTo(indices.get(indices.get(posicion).getSiguiente() - 1).getUsuarioAsociado()) <= -1){
+                                break;
+                            }
+                            else{
+                                posicion = indices.get(posicion).getSiguiente() - 1;
+                            }                            
+                        }
+                    }
+                    else if(indiceNuevo.getUsuario().compareTo(indices.get(posicion).getUsuario()) >= 1){
+                        if(indices.get(posicion).getSiguiente() == 0){                                
+                                break;
+                            }
+                            else if(indiceNuevo.getUsuario().compareTo(indices.get(indices.get(posicion).getSiguiente() - 1).getUsuario()) <= -1){
+                                break;
+                            }
+                            else{
+                                posicion = indices.get(posicion).getSiguiente() - 1;
+                            }                            
+                    }
+                }
+                else if(indiceNuevo.getNombreLista().compareTo(indices.get(posicion).getNombreLista()) >= 1){
+                    if(indices.get(posicion).getSiguiente() == 0){                                
+                                break;
+                            }
+                            else if(indiceNuevo.getNombreLista().compareTo(indices.get(indices.get(posicion).getSiguiente() - 1).getNombreLista()) <= -1){
+                                break;
+                            }
+                            else{
+                                posicion = indices.get(posicion).getSiguiente() - 1;
+                            }                            
+                }
+            }
+            
+            if(indices.get(posicion).getSiguiente() != 0){
+                if((posicion == (descriptorIndice.getRegistroInicio() - 1)) && (indiceNuevo.getNombreLista().compareTo(indices.get(0).getNombreLista()) <= -1 ||
+                        indiceNuevo.getUsuario().compareTo(indices.get(0).getUsuario()) <= -1 || indiceNuevo.getUsuarioAsociado().compareTo(indices.get(0).getUsuarioAsociado()) <= -1)){
+                    descriptorIndice.setRegistroInicio(indiceNuevo.getNumeroRegistro());
+                    indiceNuevo.setSiguiente(indices.get(posicion).getNumeroRegistro());
+                }
+                else{
+                    indiceNuevo.setSiguiente(indices.get(posicion).getSiguiente());
+                    indices.get(posicion).setSiguiente(indiceNuevo.getNumeroRegistro());
+                }                        
+            }
+            else{
+                indices.get(posicion).setSiguiente(indiceNuevo.getNumeroRegistro());
+            }            
+            
+            indices.add(indiceNuevo);
+            descriptorIndice.setNumRegistros(descriptorIndice.getNumRegistros() + 1);
+            descriptorIndice.setRegistrosActivos(descriptorIndice.getRegistrosActivos() + 1);
+            
+            rellenarDescriptorIndice(descriptorIndice);
+            rellenarIndiceListasUsuario(indices);            
+        }
+    }        
+    
+    public static LinkedList<Indice> obtenerIndiceListasUsuario(){
+        String contenido="";        
+        contenido=Lector.Obtener("C:/MEIA/indice_Lista_usuario.txt");
+        
+        if(!contenido.isEmpty()){
+            String[] datos=contenido.split("\n");
+            LinkedList<Indice> lista=new LinkedList<>();
+            for (int i = 0; i < datos.length; i++){   
+                String[] campos = datos[i].split("\\|");
+                Indice indice = new Indice(Integer.parseInt(campos[0].trim()),campos[1].trim(),campos[2].trim(),campos[3].trim(),campos[4].trim(),Integer.parseInt(campos[5].trim()),Integer.parseInt(campos[6].trim()));
+                lista.add(indice);
+            }
+            return lista;            
+        }   
+        else{
+            return null;
+        }
+    }
+    
+    public static void rellenarIndice(LinkedList<Indice> indices){
+        String cadena = "";
+        
+        for (int i = 0; i < indices.size(); i++) {
+            cadena += indices.get(i).toFixedSizeString() + "\n";
+        }
+        
+        Escritor.Escribir("C:/MEIA/indice_Lista_usuario.txt", cadena);
+    }
+    
+    public static void rellenarIndiceListasUsuario(LinkedList<Indice> lista){
+        String textoEscribir="";
+        for(Indice list:lista){
+            textoEscribir+=list.toFixedSizeString()+"\n";
+        }
+        Escritor.Escribir("C:/MEIA/indice_Lista_Usuario.txt", textoEscribir);
+    }
+    
+    public static LinkedList<UsuarioLista> obtenerListasUsuario(){
+        String contenido="";        
+        contenido=Lector.Obtener("C:/MEIA/Lista_usuario.txt");
+                        
+        if(!contenido.isEmpty()){
+            String[] datos=contenido.split("\n");
+            LinkedList<UsuarioLista> lista=new LinkedList<>();
+            for (int i = 0; i < datos.length; i++){                                
+                String[] campos = datos[i].split("\\|");
+                UsuarioLista usuarioLista = new UsuarioLista(campos[0].trim(),campos[1].trim(),campos[2].trim(),campos[3].trim(),Integer.parseInt(campos[4].trim()));
+                lista.add(usuarioLista);
+            }
+            return lista;            
+        }   
+        else{
+            return null;
+        }
+    }
+    
+    public static void rellenarListasUsuario(LinkedList<UsuarioLista> lista){
+        String textoEscribir="";
+        for(UsuarioLista list:lista){
+            textoEscribir+=list.toFixedSizeString()+"\n";
+        }
+        Escritor.Escribir("C:/MEIA/Lista_Usuario.txt", textoEscribir);
     }
     
     public static DescriptorUsuarioLista obtenerDescriptorUsuarioLista(){
@@ -37,4 +221,83 @@ public class Lista_Usuario {
         Escritor.Escribir("C:/MEIA/desc_usuarioLista.txt", descriptor.toString());                        
     }
     
+    public static DescriptorIndice obtenerDescriptorIndice(){
+        String contenido="";                                   
+        contenido=Lector.Obtener("C:/MEIA/desc_indice.txt");        
+        String[] campos=contenido.split("\n");        
+        return new DescriptorIndice(Integer.parseInt(campos[0]), Integer.parseInt(campos[1]),Integer.parseInt(campos[2]),Integer.parseInt(campos[3]));      
+    }
+    
+    public static void rellenarDescriptorIndice(DescriptorIndice descriptor){        
+        Escritor.Escribir("C:/MEIA/desc_indice.txt", descriptor.toString());                        
+    }
+    
+    public static boolean verSiExisteUsuarioLista(UsuarioLista usuarioLista){
+        boolean resultado = false;
+        LinkedList<UsuarioLista> lista = obtenerListasUsuario();
+        
+        for (int posicion = 0; posicion < lista.size(); posicion++) {
+            if(usuarioLista.getNombreLista().compareTo(lista.get(posicion).getNombreLista()) == 0){
+                if(usuarioLista.getUsuario().compareTo(lista.get(posicion).getUsuario()) == 0){
+                    if(usuarioLista.getUsuarioAsociado().compareTo(lista.get(posicion).getUsuarioAsociado()) == 0){
+                        resultado = true;
+                    }
+                }                
+            }            
+        }        
+        
+        return resultado;
+    }      
+    
+    public static Lista EncontrarLista(String nombre,String usuario) throws IOException{
+        Lista ListaEncontrada=null;
+              SecuencialLista.LlenarListasMaestro();        
+        for(Lista list:SecuencialLista.obtenerListas(2)){
+            if(list.getNombreLista().equals(nombre)&&list.getUsuario().equals(usuario)){
+                ListaEncontrada=list;
+            }
+        }
+        return ListaEncontrada;
+    }
+    
+    public static Usuario buscarUsuario(String usuario) throws IOException{
+        
+        DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
+            if(descBitacora.getNumRegistros()!=0){
+                try {
+                    OperacionesSecuencial.LlenarUsuariosMaestro();                
+                } catch (IOException ex) {
+                    Logger.getLogger(ManejoUsuariosEnListas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        LinkedList<Usuario> usuarios=OperacionesSecuencial.obtenerUsuarios(2);
+                        
+        Usuario UsuarioEncontrado=null;   
+        
+        for(Usuario list:usuarios){
+            if(list.getUsuario().equals(usuario)){
+                UsuarioEncontrado=list;
+            }
+        }
+        return UsuarioEncontrado;
+    }
+    
+    private static void actualizarCantidadUsuarios(Lista lista, boolean agregar) throws IOException{
+        SecuencialLista.LlenarListasMaestro();
+            LinkedList<Lista> listas = SecuencialLista.obtenerListas(2);
+                                                
+            for (int i = 0; i < listas.size(); i++) {
+                if(listas.get(i).getNombreLista().equals(lista.getNombreLista()) && listas.get(i).getUsuario().equals(lista.getUsuario())){
+                    if(agregar){
+                        listas.get(i).setNumeroUsuarios(listas.get(i).getNumeroUsuarios() + 1);
+                    }
+                    else{
+                        listas.get(i).setNumeroUsuarios(listas.get(i).getNumeroUsuarios() - 1);
+                    }                    
+                    break;
+                }
+            }
+            
+            SecuencialLista.rellenarListasMaestro(listas);
+    }
 }

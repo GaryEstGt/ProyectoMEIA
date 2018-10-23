@@ -25,20 +25,28 @@ public class LogIn extends javax.swing.JFrame {
     public LogIn() throws IOException {
         initComponents();
         ProyectoMEIA.usuarioEnUso = null;
-        File usuario, usuarioMaestro, descriptorBitacora, descriptorMaestro,lista,listaMaestro,descBit,descListaM;
+        File usuario, usuarioMaestro, descriptorBitacora, descriptorMaestro,lista,listaMaestro,descBit,descListaM, usuarioLista, indice, 
+                descUsuarioLista, descIndice;
         
         usuario = new File("C:/MEIA/bitacora_usuario.txt");
         usuarioMaestro = new File("C:/MEIA/usuario.txt");
         descriptorBitacora = new File("C:/MEIA/desc_usuariobitacora.txt");
         descriptorMaestro = new File("C:/MEIA/desc_usuario.txt");
-         lista = new File("C:/MEIA/bitacora_lista.txt");
+        lista = new File("C:/MEIA/bitacora_lista.txt");
         listaMaestro = new File("C:/MEIA/lista.txt");
         descBit = new File("C:/MEIA/desc_listabitacora.txt");
         descListaM = new File("C:/MEIA/desc_lista.txt");
+        usuarioLista = new File("C:/MEIA/Lista_usuario.txt");
+        descUsuarioLista = new File("C:/MEIA/desc_usuarioLista.txt");
+        indice = new File("C:/MEIA/indice_Lista_usuario.txt");
+        descIndice = new File("C:/MEIA/desc_indice.txt");
+        
         if(!usuario.exists())usuario.createNewFile(); 
         if(!lista.exists())lista.createNewFile(); 
         if(!usuarioMaestro.exists())usuarioMaestro.createNewFile();  
         if(!listaMaestro.exists())listaMaestro.createNewFile(); 
+        if(!usuarioLista.exists())usuarioLista.createNewFile();
+        if(!indice.exists())indice.createNewFile();
         
         if(!descriptorBitacora.exists()){
             descriptorBitacora.createNewFile();
@@ -61,6 +69,18 @@ public class LogIn extends javax.swing.JFrame {
             descListaM.createNewFile();
             DescriptorLista desc = new DescriptorLista("lista.txt"," "," "," "," ",0,0,0,5);
             Escritor.Escribir("C:/MEIA/desc_lista.txt", desc.toString());
+        }
+        
+        if(!descUsuarioLista.exists()){
+            descUsuarioLista.createNewFile();
+            DescriptorUsuarioLista desc = new DescriptorUsuarioLista(" "," ",0,0,0);
+            Escritor.Escribir("C:/MEIA/desc_usuarioLista.txt", desc.toString());
+        }
+        
+        if(!descIndice.exists()){
+            descIndice.createNewFile();
+            DescriptorIndice desc = new DescriptorIndice(0,0,0,0);
+            Escritor.Escribir("C:/MEIA/desc_indice.txt", desc.toString());
         }
     }
 
@@ -188,7 +208,14 @@ public class LogIn extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(!txtUsuario.getText().isEmpty()){
             if(!txtContraseña.getText().isEmpty()){
-                LinkedList<Usuario> lista = OperacionesSecuencial.obtenerUsuarios(1);
+                LinkedList<Usuario> lista2 = OperacionesSecuencial.obtenerUsuarios(1);
+                LinkedList<Usuario> lista = OperacionesSecuencial.obtenerUsuarios(2);
+                
+                if(lista2 != null && lista != null){
+                    for (int i = 0; i < lista2.size(); i++) {
+                        lista.add(lista2.get(i));
+                    }
+                }                                
                 
                 if(lista != null){
                     for (int i = 0; i < lista.size(); i++) {
@@ -198,18 +225,7 @@ public class LogIn extends javax.swing.JFrame {
                         }
                     }                    
                 }    
-                else if(lista == null){
-                    lista = OperacionesSecuencial.obtenerUsuarios(2);
-                    
-                    if(lista != null){
-                        for (int i = 0; i < lista.size(); i++) {
-                            if(lista.get(i).getUsuario().equals(txtUsuario.getText()) && lista.get(i).getContraseña().equals(OperacionesSecuencial.getMD5(txtContraseña.getText())) && lista.get(i).getEstatus() != 0){
-                                JOptionPane.showMessageDialog(null,lista.get(i).getUsuario() + (lista.get(i).getRol() == 1 ? "\nAdministrador" : "\nUsuario") + lista.get(i).getPathFoto());
-                                ProyectoMEIA.usuarioEnUso = lista.get(i);
-                            }
-                        }                    
-                    }
-                }  
+                                
                 if(ProyectoMEIA.usuarioEnUso == null && lista == null){
                     JOptionPane.showMessageDialog(null,"No existen usuarios en el sistema, debe registrarse");
                 }                

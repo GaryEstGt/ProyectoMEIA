@@ -39,6 +39,7 @@ public class SecuencialLista {
             return null;
         }
     }
+     
     public static void rellenarListas(LinkedList<Lista> lista){
         String textoEscribir="";
         for(Lista list:lista){
@@ -46,6 +47,7 @@ public class SecuencialLista {
         }
         Escritor.Escribir("C:/MEIA/lista.txt", textoEscribir);
     }
+    
     public static void rellenarListasMaestro(LinkedList<Lista> listas){
         String textoEscribir="";
         for(Lista list:listas){
@@ -53,6 +55,7 @@ public class SecuencialLista {
         }
         Escritor.Escribir("C:/MEIA/lista.txt", textoEscribir);
     }
+    
     public static DescriptorLista obtenerDescriptorLista(int OpcionObtener){
           String contenido="";
         if(OpcionObtener==1){
@@ -75,6 +78,7 @@ public class SecuencialLista {
         }
         
     }   
+    
     public static void LlenarListasMaestro() throws IOException{
        
         LinkedList<Lista> listaBitacora=obtenerListas(1);
