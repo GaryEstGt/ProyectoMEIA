@@ -23,6 +23,7 @@ public class ManejoListaUsuario extends javax.swing.JFrame {
      */
     public ManejoListaUsuario() {
         initComponents();
+        LlenarCombobox();
     }
 
     /**

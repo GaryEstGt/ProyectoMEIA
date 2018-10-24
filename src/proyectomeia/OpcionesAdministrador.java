@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -251,9 +252,14 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
     private void btnAsociarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsociarActionPerformed
         try {
             // TODO add your handling code here:
-            ManejoUsuariosEnListas manejoUsuariosEnListas = new ManejoUsuariosEnListas();
+            if(SecuencialLista.obtenerDescriptorLista(1).getNumRegistros()!=0 || SecuencialLista.obtenerDescriptorLista(2).getNumRegistros()!=0){
+                 ManejoUsuariosEnListas manejoUsuariosEnListas = new ManejoUsuariosEnListas();
             manejoUsuariosEnListas.setVisible(true);
-            this.setVisible(false);
+            this.setVisible(false); 
+            }else{
+                JOptionPane.showMessageDialog(null,"No hay Listas, debe ingresarlas primero");
+            }
+          
         } catch (IOException ex) {
             Logger.getLogger(OpcionesAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }

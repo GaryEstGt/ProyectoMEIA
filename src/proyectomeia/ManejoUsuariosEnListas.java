@@ -32,6 +32,8 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
             cmbUsuario1.setEnabled(false);
             cmbUsuario.setSelectedItem(ProyectoMEIA.usuarioEnUso.getUsuario());
             cmbUsuario1.setSelectedItem(ProyectoMEIA.usuarioEnUso.getUsuario());
+            LlenarComboboxLista();
+            LlenarComboboxLista1();
         }
     }
 
@@ -354,7 +356,8 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
             
                 usuarioAsociado = Lista_Usuario.buscarUsuario(cmbUsuarioAsociado.getSelectedItem().toString());                                            
                         
-                Lista_Usuario.AsociarNuevoUsuario(lista, usuario, usuarioAsociado);            
+                Lista_Usuario.AsociarNuevoUsuario(lista, usuario, usuarioAsociado);    
+                JOptionPane.showMessageDialog(null, "Usuario asociado");
             }catch(IOException e){
                 JOptionPane.showMessageDialog(null, "Error al asociar usuario");
             }           
@@ -398,7 +401,8 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
                 
                     usuarioAsociado = Lista_Usuario.buscarUsuario(cmbUsuarioAsociado1.getSelectedItem().toString());                
                 
-                    Lista_Usuario.EliminarUsuario(lista, usuario, usuarioAsociado);                
+                    Lista_Usuario.EliminarUsuario(lista, usuario, usuarioAsociado);     
+                    JOptionPane.showMessageDialog(null, "Usuario eliminado");
                     
                 }catch(IOException e){
                     JOptionPane.showMessageDialog(null, "Error al eliminar usuario de la lista");

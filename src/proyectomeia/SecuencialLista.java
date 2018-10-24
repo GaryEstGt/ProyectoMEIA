@@ -90,11 +90,11 @@ public class SecuencialLista {
         if(descListas.getNumRegistros()!=0 && descBitacora.getNumRegistros()!=0){
             listaBitacora.forEach((list) -> {nuevaLista.add(list);});
             listaListas.forEach((list) -> {nuevaLista.add(list);}); 
-        }else if(descBitacora.getNumRegistros()==0){
-            listaListas.forEach((list) -> {nuevaLista.add(list);}); 
+        }else if(descBitacora.getNumRegistros()!=0){
+            listaBitacora.forEach((list) -> {nuevaLista.add(list);}); 
         }
-        else{
-             listaBitacora.forEach((list) -> {nuevaLista.add(list);});
+        else if(descListas.getNumRegistros()!=0){
+             listaListas.forEach((list) -> {nuevaLista.add(list);});
         }
         EliminarLista(nuevaLista);
         Collections.sort(nuevaLista, new CompareLista());
@@ -121,14 +121,16 @@ public class SecuencialLista {
         LinkedList<UsuarioLista> usuarios=Lista_Usuario.obtenerListasUsuario();
             for (int i = 0; i < nuevaLista.size(); i++) {
                 if(nuevaLista.get(i).getEstatus()==0){
-                    for (int j = 0; j < usuarios.size(); j++) {
+                    if(usuarios!=null){
+                         for (int j = 0; j < usuarios.size(); j++) {
                         
-                            if(nuevaLista.get(i).getNombreLista().equals(usuarios.get(i).getNombreLista())){
-                                Usuario usuarioAsociado=Lista_Usuario.buscarUsuario(usuarios.get(i).getUsuarioAsociado());
-                                Usuario usuarioDueño=Lista_Usuario.buscarUsuario(usuarios.get(i).getUsuario());
+                            if(nuevaLista.get(i).getNombreLista().equals(usuarios.get(j).getNombreLista())){
+                                Usuario usuarioAsociado=Lista_Usuario.buscarUsuario(usuarios.get(j).getUsuarioAsociado());
+                                Usuario usuarioDueño=Lista_Usuario.buscarUsuario(usuarios.get(j).getUsuario());
                                 Lista_Usuario.EliminarUsuario(nuevaLista.get(i), usuarioDueño, usuarioAsociado);
                             }                      
-                    } 
+                        } 
+                    }
                     nuevaLista.remove(i);
                 }
                

@@ -8,6 +8,7 @@ package proyectomeia;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -224,7 +225,15 @@ public class LogIn extends javax.swing.JFrame {
                             ProyectoMEIA.usuarioEnUso = lista.get(i);
                         }
                     }                    
-                }    
+                } 
+                if(lista2!=null){
+                     for (int i = 0; i < lista2.size(); i++) {
+                        if(lista2.get(i).getUsuario().equals(txtUsuario.getText()) && lista2.get(i).getContraseña().equals(OperacionesSecuencial.getMD5(txtContraseña.getText())) && lista2.get(i).getEstatus() != 0){
+                            JOptionPane.showMessageDialog(null,lista2.get(i).getUsuario() + (lista2.get(i).getRol() == 1 ? "Administrador" : "Usuario") + lista2.get(i).getPathFoto());
+                            ProyectoMEIA.usuarioEnUso = lista2.get(i);
+                        }
+                    } 
+                }
                                 
                 if(ProyectoMEIA.usuarioEnUso == null && lista == null){
                     JOptionPane.showMessageDialog(null,"No existen usuarios en el sistema, debe registrarse");
@@ -305,10 +314,18 @@ public class LogIn extends javax.swing.JFrame {
                 Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-          
+          LinkedList<CambioSiguiente> numeros=new LinkedList<>();
+          int antes=0,despues=0;
         if(descIndice.getNumRegistros() != 0){
             LinkedList<Indice> listaIndice = Lista_Usuario.obtenerIndiceListasUsuario();
             for (int i = 0; i < listaIndice.size(); i++) {
+                if(listaIndice.get(i).getEstatus()!=0){
+                    numeros.add(new CambioSiguiente(listaIndice.get(i).getNumeroRegistro(),0));
+                }
+            }
+            for (int i = 0; i < listaIndice.size(); i++) {
+                
+                
                 if(listaIndice.get(i).getEstatus() == 0){
                     if(i != listaIndice.size() - 1){
                         for (int j = i + 1; j < listaIndice.size(); j++) {
@@ -321,6 +338,16 @@ public class LogIn extends javax.swing.JFrame {
                     i = i-1;
                 }
             }
+            for (int i = 0; i < numeros.size(); i++) {
+                numeros.get(i).setNumNuevo(listaIndice.get(i).getNumeroRegistro());
+            }
+                  for (int x = 0; x < numeros.size(); x++) {
+                        for (int j = 0; j < listaIndice.size(); j++) {
+                            if(listaIndice.get(j).getSiguiente()==numeros.get(x).getNumAnterior()){
+                                listaIndice.get(j).setSiguiente(numeros.get(x).getNumNuevo());
+                            }
+                        }
+                    }
             
             descIndice.setNumRegistros(listaIndice.size());
             descIndice.setRegistrosActivos(listaIndice.size());
