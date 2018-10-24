@@ -23,7 +23,7 @@ public class LogIn extends javax.swing.JFrame {
      * Creates new form LogIn
      */    
     public LogIn() throws IOException {
-        initComponents();
+        initComponents();                
         ProyectoMEIA.usuarioEnUso = null;
         File usuario, usuarioMaestro, descriptorBitacora, descriptorMaestro,lista,listaMaestro,descBit,descListaM, usuarioLista, indice, 
                 descUsuarioLista, descIndice;
@@ -271,6 +271,10 @@ public class LogIn extends javax.swing.JFrame {
         // TODO add your handling code here:
         DescriptorUsuario descBitacora=OperacionesSecuencial.obtenerDescriptorUsuario(2);
         DescriptorLista descBitacoraLista=SecuencialLista.obtenerDescriptorLista(2);
+        DescriptorLista descMaestroLista = SecuencialLista.obtenerDescriptorLista(1);
+        DescriptorIndice descIndice = Lista_Usuario.obtenerDescriptorIndice();
+        DescriptorUsuarioLista descUsuarioLista = Lista_Usuario.obtenerDescriptorUsuarioLista();
+        
         if(descBitacora.getNumRegistros()!=0){
             try {
                 OperacionesSecuencial.LlenarUsuariosMaestro();
@@ -281,10 +285,68 @@ public class LogIn extends javax.swing.JFrame {
           if(descBitacoraLista.getNumRegistros()!=0){
             try {
                SecuencialLista.LlenarListasMaestro();
+               
+               LinkedList<Lista> listas = SecuencialLista.obtenerListas(2);
+               
+                for (int i = 0; i < listas.size(); i++) {
+                    if(listas.get(i).getEstatus() == 0){
+                        listas.remove(i);
+                        i = i-1;
+                    }
+                }
+                
+                descMaestroLista.setNumRegistros(listas.size());
+                descMaestroLista.setRegistrosActivos(listas.size());
+                descMaestroLista.setRegistrosInactivos(0);
+                
+                SecuencialLista.rellenarDescriptorLista(descMaestroLista, 1);
+                SecuencialLista.rellenarListasMaestro(listas);
             } catch (IOException ex) {
                 Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+          
+        if(descIndice.getNumRegistros() != 0){
+            LinkedList<Indice> listaIndice = Lista_Usuario.obtenerIndiceListasUsuario();
+            for (int i = 0; i < listaIndice.size(); i++) {
+                if(listaIndice.get(i).getEstatus() == 0){
+                    if(i != listaIndice.size() - 1){
+                        for (int j = i + 1; j < listaIndice.size(); j++) {
+                            int posicion = Integer.parseInt(listaIndice.get(j).getPosicion().split("\\.")[1]);
+                            listaIndice.get(j).setPosicion("1." + (posicion - 1));
+                            listaIndice.get(j).setNumeroRegistro(listaIndice.get(j).getNumeroRegistro() - 1);
+                        }
+                    }
+                    listaIndice.remove(i);
+                    i = i-1;
+                }
+            }
+            
+            descIndice.setNumRegistros(listaIndice.size());
+            descIndice.setRegistrosActivos(listaIndice.size());
+            descIndice.setRegistrosInactivos(0);
+            
+            Lista_Usuario.rellenarDescriptorIndice(descIndice);
+            Lista_Usuario.rellenarIndiceListasUsuario(listaIndice);
+        }
+        
+        if(descUsuarioLista.getNumRegistros() != 0){
+            LinkedList<UsuarioLista> listaUsuarioLista = Lista_Usuario.obtenerListasUsuario();
+            for (int i = 0; i < listaUsuarioLista.size(); i++) {
+                if(listaUsuarioLista.get(i).getEstatus() == 0){                    
+                    listaUsuarioLista.remove(i);
+                    i = i-1;
+                }
+            }
+            
+            descUsuarioLista.setNumRegistros(listaUsuarioLista.size());
+            descUsuarioLista.setRegistrosActivos(listaUsuarioLista.size());
+            descUsuarioLista.setRegistrosInactivos(0);
+            
+            Lista_Usuario.rellenarDescriptorUsuarioLista(descUsuarioLista);
+            Lista_Usuario.rellenarListasUsuario(listaUsuarioLista);
+        }
+        
         System.exit(0); 
         setDefaultCloseOperation(LogIn.EXIT_ON_CLOSE);
     }//GEN-LAST:event_btnSalirActionPerformed
