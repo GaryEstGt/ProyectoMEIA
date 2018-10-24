@@ -96,7 +96,7 @@ public class SecuencialLista {
         else if(descListas.getNumRegistros()!=0){
              listaListas.forEach((list) -> {nuevaLista.add(list);});
         }
-        EliminarLista(nuevaLista);
+        //EliminarLista(nuevaLista);
         Collections.sort(nuevaLista, new CompareLista());
         rellenarListasMaestro(nuevaLista);
         Date fecha=new Date();

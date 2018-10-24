@@ -140,22 +140,22 @@ public class Lista_Usuario {
             int posicion = descriptorIndice.getRegistroInicio() - 1;
             
             while(true){
-                if(indiceNuevo.getNombreLista().compareTo(indices.get(posicion).getNombreLista()) <= -1){
+                if(indiceNuevo.getNombreLista().toUpperCase().compareTo(indices.get(posicion).getNombreLista().toUpperCase()) <= -1){
                     break;
                 }
-                else if(indiceNuevo.getNombreLista().compareTo(indices.get(posicion).getNombreLista()) == 0){
-                    if(indiceNuevo.getUsuario().compareTo(indices.get(posicion).getUsuario()) == -1){
+                else if(indiceNuevo.getNombreLista().toUpperCase().compareTo(indices.get(posicion).getNombreLista().toUpperCase()) == 0){
+                    if(indiceNuevo.getUsuario().toUpperCase().compareTo(indices.get(posicion).getUsuario().toUpperCase()) == -1){
                         break;
                     }
-                    else if(indiceNuevo.getUsuario().compareTo(indices.get(posicion).getUsuario()) == 0){
-                        if(indiceNuevo.getUsuarioAsociado().compareTo(indices.get(posicion).getUsuarioAsociado()) <= -1){
+                    else if(indiceNuevo.getUsuario().toUpperCase().compareTo(indices.get(posicion).getUsuario().toUpperCase()) == 0){
+                        if(indiceNuevo.getUsuarioAsociado().toUpperCase().compareTo(indices.get(posicion).getUsuarioAsociado().toUpperCase()) <= -1){
                             break;
                         }          
-                        else if(indiceNuevo.getUsuarioAsociado().compareTo(indices.get(posicion).getUsuarioAsociado()) >= 1){
+                        else if(indiceNuevo.getUsuarioAsociado().toUpperCase().compareTo(indices.get(posicion).getUsuarioAsociado().toUpperCase()) >= 1){
                             if(indices.get(posicion).getSiguiente() == 0){                                
                                 break;
                             }
-                            else if(indiceNuevo.getUsuarioAsociado().compareTo(indices.get(indices.get(posicion).getSiguiente() - 1).getUsuarioAsociado()) <= -1){
+                            else if(indiceNuevo.getUsuarioAsociado().toUpperCase().compareTo(indices.get(indices.get(posicion).getSiguiente() - 1).getUsuarioAsociado().toUpperCase()) <= -1){
                                 break;
                             }
                             else{
@@ -163,11 +163,11 @@ public class Lista_Usuario {
                             }                            
                         }
                     }
-                    else if(indiceNuevo.getUsuario().compareTo(indices.get(posicion).getUsuario()) >= 1){
+                    else if(indiceNuevo.getUsuario().toUpperCase().compareTo(indices.get(posicion).getUsuario().toUpperCase()) >= 1){
                         if(indices.get(posicion).getSiguiente() == 0){                                
                                 break;
                             }
-                            else if(indiceNuevo.getUsuario().compareTo(indices.get(indices.get(posicion).getSiguiente() - 1).getUsuario()) <= -1){
+                            else if(indiceNuevo.getUsuario().toUpperCase().compareTo(indices.get(indices.get(posicion).getSiguiente() - 1).getUsuario().toUpperCase()) <= -1){
                                 break;
                             }
                             else{
@@ -175,11 +175,11 @@ public class Lista_Usuario {
                             }                            
                     }
                 }
-                else if(indiceNuevo.getNombreLista().compareTo(indices.get(posicion).getNombreLista()) >= 1){
+                else if(indiceNuevo.getNombreLista().toUpperCase().compareTo(indices.get(posicion).getNombreLista().toUpperCase()) >= 1){
                     if(indices.get(posicion).getSiguiente() == 0){                                
                                 break;
                             }
-                            else if(indiceNuevo.getNombreLista().compareTo(indices.get(indices.get(posicion).getSiguiente() - 1).getNombreLista()) <= -1){
+                            else if(indiceNuevo.getNombreLista().toUpperCase().compareTo(indices.get(indices.get(posicion).getSiguiente() - 1).getNombreLista().toUpperCase()) <= -1){
                                 break;
                             }
                             else{

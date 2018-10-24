@@ -291,7 +291,7 @@ public class LogIn extends javax.swing.JFrame {
                 Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-          if(descBitacoraLista.getNumRegistros()!=0){
+          //if(descBitacoraLista.getNumRegistros()!=0){
             try {
                SecuencialLista.LlenarListasMaestro();
                
@@ -313,7 +313,7 @@ public class LogIn extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        //}
           LinkedList<CambioSiguiente> numeros=new LinkedList<>();
           int antes=0,despues=0;
         if(descIndice.getNumRegistros() != 0){

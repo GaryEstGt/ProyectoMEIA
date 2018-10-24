@@ -346,7 +346,11 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(!cmbUsuario.getSelectedItem().toString().isEmpty() && !cmbLista.getSelectedItem().toString().isEmpty()
             && !cmbUsuarioAsociado.getSelectedItem().toString().isEmpty()){
-            try{
+            if(cmbUsuario.getSelectedItem().toString().equals(cmbUsuarioAsociado.getSelectedItem().toString())){
+                 JOptionPane.showMessageDialog(null, "No puede asociarse a su propia lista");
+            }
+            else{
+                 try{
                 Lista lista = null;
                 Usuario usuario = null, usuarioAsociado = null;            
                 
@@ -360,7 +364,8 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Usuario asociado");
             }catch(IOException e){
                 JOptionPane.showMessageDialog(null, "Error al asociar usuario");
-            }           
+            } 
+            }          
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario, lista y usuario asociado");
@@ -389,8 +394,11 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(!cmbUsuario1.getSelectedItem().toString().isEmpty() && !cmbLista1.getSelectedItem().toString().isEmpty()
             && !cmbUsuarioAsociado1.getSelectedItem().toString().isEmpty()){
-            
-            if(Lista_Usuario.obtenerDescriptorIndice().getRegistrosActivos()!= 0){
+            if(cmbUsuario1.getSelectedItem().toString().equals(cmbUsuarioAsociado1.getSelectedItem().toString())){
+                JOptionPane.showMessageDialog(null, "No puede eliminarse de la lista que usted creo");
+            }
+            else{
+                           if(Lista_Usuario.obtenerDescriptorIndice().getRegistrosActivos()!= 0){
                 try{
                     Lista lista = null;
                     Usuario usuario = null, usuarioAsociado = null;                
@@ -410,7 +418,8 @@ public class ManejoUsuariosEnListas extends javax.swing.JFrame {
             }
             else{
                 JOptionPane.showMessageDialog(null, "No hay usuarios asociados");
-            }           
+            } 
+            }          
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario, lista y usuario asociado");

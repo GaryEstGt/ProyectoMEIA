@@ -498,8 +498,17 @@ public class ManejodeListas extends javax.swing.JFrame {
            SecuencialLista.LlenarListasMaestro();
            boolean listaEncontrada=false;
              LinkedList<Lista> lista=SecuencialLista.obtenerListas(2);
+             LinkedList<UsuarioLista> usuarios = Lista_Usuario.obtenerListasUsuario();
              for (int i = 0; i < SecuencialLista.obtenerListas(2).size(); i++) {
                  if(lista.get(i).getNombreLista().equals(CBListas2.getSelectedItem().toString())&& lista.get(i).getUsuario().equals(CBUsuario2.getSelectedItem().toString())){
+                     for (int j = 0; j < usuarios.size(); j++) {
+                        
+                            if(lista.get(i).getNombreLista().equals(usuarios.get(j).getNombreLista())){
+                                Usuario usuarioAsociado=Lista_Usuario.buscarUsuario(usuarios.get(j).getUsuarioAsociado());
+                                Usuario usuarioDueño=Lista_Usuario.buscarUsuario(usuarios.get(j).getUsuario());
+                                Lista_Usuario.EliminarUsuario(lista.get(i), usuarioDueño, usuarioAsociado);
+                            }                      
+                        }
                      lista.get(i).setEstatus(0);
                      listaEncontrada=true;
                  }
