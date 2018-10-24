@@ -82,21 +82,7 @@ public class SecuencialLista {
     public static void LlenarListasMaestro() throws IOException{
        
         LinkedList<Lista> listaBitacora=obtenerListas(1);
-        if(obtenerDescriptorLista(2).getNumRegistros()!=0){
-            for (int i = 0; i < listaBitacora.size(); i++) {
-            if(listaBitacora.get(i).getEstatus()==0){
-                listaBitacora.remove(i);
-            }
-         }
-        }
         LinkedList<Lista> listaListas=obtenerListas(2);
-        if(obtenerDescriptorLista(1).getNumRegistros()!=0){
-            for (int i = 0; i < listaListas.size(); i++) {
-            if(listaListas.get(i).getEstatus()==0){
-                listaListas.remove(i);
-            }
-         }
-        }
 
         DescriptorLista descListas=obtenerDescriptorLista(1);
         DescriptorLista descBitacora=obtenerDescriptorLista(2);
@@ -110,6 +96,7 @@ public class SecuencialLista {
         else{
              listaBitacora.forEach((list) -> {nuevaLista.add(list);});
         }
+        EliminarLista(nuevaLista);
         Collections.sort(nuevaLista, new CompareLista());
         rellenarListasMaestro(nuevaLista);
         Date fecha=new Date();
@@ -129,6 +116,23 @@ public class SecuencialLista {
         rellenarDescriptorLista(descListas,1);
         rellenarDescriptorLista(descBitacora,2); 
         
+    }
+    public static void EliminarLista(LinkedList<Lista> nuevaLista) throws IOException{
+        LinkedList<UsuarioLista> usuarios=Lista_Usuario.obtenerListasUsuario();
+            for (int i = 0; i < nuevaLista.size(); i++) {
+                if(nuevaLista.get(i).getEstatus()==0){
+                    for (int j = 0; j < usuarios.size(); j++) {
+                        
+                            if(nuevaLista.get(i).getNombreLista().equals(usuarios.get(i).getNombreLista())){
+                                Usuario usuarioAsociado=Lista_Usuario.buscarUsuario(usuarios.get(i).getUsuarioAsociado());
+                                Usuario usuarioDueño=Lista_Usuario.buscarUsuario(usuarios.get(i).getUsuario());
+                                Lista_Usuario.EliminarUsuario(nuevaLista.get(i), usuarioDueño, usuarioAsociado);
+                            }                      
+                    } 
+                    nuevaLista.remove(i);
+                }
+               
+            }
     }
     
 
