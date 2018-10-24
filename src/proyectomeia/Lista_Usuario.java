@@ -340,6 +340,44 @@ public class Lista_Usuario {
         return UsuarioEncontrado;
     }
     
+    public static LinkedList<UsuarioLista> buscarUsuarioLista(String nombre) throws IOException{
+        DescriptorUsuarioLista descriptor = obtenerDescriptorUsuarioLista();        
+        LinkedList<UsuarioLista> usuario = new LinkedList();
+        
+        if(descriptor.getRegistrosActivos() != 0){
+            LinkedList<UsuarioLista> lista = obtenerListasUsuario();
+            
+            for (int i = 0; i < lista.size(); i++) {
+                if(lista.get(i).getUsuarioAsociado().equals(nombre) && lista.get(i).getEstatus() != 0){
+                    if(!usuario.contains(lista.get(i))){
+                        usuario.add(lista.get(i));
+                    }                    
+                }
+            }
+        }
+        
+        return usuario;
+    }
+    
+    public static LinkedList<Lista> buscarListas(String nombre) throws IOException{
+        SecuencialLista.LlenarListasMaestro();
+        DescriptorLista descriptor = SecuencialLista.obtenerDescriptorLista(1);
+        LinkedList<Lista> listasEncontradas = new LinkedList<Lista>();
+        if(descriptor.getRegistrosActivos() != 0){
+            LinkedList<Lista> listas = SecuencialLista.obtenerListas(2);
+            
+            for (int i = 0; i < listas.size(); i++) {
+                if(listas.get(i).getUsuario().equals(nombre) && listas.get(i).getEstatus() != 0){
+                    if(!listasEncontradas.contains(listas.get(i))){
+                        listasEncontradas.add(listas.get(i));
+                    }                    
+                }
+            }
+        }        
+        
+        return listasEncontradas;
+    }
+    
     private static void actualizarCantidadUsuarios(Lista lista, boolean agregar) throws IOException{
         SecuencialLista.LlenarListasMaestro();       
         
