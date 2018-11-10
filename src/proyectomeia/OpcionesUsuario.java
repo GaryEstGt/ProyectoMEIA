@@ -72,6 +72,7 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
         btnSalir = new javax.swing.JButton();
         btnLista = new javax.swing.JButton();
         btnAsociar = new javax.swing.JButton();
+        btnCorreos = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -192,6 +193,13 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
             }
         });
 
+        btnCorreos.setText("Sistema de correos");
+        btnCorreos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCorreosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -206,7 +214,8 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(CalendarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnAsociar))
+                                    .addComponent(btnAsociar)
+                                    .addComponent(btnCorreos))
                                 .addGap(28, 28, 28)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnSalir)
@@ -266,13 +275,14 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
                 .addComponent(btnLista)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalir)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAsociar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCorreos))))
         );
 
         jLabel2.setText("Cambiar Otros Datos");
@@ -558,6 +568,13 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
         }        
     }//GEN-LAST:event_btnAsociarActionPerformed
 
+    private void btnCorreosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorreosActionPerformed
+        // TODO add your handling code here:
+        frmCorreos frm = new frmCorreos();
+        this.setVisible(false);
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnCorreosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -657,6 +674,7 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
     private javax.swing.JButton btnCambiarcontraseña;
     private javax.swing.JButton btnCambiarfecha;
     private javax.swing.JButton btnCambiarfoto;
+    private javax.swing.JButton btnCorreos;
     private javax.swing.JButton btnDarBaja;
     private javax.swing.JButton btnLista;
     private javax.swing.JButton btnSalir;
