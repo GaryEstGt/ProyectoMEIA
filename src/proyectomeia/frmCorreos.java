@@ -37,6 +37,19 @@ public class frmCorreos extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         txtBandejaSalida = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
+        btnEnviarUsuarioLocal = new javax.swing.JButton();
+        btnEnviarListaLocal = new javax.swing.JButton();
+        cmbSeleccionarLocal = new javax.swing.JComboBox<>();
+        lblSeleccionar = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtMensajeLocal = new javax.swing.JTextArea();
+        txtAsuntoLocal = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtAdjuntoLocal = new javax.swing.JTextField();
+        btnExaminarAdjuntoLocal = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        btnEnviarLocal = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -65,13 +78,12 @@ public class frmCorreos extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(btnActualizarEntrada)
-                .addContainerGap(404, Short.MAX_VALUE))
+                .addGap(0, 503, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(103, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(59, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
 
@@ -102,22 +114,97 @@ public class frmCorreos extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnActualizarSalida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Bandeja de salida", jPanel2);
 
+        btnEnviarUsuarioLocal.setText("Enviar a un usuario");
+
+        btnEnviarListaLocal.setText("Enviar a una lista");
+
+        cmbSeleccionarLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSeleccionarLocalActionPerformed(evt);
+            }
+        });
+
+        lblSeleccionar.setText("Seleccione el usuario");
+
+        txtMensajeLocal.setColumns(20);
+        txtMensajeLocal.setRows(5);
+        jScrollPane1.setViewportView(txtMensajeLocal);
+
+        jLabel1.setText("Asunto");
+
+        jLabel2.setText("Mensaje");
+
+        btnExaminarAdjuntoLocal.setText("Examinar");
+
+        jLabel3.setText("Adjuntar archivo");
+
+        btnEnviarLocal.setText("Enviar correo");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 562, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(txtAsuntoLocal)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtAdjuntoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExaminarAdjuntoLocal, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(btnEnviarUsuarioLocal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEnviarListaLocal))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(cmbSeleccionarLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblSeleccionar))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(btnEnviarLocal))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 438, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEnviarUsuarioLocal)
+                    .addComponent(btnEnviarListaLocal))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbSeleccionarLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSeleccionar))
+                .addGap(39, 39, 39)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtAsuntoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAdjuntoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExaminarAdjuntoLocal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(btnEnviarLocal)
+                .addGap(19, 19, 19))
         );
 
         jTabbedPane1.addTab("Enviar correo (Local)", jPanel3);
@@ -130,7 +217,7 @@ public class frmCorreos extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 438, Short.MAX_VALUE)
+            .addGap(0, 526, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Enviar correo (Otros grupos)", jPanel4);
@@ -143,11 +230,15 @@ public class frmCorreos extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbSeleccionarLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSeleccionarLocalActionPerformed
+        
+    }//GEN-LAST:event_cmbSeleccionarLocalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,14 +278,27 @@ public class frmCorreos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarEntrada;
     private javax.swing.JButton btnActualizarSalida;
+    private javax.swing.JButton btnEnviarListaLocal;
+    private javax.swing.JButton btnEnviarLocal;
+    private javax.swing.JButton btnEnviarUsuarioLocal;
+    private javax.swing.JButton btnExaminarAdjuntoLocal;
+    private javax.swing.JComboBox<String> cmbSeleccionarLocal;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblSeleccionar;
+    private javax.swing.JTextField txtAdjuntoLocal;
+    private javax.swing.JTextField txtAsuntoLocal;
     private javax.swing.JTextArea txtBandejaEntrada;
     private javax.swing.JTextArea txtBandejaSalida;
+    private javax.swing.JTextArea txtMensajeLocal;
     // End of variables declaration//GEN-END:variables
 }
