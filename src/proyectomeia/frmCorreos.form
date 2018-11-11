@@ -49,32 +49,27 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="457" max="32767" attributes="0"/>
-                      <Component id="btnActualizarEntrada" min="-2" pref="95" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane4" pref="542" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="btnActualizarEntrada" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnActualizarEntrada" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="503" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="59" max="32767" attributes="0"/>
-                          <Component id="jScrollPane4" min="-2" pref="456" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jScrollPane4" pref="463" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -118,10 +113,10 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane5" alignment="0" pref="542" max="32767" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
+                          <Component id="jScrollPane5" pref="542" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="btnActualizarSalida" min="-2" pref="95" max="-2" attributes="0"/>
+                              <Component id="btnActualizarSalida" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -133,8 +128,8 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnActualizarSalida" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane5" pref="475" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jScrollPane5" min="-2" pref="463" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -250,11 +245,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Enviar a un usuario"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnviarUsuarioLocalActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnEnviarListaLocal">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Enviar a una lista"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnviarListaLocalActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="cmbSeleccionarLocal">
               <Properties>
@@ -302,11 +303,17 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtAdjuntoLocal">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnExaminarAdjuntoLocal">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Examinar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExaminarAdjuntoLocalActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -317,6 +324,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Enviar correo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnviarLocalActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

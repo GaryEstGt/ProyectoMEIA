@@ -6,6 +6,7 @@
 package proyectomeia;
 
 import java.util.Date;
+import java.util.LinkedList;
 
 /**
  *
@@ -18,8 +19,19 @@ public class Correo {
     private String asunto;
     private String adjunto;
     private int estatus;
+    private String fecha;
+    
+    @Override
+    public String toString(){
+        return emisor + "/" + receptor + "/" + fecha + "/" + asunto + "/" + mensaje + "/" + adjunto + "/" + estatus;                
+    }
+    
+    public static Correo toCorreo(String correo){
+        String[] campos = correo.split("\\/");
+        return new Correo(campos[0], campos[1], campos[2], campos[3], campos[4], Integer.parseInt(campos[5]), campos[6]);
+    }
 
-    public Correo(String emisor, String receptor, String mensaje, String asunto, String adjunto, int estatus, Date fecha) {
+    public Correo(String emisor, String receptor, String mensaje, String asunto, String adjunto, int estatus, String fecha) {
         this.emisor = emisor;
         this.receptor = receptor;
         this.mensaje = mensaje;
@@ -77,13 +89,12 @@ public class Correo {
         this.estatus = estatus;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
-    }
-    private Date fecha;
+    }    
     
 }

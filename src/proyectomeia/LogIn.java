@@ -27,7 +27,7 @@ public class LogIn extends javax.swing.JFrame {
         initComponents();                
         ProyectoMEIA.usuarioEnUso = null;
         File usuario, usuarioMaestro, descriptorBitacora, descriptorMaestro,lista,listaMaestro,descBit,descListaM, usuarioLista, indice, 
-                descUsuarioLista, descIndice;
+                descUsuarioLista, descIndice, arbol, descArbol;
         
         usuario = new File("C:/MEIA/bitacora_usuario.txt");
         usuarioMaestro = new File("C:/MEIA/usuario.txt");
@@ -41,6 +41,8 @@ public class LogIn extends javax.swing.JFrame {
         descUsuarioLista = new File("C:/MEIA/desc_usuarioLista.txt");
         indice = new File("C:/MEIA/indice_Lista_usuario.txt");
         descIndice = new File("C:/MEIA/desc_indice.txt");
+        arbol = new File("C:/MEIA/correos.txt");
+        descArbol = new File("C:/MEIA/desc_correos.txt");
         
         if(!usuario.exists())usuario.createNewFile(); 
         if(!lista.exists())lista.createNewFile(); 
@@ -48,6 +50,7 @@ public class LogIn extends javax.swing.JFrame {
         if(!listaMaestro.exists())listaMaestro.createNewFile(); 
         if(!usuarioLista.exists())usuarioLista.createNewFile();
         if(!indice.exists())indice.createNewFile();
+        if(!arbol.exists())arbol.createNewFile();
         
         if(!descriptorBitacora.exists()){
             descriptorBitacora.createNewFile();
@@ -82,6 +85,12 @@ public class LogIn extends javax.swing.JFrame {
             descIndice.createNewFile();
             DescriptorIndice desc = new DescriptorIndice(0,0,0,0);
             Escritor.Escribir("C:/MEIA/desc_indice.txt", desc.toString());
+        }
+        
+        if(!descArbol.exists()){
+            descArbol.createNewFile();
+            DescriptorCorreo desc = new DescriptorCorreo("correos.txt",0,0,0,0);
+            Escritor.Escribir("C:/MEIA/desc_correos.txt", desc.toString());
         }
     }
 

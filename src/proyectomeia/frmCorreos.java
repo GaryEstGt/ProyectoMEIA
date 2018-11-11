@@ -5,6 +5,16 @@
  */
 package proyectomeia;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author luise
@@ -16,6 +26,7 @@ public class frmCorreos extends javax.swing.JFrame {
      */
     public frmCorreos() {
         initComponents();
+        cmbSeleccionarLocal.setEnabled(false);
     }
 
     /**
@@ -65,26 +76,23 @@ public class frmCorreos extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(457, Short.MAX_VALUE)
-                .addComponent(btnActualizarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnActualizarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btnActualizarEntrada)
-                .addGap(0, 503, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(59, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Bandeja de entrada", jPanel1);
@@ -104,9 +112,9 @@ public class frmCorreos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnActualizarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnActualizarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -114,16 +122,26 @@ public class frmCorreos extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnActualizarSalida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Bandeja de salida", jPanel2);
 
         btnEnviarUsuarioLocal.setText("Enviar a un usuario");
+        btnEnviarUsuarioLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarUsuarioLocalActionPerformed(evt);
+            }
+        });
 
         btnEnviarListaLocal.setText("Enviar a una lista");
+        btnEnviarListaLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarListaLocalActionPerformed(evt);
+            }
+        });
 
         cmbSeleccionarLocal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,11 +159,23 @@ public class frmCorreos extends javax.swing.JFrame {
 
         jLabel2.setText("Mensaje");
 
+        txtAdjuntoLocal.setEnabled(false);
+
         btnExaminarAdjuntoLocal.setText("Examinar");
+        btnExaminarAdjuntoLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExaminarAdjuntoLocalActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Adjuntar archivo");
 
         btnEnviarLocal.setText("Enviar correo");
+        btnEnviarLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarLocalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -239,6 +269,76 @@ public class frmCorreos extends javax.swing.JFrame {
     private void cmbSeleccionarLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSeleccionarLocalActionPerformed
         
     }//GEN-LAST:event_cmbSeleccionarLocalActionPerformed
+
+    private void btnEnviarUsuarioLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarUsuarioLocalActionPerformed
+        // TODO add your handling code here:
+        cmbSeleccionarLocal.removeAllItems();                        
+        
+        try {
+            OperacionesSecuencial.LlenarUsuariosMaestro();
+        } catch (IOException ex) {
+            Logger.getLogger(frmCorreos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        LinkedList<Usuario> usuarios = OperacionesSecuencial.obtenerUsuarios(2);
+        for (int i = 0; i < usuarios.size(); i++) {
+            if(usuarios.get(i).getEstatus() != 0){
+                cmbSeleccionarLocal.addItem(usuarios.get(i).getUsuario());                
+            }            
+        }
+        
+        cmbSeleccionarLocal.setEnabled(true);
+    }//GEN-LAST:event_btnEnviarUsuarioLocalActionPerformed
+
+    private void btnEnviarListaLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarListaLocalActionPerformed
+        // TODO add your handling code here:
+        cmbSeleccionarLocal.removeAllItems();
+        
+        try {
+            SecuencialLista.LlenarListasMaestro();
+        } catch (IOException ex) {
+            Logger.getLogger(frmCorreos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        LinkedList<Lista> listas = SecuencialLista.obtenerListas(2);        
+        for (int i = 0; i < listas.size(); i++) {
+            if(listas.get(i).getUsuario().equals(ProyectoMEIA.usuarioEnUso.getUsuario()) && listas.get(i).getEstatus() != 0){
+                cmbSeleccionarLocal.addItem(listas.get(i).getNombreLista());
+            }
+        }
+        
+        cmbSeleccionarLocal.setEnabled(true);
+    }//GEN-LAST:event_btnEnviarListaLocalActionPerformed
+
+    private void btnExaminarAdjuntoLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExaminarAdjuntoLocalActionPerformed
+        // TODO add your handling code here:
+        JFileChooser dialogo = new JFileChooser();        
+        File ficheroImagen;
+        String rutaArchivo;        
+        int valor = dialogo.showOpenDialog(this);
+        if (valor == JFileChooser.APPROVE_OPTION) {
+            ficheroImagen = dialogo.getSelectedFile();
+            rutaArchivo = ficheroImagen.getPath();
+
+                
+            txtAdjuntoLocal.setText(rutaArchivo);            
+        }
+    }//GEN-LAST:event_btnExaminarAdjuntoLocalActionPerformed
+
+    private void btnEnviarLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarLocalActionPerformed
+        // TODO add your handling code here:
+        if(!txtAsuntoLocal.getText().isEmpty() && !txtMensajeLocal.getText().isEmpty() && !cmbSeleccionarLocal.getSelectedItem().toString().isEmpty()){
+            Date fecha = new Date();
+            
+            Correo correo = new Correo(ProyectoMEIA.usuarioEnUso.getUsuario(), cmbSeleccionarLocal.getSelectedItem().toString(), 
+                    txtMensajeLocal.getText().toString(), txtAsuntoLocal.getText().toString(), txtAdjuntoLocal.getText().toString(), 1, fecha.toString());
+            
+            ArchivoArbolBinario.EnviarCorreo(correo);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe ingresar el asunto, mensaje, y el destinatario");
+        }
+    }//GEN-LAST:event_btnEnviarLocalActionPerformed
 
     /**
      * @param args the command line arguments
