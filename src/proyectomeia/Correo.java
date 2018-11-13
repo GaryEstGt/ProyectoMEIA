@@ -97,4 +97,33 @@ public class Correo {
         this.fecha = fecha;
     }    
     
+    public int Compare(Correo correo){
+        if(this.getEmisor().equals(correo.getEmisor())){
+            if(this.getReceptor().equals(correo.getReceptor())){
+                if(this.getFecha().equals(correo.getFecha())){
+                    return 0;
+                }
+                else{
+                    return 0;
+                }
+            }
+            else{
+                if(this.getReceptor().compareTo(correo.getReceptor()) > 0){
+                    return 1;
+                }
+                else{
+                    return -1;
+                }
+            }
+        }
+        else{
+            if(this.getEmisor().compareTo(correo.getEmisor()) > 0){
+                return 1;
+            }
+            else{
+                return -1;
+            }
+        }
+    }
+    
 }

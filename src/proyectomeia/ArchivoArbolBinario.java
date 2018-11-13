@@ -14,7 +14,64 @@ import java.util.LinkedList;
 public class ArchivoArbolBinario {
     
     public static void EnviarCorreo(Correo correo){
+        DescriptorCorreo descriptorCorreo = obtenerDescriptorCorreo();
+        LinkedList<Nodo> nodos = obtenerNodos();
         
+        Nodo nuevo = new Nodo(descriptorCorreo.cantidad + 1, correo);
+        
+        if(descriptorCorreo.getRaiz() == 0){
+            descriptorCorreo.setRaiz(nuevo.getPosicion());              
+        }
+        else{
+            Nodo aux = nodos.get(descriptorCorreo.getRaiz() - 1);
+            Nodo Padre = nodos.get(descriptorCorreo.getRaiz() - 1);
+            boolean derecha = false;
+            
+            while(aux != null){
+                Padre = aux;
+                if(nuevo.getCorreo().Compare(aux.getCorreo()) == 1){
+                    if(aux.getDerecho() != -1){
+                        aux = nodos.get(aux.getDerecho() - 1);
+                    }
+                    else{
+                        aux = null;
+                    }
+                    
+                    derecha = true;
+                }
+                else{
+                    if(aux.getIzquierdo() != -1){
+                        aux = nodos.get(aux.getIzquierdo() - 1);
+                    }
+                    else{
+                        aux = null;
+                    }
+                    
+                    derecha = false;
+                }                
+            }
+            
+            int posicionPadre = 0;
+            for (int i = 0; i < nodos.size(); i++) {
+                if(nodos.get(i).equals(Padre)){
+                    posicionPadre = i;
+                    break;
+                }
+            }
+            
+            if(derecha){
+                nodos.get(posicionPadre).setDerecho(nuevo.getPosicion());
+            }
+            else{
+                nodos.get(posicionPadre).setIzquierdo(nuevo.getPosicion());
+            }                        
+        }
+        
+        descriptorCorreo.setCantidad(descriptorCorreo.getCantidad() + 1);
+        descriptorCorreo.setActivos(descriptorCorreo.getActivos() + 1);
+        nodos.add(nuevo);
+        rellenarDescriptorCorreo(descriptorCorreo);
+        rellenarNodos(nodos);
     }
                 
     public static LinkedList<Nodo> obtenerNodos(){
@@ -26,7 +83,7 @@ public class ArchivoArbolBinario {
             LinkedList<Nodo> lista=new LinkedList<>();
             for (int i = 0; i < datos.length; i++){   
                 String[] campos = datos[i].split("\\|");
-                Nodo nodo = new Nodo(Integer.parseInt(campos[0].trim()), -1, Integer.parseInt(campos[1].trim()),Integer.parseInt(campos[2].trim()),Correo.toCorreo(campos[3].trim()));
+                Nodo nodo = new Nodo(Integer.parseInt(campos[0].trim()), Integer.parseInt(campos[1].trim()),Integer.parseInt(campos[2].trim()),Correo.toCorreo(campos[3].trim()));
                 lista.add(nodo);
             }
             return lista;            

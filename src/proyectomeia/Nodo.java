@@ -10,8 +10,7 @@ package proyectomeia;
  * @author luise
  */
 public class Nodo {
-    int posicion;
-    int padre;
+    int posicion;    
     int izquierdo;
     int derecho;
     Correo correo;
@@ -22,15 +21,7 @@ public class Nodo {
 
     public void setPosicion(int posicion) {
         this.posicion = posicion;
-    }
-
-    public int getPadre() {
-        return padre;
-    }
-
-    public void setPadre(int padre) {
-        this.padre = padre;
-    }
+    }   
 
     public int getIzquierdo() {
         return izquierdo;
@@ -62,9 +53,15 @@ public class Nodo {
                 "|" + correo.toString();
     }   
 
-    public Nodo(int posicion, int padre, int izquierdo, int derecho, Correo correo) {
-        this.posicion = posicion;
-        this.padre = padre;
+    public Nodo(int posicion, Correo correo) {
+        this.posicion = posicion;        
+        this.izquierdo = -1;
+        this.derecho = -1;
+        this.correo = correo;
+    }
+    
+    public Nodo(int posicion,int izquierdo, int derecho, Correo correo) {
+        this.posicion = posicion;        
         this.izquierdo = izquierdo;
         this.derecho = derecho;
         this.correo = correo;
