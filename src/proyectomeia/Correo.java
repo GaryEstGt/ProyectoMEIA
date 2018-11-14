@@ -104,7 +104,12 @@ public class Correo {
                     return 0;
                 }
                 else{
-                    return 0;
+                    if(Date.parse(this.getFecha()) > Date.parse(correo.getFecha())){
+                        return 1;
+                    }
+                    else{
+                        return -1;
+                    }
                 }
             }
             else{

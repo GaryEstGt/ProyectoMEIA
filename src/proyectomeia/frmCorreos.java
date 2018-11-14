@@ -84,6 +84,11 @@ public class frmCorreos extends javax.swing.JFrame {
         jScrollPane4.setViewportView(txtBandejaEntrada);
 
         btnActualizarEntrada.setText("Actualizar");
+        btnActualizarEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarEntradaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,7 +97,7 @@ public class frmCorreos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnActualizarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -111,6 +116,11 @@ public class frmCorreos extends javax.swing.JFrame {
         jTabbedPane1.addTab("Bandeja de entrada", jPanel1);
 
         btnActualizarSalida.setText("Actualizar");
+        btnActualizarSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarSalidaActionPerformed(evt);
+            }
+        });
 
         txtBandejaSalida.setEditable(false);
         txtBandejaSalida.setColumns(20);
@@ -124,7 +134,7 @@ public class frmCorreos extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnActualizarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -202,21 +212,21 @@ public class frmCorreos extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(txtAdjuntoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExaminarAdjuntoLocal, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                        .addComponent(btnExaminarAdjuntoLocal, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(btnEnviarUsuarioLocal)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnEnviarListaLocal))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(cmbSeleccionarLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblSeleccionar))
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(btnEnviarLocal))
+                            .addComponent(btnEnviarLocal)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(cmbSeleccionarLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblSeleccionar)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -227,7 +237,7 @@ public class frmCorreos extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEnviarUsuarioLocal)
                     .addComponent(btnEnviarListaLocal))
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbSeleccionarLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSeleccionar))
@@ -247,7 +257,7 @@ public class frmCorreos extends javax.swing.JFrame {
                     .addComponent(btnExaminarAdjuntoLocal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEnviarLocal)
-                .addGap(40, 40, 40))
+                .addGap(57, 57, 57))
         );
 
         jTabbedPane1.addTab("Enviar correo (Local)", jPanel3);
@@ -280,54 +290,45 @@ public class frmCorreos extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(txtAsuntoGrupos)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(cmbGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtUsuarioGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)))
+                            .addComponent(btnEnviarGrupos)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
                             .addComponent(jLabel7))
-                        .addGap(71, 71, 71)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsuarioGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)))
-                    .addComponent(btnEnviarGrupos))
-                .addContainerGap(209, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2)
-                        .addComponent(txtAsuntoGrupos)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5))
-                            .addGap(0, 0, Short.MAX_VALUE)))
-                    .addContainerGap()))
+                        .addGap(0, 324, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUsuarioGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
+                    .addComponent(txtUsuarioGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtAsuntoGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addComponent(btnEnviarGrupos)
-                .addGap(22, 22, 22))
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addGap(128, 128, 128)
-                    .addComponent(jLabel4)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(txtAsuntoGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(14, 14, 14)
-                    .addComponent(jLabel5)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(72, Short.MAX_VALUE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Enviar correo (Otros grupos)", jPanel4);
@@ -343,11 +344,11 @@ public class frmCorreos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
             .addGroup(layout.createSequentialGroup()
                 .addGap(219, 219, 219)
                 .addComponent(btnRegresar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,6 +430,7 @@ public class frmCorreos extends javax.swing.JFrame {
                     txtAsuntoLocal.getText().toString(),txtMensajeLocal.getText().toString(), txtAdjuntoLocal.getText().toString(), 1);
             
             ArchivoArbolBinario.EnviarCorreo(correo);
+            JOptionPane.showMessageDialog(null, "Correo enviado con éxito");
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe ingresar el asunto, mensaje, y el destinatario");
@@ -472,6 +474,58 @@ public class frmCorreos extends javax.swing.JFrame {
             this.setVisible(false);
         }
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnActualizarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEntradaActionPerformed
+        // TODO add your handling code here:
+        LinkedList<Nodo> nodos = ArchivoArbolBinario.obtenerNodos();
+        
+        if(nodos != null){
+            boolean encontrado = false;
+            String correos = "";
+            
+            for (int i = 0; i < nodos.size(); i++) {
+                if(nodos.get(i).getCorreo().getReceptor().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
+                    encontrado = true;
+                    correos += "Emisor: " + nodos.get(i).getCorreo().getEmisor() + "  Asunto: " + nodos.get(i).getCorreo().getAsunto() + "  Mensaje: " + nodos.get(i).getCorreo().getMensaje() + "\n";
+                }
+            }
+            
+            txtBandejaEntrada.setText(correos);
+            
+            if(!encontrado){
+                JOptionPane.showMessageDialog(null, "No hay correos en la bandeja de entrada");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No hay correos en la bandeja de entrada");
+        }
+    }//GEN-LAST:event_btnActualizarEntradaActionPerformed
+
+    private void btnActualizarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarSalidaActionPerformed
+        // TODO add your handling code here:
+        LinkedList<Nodo> nodos = ArchivoArbolBinario.obtenerNodos();
+        
+        if(nodos != null){
+            boolean encontrado = false;
+            String correos = "";
+            
+            for (int i = 0; i < nodos.size(); i++) {
+                if(nodos.get(i).getCorreo().getEmisor().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
+                    encontrado = true;
+                    correos += "Receptor: " + nodos.get(i).getCorreo().getReceptor()+ "  Asunto: " + nodos.get(i).getCorreo().getAsunto() + "  Mensaje: " + nodos.get(i).getCorreo().getMensaje() + "\n";
+                }
+            }
+            
+            txtBandejaSalida.setText(correos);
+            
+            if(!encontrado){
+                JOptionPane.showMessageDialog(null, "No hay correos en la bandeja de salida");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No hay correos en la bandeja de salida");
+        }
+    }//GEN-LAST:event_btnActualizarSalidaActionPerformed
 
     /**
      * @param args the command line arguments
