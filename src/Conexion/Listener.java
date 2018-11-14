@@ -63,24 +63,22 @@ public class Listener extends Thread {
                         if(action.equals("INSERT")){
                         //Se comprueba si el correo es para mi
                             id = parameter.split("\\{")[2].replace("}","").split(",")[0].split(":")[1];
-                            GrupoEmisor = parameter.split("\\{")[2].replace("}","").split(",")[1].split(":")[1];  
-                            GrupoReceptor = parameter.split("\\{")[2].replace("}","").split(",")[2].split(":")[1];
-                            Emisor = parameter.split("\\{")[2].replace("}","").split(",")[3].split(":")[1];
-                            Receptor = parameter.split("\\{")[2].replace("}","").split(",")[4].split(":")[1];
-                            Asunto = parameter.split("\\{")[2].replace("}","").split(",")[6].split(":")[1];
-                            Mensaje = parameter.split("\\{")[2].replace("}","").split(",")[7].split(":")[1];
+                            GrupoEmisor = parameter.split("\\{")[2].replace("}","").split(",")[1].split(":")[1].replace("\"", "");  
+                            GrupoReceptor = parameter.split("\\{")[2].replace("}","").split(",")[2].split(":")[1].replace("\"", "");
+                            Emisor = parameter.split("\\{")[2].replace("}","").split(",")[3].split(":")[1].replace("\"", "");
+                            Receptor = parameter.split("\\{")[2].replace("}","").split(",")[4].split(":")[1].replace("\"", "");
+                            Asunto = parameter.split("\\{")[2].replace("}","").split(",")[6].split(":")[1].replace("\"", "");
+                            Mensaje = parameter.split("\\{")[2].replace("}","").split(",")[7].split(":")[1].replace("\"", "");
                             boolean existe = false;
                             
                             if(GrupoReceptor.equals("13")){
                                 //si es para mi se envia el update con la respuesta
                                 BDD.getInstancia().setMensaje("El Grupo " + GrupoEmisor + " te ha enviado un Correo." );
                                 Not = new Notificacion();
-                                Not.setVisible(true);
-                                Date fecha = new Date();                                
-                                //ACA USTEDES DEBEN GESTIONAR A DONDE ENVIAR LOS DATOS OBTENIDOS DE LA NOTIFICACION PARA MOSTRARLOS EN LA BANDEJA DE ENTRADA
-                                correo = new Correo(Emisor, Receptor, fecha.toGMTString(), Asunto, Mensaje, "NULL", 1);
+                                Not.setVisible(true);                                
+                                //ACA USTEDES DEBEN GESTIONAR A DONDE ENVIAR LOS DATOS OBTENIDOS DE LA NOTIFICACION PARA MOSTRARLOS EN LA BANDEJA DE ENTRADA                                
                                 
-                                Usuario usuario = Lista_Usuario.buscarUsuario(Receptor.replace("\"", ""));
+                                Usuario usuario = Lista_Usuario.buscarUsuario(Receptor);
                                 
                                 if(usuario == null){
                                     existe = false;
@@ -91,6 +89,9 @@ public class Listener extends Thread {
                                 //si es para mi enviar el update con la respuesta de que el usuario existe
                                 //Deben de validar cada uno si el usuario existe o no en su ordenador y enviar la respuesta de esta forma al servidor
                                 if(existe){
+                                    Date fecha = new Date(); 
+                                    correo = new Correo(Emisor, Receptor, fecha.toGMTString(), Asunto, Mensaje, "NULL", 1);
+                                    ArchivoArbolBinario.EnviarCorreo(correo);
                                     BDD.getInstancia().Update(id, existe);
                                 }else{
                                     BDD.getInstancia().Update(id, existe);
@@ -102,12 +103,12 @@ public class Listener extends Thread {
                             //comprobar si yo fui el que envie la solicitud
                             //Descomponer id, grupo emisor y grupo receptor en esta parte
                             id = parameter.split("\\{")[2].replace("}","").split(",")[0].split(":")[1];
-                            GrupoEmisor = parameter.split("\\{")[2].replace("}","").split(",")[1].split(":")[1];
-                            GrupoReceptor = parameter.split("\\{")[2].replace("}","").split(",")[2].split(":")[1];
-                            Emisor = parameter.split("\\{")[2].replace("}","").split(",")[3].split(":")[1];
-                            Receptor = parameter.split("\\{")[2].replace("}","").split(",")[4].split(":")[1];
-                            Asunto = parameter.split("\\{")[2].replace("}","").split(",")[6].split(":")[1];
-                            Mensaje = parameter.split("\\{")[2].replace("}","").split(",")[7].split(":")[1];
+                            GrupoEmisor = parameter.split("\\{")[2].replace("}","").split(",")[1].split(":")[1].replace("\"", "");
+                            GrupoReceptor = parameter.split("\\{")[2].replace("}","").split(",")[2].split(":")[1].replace("\"", "");
+                            Emisor = parameter.split("\\{")[2].replace("}","").split(",")[3].split(":")[1].replace("\"", "");
+                            Receptor = parameter.split("\\{")[2].replace("}","").split(",")[4].split(":")[1].replace("\"", "");
+                            Asunto = parameter.split("\\{")[2].replace("}","").split(",")[6].split(":")[1].replace("\"", "");
+                            Mensaje = parameter.split("\\{")[2].replace("}","").split(",")[7].split(":")[1].replace("\"", "");
                             
                             //Aca deben de colocar su numero de Grupo 
                             if(GrupoEmisor.equals("13")){
@@ -119,10 +120,12 @@ public class Listener extends Thread {
                                     Not = new Notificacion();
                                     Not.setVisible(true);
                                  }else{
+                                    Date fecha = new Date(); 
+                                    correo = new Correo(Emisor, Receptor, fecha.toGMTString(), Asunto, Mensaje, "NULL", 1);
+                                    ArchivoArbolBinario.EnviarCorreo(correo);
                                     BDD.getInstancia().setMensaje("El grupo " + GrupoReceptor + " ha recibido el mensaje." );
                                     Not = new Notificacion();
-                                    Not.setVisible(true);
-                                    ArchivoArbolBinario.EnviarCorreo(correo);
+                                    Not.setVisible(true);                                    
                                  }
                                  
                                  //Para Eliminar la solicitud (NO ES NECESARIO, OPCIONAL)

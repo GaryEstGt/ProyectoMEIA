@@ -17,7 +17,7 @@ public class ProyectoMEIA {
      * @param args the command line arguments
      */
     public static Usuario usuarioEnUso;
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         usuarioEnUso = null;
         PantallaCarga pantalla = new PantallaCarga();
         pantalla.setVisible(true);
