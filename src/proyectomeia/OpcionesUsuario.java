@@ -418,6 +418,8 @@ public class OpcionesUsuario extends javax.swing.JFrame implements DocumentListe
                 ventana = new LogIn();
             } catch (IOException ex) {
                 Logger.getLogger(OpcionesUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(OpcionesUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
             ventana.setVisible(true);
             dispose(); 

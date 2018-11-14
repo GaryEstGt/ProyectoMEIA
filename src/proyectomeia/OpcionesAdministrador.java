@@ -210,7 +210,9 @@ public class OpcionesAdministrador extends javax.swing.JFrame {
                 ventana = new LogIn();
             } catch (IOException ex) {
                 Logger.getLogger(OpcionesUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } catch (ClassNotFoundException ex) {
+            Logger.getLogger(OpcionesAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
             ventana.show();
             dispose(); 
         this.setVisible(false);

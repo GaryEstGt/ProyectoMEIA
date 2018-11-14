@@ -5,8 +5,10 @@
  */
 package proyectomeia;
 
+import Conexion.BDD;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -62,6 +64,17 @@ public class frmCorreos extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnEnviarLocal = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        cmbGrupo = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        txtAsuntoGrupos = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtMensajeGrupos = new javax.swing.JTextArea();
+        txtUsuarioGrupos = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        btnEnviarGrupos = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -79,7 +92,7 @@ public class frmCorreos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnActualizarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -91,7 +104,7 @@ public class frmCorreos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnActualizarEntrada)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -111,7 +124,7 @@ public class frmCorreos extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnActualizarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -123,8 +136,8 @@ public class frmCorreos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnActualizarSalida)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
 
         jTabbedPane1.addTab("Bandeja de salida", jPanel2);
@@ -189,7 +202,7 @@ public class frmCorreos extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(txtAdjuntoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExaminarAdjuntoLocal, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
+                        .addComponent(btnExaminarAdjuntoLocal, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -218,7 +231,7 @@ public class frmCorreos extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbSeleccionarLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSeleccionar))
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtAsuntoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,35 +245,117 @@ public class frmCorreos extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAdjuntoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExaminarAdjuntoLocal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEnviarLocal)
-                .addGap(19, 19, 19))
+                .addGap(40, 40, 40))
         );
 
         jTabbedPane1.addTab("Enviar correo (Local)", jPanel3);
+
+        cmbGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13" }));
+
+        jLabel4.setText("Asunto");
+
+        jLabel5.setText("Mensaje");
+
+        txtMensajeGrupos.setColumns(20);
+        txtMensajeGrupos.setRows(5);
+        jScrollPane2.setViewportView(txtMensajeGrupos);
+
+        jLabel6.setText("Ingrese Nombre de Usuario");
+
+        btnEnviarGrupos.setText("Enviar correo");
+        btnEnviarGrupos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarGruposActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Seleccione el grupo");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 562, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(71, 71, 71)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUsuarioGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)))
+                    .addComponent(btnEnviarGrupos))
+                .addContainerGap(209, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane2)
+                        .addComponent(txtAsuntoGrupos)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5))
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap()))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuarioGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
+                .addComponent(btnEnviarGrupos)
+                .addGap(22, 22, 22))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(128, 128, 128)
+                    .addComponent(jLabel4)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtAsuntoGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(14, 14, 14)
+                    .addComponent(jLabel5)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(72, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Enviar correo (Otros grupos)", jPanel4);
+
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(219, 219, 219)
+                .addComponent(btnRegresar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRegresar)
+                .addGap(0, 15, Short.MAX_VALUE))
         );
 
         pack();
@@ -330,8 +425,8 @@ public class frmCorreos extends javax.swing.JFrame {
         if(!txtAsuntoLocal.getText().isEmpty() && !txtMensajeLocal.getText().isEmpty() && !cmbSeleccionarLocal.getSelectedItem().toString().isEmpty()){
             Date fecha = new Date();
             
-            Correo correo = new Correo(ProyectoMEIA.usuarioEnUso.getUsuario(), cmbSeleccionarLocal.getSelectedItem().toString(), 
-                    txtMensajeLocal.getText().toString(), txtAsuntoLocal.getText().toString(), txtAdjuntoLocal.getText().toString(), 1, fecha.toString());
+            Correo correo = new Correo(ProyectoMEIA.usuarioEnUso.getUsuario(), cmbSeleccionarLocal.getSelectedItem().toString(), fecha.toGMTString(),
+                    txtAsuntoLocal.getText().toString(),txtMensajeLocal.getText().toString(), txtAdjuntoLocal.getText().toString(), 1);
             
             ArchivoArbolBinario.EnviarCorreo(correo);
         }
@@ -339,6 +434,44 @@ public class frmCorreos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe ingresar el asunto, mensaje, y el destinatario");
         }
     }//GEN-LAST:event_btnEnviarLocalActionPerformed
+
+    private void btnEnviarGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarGruposActionPerformed
+        // TODO add your handling code here:
+        if(!txtMensajeGrupos.getText().isEmpty() && !cmbGrupo.getSelectedItem().toString().isEmpty() && !txtAsuntoGrupos.getText().toString().isEmpty()
+                && !txtUsuarioGrupos.getText().isEmpty()){
+            Date fecha = new Date();
+            
+            Correo correo = new Correo(ProyectoMEIA.usuarioEnUso.getUsuario(), txtUsuarioGrupos.getText().toString(), fecha.toGMTString(), 
+                    txtAsuntoGrupos.getText().toString(), txtMensajeGrupos.getText().toString(), "NULL", 1);
+            
+            try {
+                BDD.getInstancia().conexion();
+                BDD.getInstancia().Insert(13, Integer.parseInt(cmbGrupo.getSelectedItem().toString()), ProyectoMEIA.usuarioEnUso.getUsuario(),
+                        txtUsuarioGrupos.getText().toString(), txtAsuntoGrupos.getText().toString(), txtMensajeGrupos.getText().toString());                                
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(frmCorreos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmCorreos.class.getName()).log(Level.SEVERE, null, ex);
+            }                        
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe ingresar el asunto, mensaje, y el destinatario");
+        }
+    }//GEN-LAST:event_btnEnviarGruposActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        if(ProyectoMEIA.usuarioEnUso.getRol() == 1){
+            OpcionesAdministrador opcionesAdministrador = new OpcionesAdministrador();
+            opcionesAdministrador.setVisible(true);
+            this.setVisible(false);
+        }
+        else{
+            OpcionesUsuario opcionesUsuario = new OpcionesUsuario();
+            opcionesUsuario.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,27 +511,38 @@ public class frmCorreos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarEntrada;
     private javax.swing.JButton btnActualizarSalida;
+    private javax.swing.JButton btnEnviarGrupos;
     private javax.swing.JButton btnEnviarListaLocal;
     private javax.swing.JButton btnEnviarLocal;
     private javax.swing.JButton btnEnviarUsuarioLocal;
     private javax.swing.JButton btnExaminarAdjuntoLocal;
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<String> cmbGrupo;
     private javax.swing.JComboBox<String> cmbSeleccionarLocal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblSeleccionar;
     private javax.swing.JTextField txtAdjuntoLocal;
+    private javax.swing.JTextField txtAsuntoGrupos;
     private javax.swing.JTextField txtAsuntoLocal;
     private javax.swing.JTextArea txtBandejaEntrada;
     private javax.swing.JTextArea txtBandejaSalida;
+    private javax.swing.JTextArea txtMensajeGrupos;
     private javax.swing.JTextArea txtMensajeLocal;
+    private javax.swing.JTextField txtUsuarioGrupos;
     // End of variables declaration//GEN-END:variables
 }

@@ -117,6 +117,8 @@ public class PantallaCarga extends javax.swing.JFrame {
                 this.setVisible(false);
             } catch (IOException ex) {
                 Logger.getLogger(PantallaCarga.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(PantallaCarga.class.getName()).log(Level.SEVERE, null, ex);
             }        
         }
     }//GEN-LAST:event_jProgressBar1StateChanged

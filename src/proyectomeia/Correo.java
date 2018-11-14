@@ -28,10 +28,10 @@ public class Correo {
     
     public static Correo toCorreo(String correo){
         String[] campos = correo.split("\\/");
-        return new Correo(campos[0], campos[1], campos[2], campos[3], campos[4], Integer.parseInt(campos[5]), campos[6]);
+        return new Correo(campos[0], campos[1], campos[2], campos[3], campos[4], campos[5], Integer.parseInt(campos[6]));
     }
 
-    public Correo(String emisor, String receptor, String mensaje, String asunto, String adjunto, int estatus, String fecha) {
+    public Correo(String emisor, String receptor, String fecha, String asunto, String mensaje, String adjunto, int estatus) {
         this.emisor = emisor;
         this.receptor = receptor;
         this.mensaje = mensaje;

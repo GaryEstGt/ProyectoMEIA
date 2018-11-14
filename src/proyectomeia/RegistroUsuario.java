@@ -348,6 +348,8 @@ public class RegistroUsuario extends javax.swing.JFrame implements DocumentListe
                         this.setVisible(false);
                     } catch (IOException ex) {
                         Logger.getLogger(RegistroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(RegistroUsuario.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 else{

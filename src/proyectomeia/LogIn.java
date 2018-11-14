@@ -5,8 +5,10 @@
  */
 package proyectomeia;
 
+import Conexion.BDD;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -23,8 +25,13 @@ public class LogIn extends javax.swing.JFrame {
     /**
      * Creates new form LogIn
      */    
-    public LogIn() throws IOException {
-        initComponents();                
+    public LogIn() throws IOException, ClassNotFoundException {
+        initComponents();     
+        try {
+            BDD.getInstancia().conexion();
+        } catch (SQLException ex) {
+            Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ProyectoMEIA.usuarioEnUso = null;
         File usuario, usuarioMaestro, descriptorBitacora, descriptorMaestro,lista,listaMaestro,descBit,descListaM, usuarioLista, indice, 
                 descUsuarioLista, descIndice, arbol, descArbol;
@@ -420,6 +427,8 @@ public class LogIn extends javax.swing.JFrame {
                 try {
                     new LogIn().setVisible(true);
                 } catch (IOException ex) {
+                    Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
                     Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

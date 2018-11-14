@@ -571,7 +571,9 @@ public class BuscarUsuarios extends javax.swing.JFrame implements DocumentListen
                 ventana = new LogIn();
             } catch (IOException ex) {
                 Logger.getLogger(OpcionesUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } catch (ClassNotFoundException ex) {
+                 Logger.getLogger(BuscarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+             }
             ventana.setVisible(true);
             dispose(); 
         }

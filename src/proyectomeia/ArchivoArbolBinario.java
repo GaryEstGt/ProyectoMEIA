@@ -15,7 +15,11 @@ public class ArchivoArbolBinario {
     
     public static void EnviarCorreo(Correo correo){
         DescriptorCorreo descriptorCorreo = obtenerDescriptorCorreo();
-        LinkedList<Nodo> nodos = obtenerNodos();
+        LinkedList<Nodo> nodos = new LinkedList<Nodo>();
+        
+        if(obtenerNodos() != null){
+            nodos = obtenerNodos();
+        }        
         
         Nodo nuevo = new Nodo(descriptorCorreo.cantidad + 1, correo);
         
@@ -83,7 +87,7 @@ public class ArchivoArbolBinario {
             LinkedList<Nodo> lista=new LinkedList<>();
             for (int i = 0; i < datos.length; i++){   
                 String[] campos = datos[i].split("\\|");
-                Nodo nodo = new Nodo(Integer.parseInt(campos[0].trim()), Integer.parseInt(campos[1].trim()),Integer.parseInt(campos[2].trim()),Correo.toCorreo(campos[3].trim()));
+                Nodo nodo = new Nodo(Integer.parseInt(campos[0].trim()), Integer.parseInt(campos[1].trim()),Integer.parseInt(campos[2].trim()),Correo.toCorreo(campos[3]));
                 lista.add(nodo);
             }
             return lista;            
