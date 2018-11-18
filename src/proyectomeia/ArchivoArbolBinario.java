@@ -81,7 +81,7 @@ public class ArchivoArbolBinario {
     public static void eliminarCorreo(Correo correo){        
         DescriptorCorreo descriptorCorreo = obtenerDescriptorCorreo();
         LinkedList<Nodo> nodos = new LinkedList<Nodo>();
-        Nodo nodo = null;
+        int nodo = -1;
         
         if(obtenerNodos() != null){
             nodos = obtenerNodos();
@@ -90,14 +90,14 @@ public class ArchivoArbolBinario {
         if(nodos.size() > 0){
             for (int i = 0; i < nodos.size(); i++) {
                 if(nodos.get(i).getCorreo().Compare(correo) == 0){
-                    nodo = nodos.get(i);
+                    nodo = i;
                     break;
                 }
             }
         }        
         
-        boolean tieneNodoDerecha = nodo.getDerecho() != -1 ? true : false;
-        boolean tieneNodoIzquierda = nodo.getIzquierdo() != -1 ? true : false;
+        boolean tieneNodoDerecha = nodos.get(nodo).getDerecho() != -1 ? true : false;
+        boolean tieneNodoIzquierda = nodos.get(nodo).getIzquierdo() != -1 ? true : false;
         
         if (!tieneNodoDerecha && !tieneNodoIzquierda)
             {
@@ -123,127 +123,127 @@ public class ArchivoArbolBinario {
             }                        
     }
     
-    protected static void removeNodoCaso1(Nodo nodo, LinkedList<Nodo> nodos)
+    protected static void removeNodoCaso1(int nodo, LinkedList<Nodo> nodos)
         {       
             DescriptorCorreo descriptorCorreo = obtenerDescriptorCorreo();
-            Nodo Padre = null;
+            int Padre = -1;
             
             boolean derecho = false;
             
             for (int i = 0; i < nodos.size(); i++) {
-                if(nodos.get(i).getDerecho() == nodo.getPosicion()){
+                if(nodos.get(i).getDerecho() == (nodo + 1)){
                     derecho = true;
-                    Padre = nodos.get(i);
+                    Padre = i;
                 }
-                else if(nodos.get(i).getIzquierdo() == nodo.getPosicion()){
+                else if(nodos.get(i).getIzquierdo() == (nodo + 1)){
                     derecho = false;
-                    Padre = nodos.get(i);
+                    Padre = i;
                 }
             }
             
-            if (nodo.getPosicion() != descriptorCorreo.getRaiz())
+            if (nodos.get(nodo).getPosicion() != descriptorCorreo.getRaiz())
             {
                 if (derecho)
-                    Padre.setDerecho(-1);
+                    nodos.get(Padre).setDerecho(-1);
                 else
-                    Padre.setIzquierdo(-1);
+                    nodos.get(Padre).setIzquierdo(-1);
             }
             else
             {
                 descriptorCorreo.setRaiz(0);
             }
         
-            nodos.get(nodo.getPosicion() - 1).getCorreo().setEstatus(0);
+            nodos.get(nodo).getCorreo().setEstatus(0);
             descriptorCorreo.setActivos(descriptorCorreo.getActivos() - 1);
             descriptorCorreo.setInactivos(descriptorCorreo.getInactivos() + 1);        
             rellenarDescriptorCorreo(descriptorCorreo);
             rellenarNodos(nodos);
         }
     
-        protected static void removeNodoCaso2(Nodo nodo, LinkedList<Nodo> nodos)
+        protected static void removeNodoCaso2(int nodo, LinkedList<Nodo> nodos)
         {
             DescriptorCorreo descriptorCorreo = obtenerDescriptorCorreo();
-            Nodo Padre = null;
+            int Padre = -1;
             
             boolean derecho = false;
             
             for (int i = 0; i < nodos.size(); i++) {
-                if(nodos.get(i).getDerecho() == nodo.getPosicion()){
+                if(nodos.get(i).getDerecho() == (nodo + 1)){
                     derecho = true;
-                    Padre = nodos.get(i);
+                    Padre = i;
                 }
-                else if(nodos.get(i).getIzquierdo() == nodo.getPosicion()){
+                else if(nodos.get(i).getIzquierdo() == (nodo + 1)){
                     derecho = false;
-                    Padre = nodos.get(i);
+                    Padre = i;
                 }
             }
             
-            if (nodo.getPosicion() != descriptorCorreo.getRaiz())
+            if (nodos.get(nodo).getPosicion() != descriptorCorreo.getRaiz())
             {                
-                if (nodo.getDerecho() != -1)
+                if (nodos.get(nodo).getDerecho() != -1)
                 {                    
                     if (derecho)
-                        Padre.setDerecho(nodo.getDerecho());
+                        nodos.get(Padre).setDerecho(nodos.get(nodo).getDerecho());
                     else
-                        Padre.setIzquierdo(nodo.getDerecho());
+                        nodos.get(Padre).setIzquierdo(nodos.get(nodo).getDerecho());
                 }
                 else
                 {                    
                     if (derecho)
-                        Padre.setDerecho(nodo.getIzquierdo());
+                        nodos.get(Padre).setDerecho(nodos.get(nodo).getIzquierdo());
                     else
-                        Padre.setIzquierdo(nodo.getIzquierdo());
+                        nodos.get(Padre).setIzquierdo(nodos.get(nodo).getIzquierdo());
                 }
             }
             else
             {
-                if (nodo.getDerecho() != -1)
+                if (nodos.get(nodo).getDerecho() != -1)
                 {
-                    descriptorCorreo.setRaiz(nodo.getDerecho());                    
+                    descriptorCorreo.setRaiz(nodos.get(nodo).getDerecho());                    
                 }
                 else
                 {
-                    descriptorCorreo.setRaiz(nodo.getIzquierdo());
+                    descriptorCorreo.setRaiz(nodos.get(nodo).getIzquierdo());
                 }
             }
             
-            nodos.get(nodo.getPosicion() - 1).getCorreo().setEstatus(0);
+            nodos.get(nodo).getCorreo().setEstatus(0);
             descriptorCorreo.setActivos(descriptorCorreo.getActivos() - 1);
             descriptorCorreo.setInactivos(descriptorCorreo.getInactivos() + 1);        
             rellenarDescriptorCorreo(descriptorCorreo);
             rellenarNodos(nodos);
         }
         
-        protected static void removeNodoCaso3(Nodo nodo, LinkedList<Nodo> nodos)
+        protected static void removeNodoCaso3(int nodo, LinkedList<Nodo> nodos)
         {
             DescriptorCorreo descriptorCorreo = obtenerDescriptorCorreo();                        
-            Nodo aux = nodos.get(nodo.getIzquierdo() - 1);
-            Nodo Padre = null;
+            int aux = nodos.get(nodo).getIzquierdo() - 1;
+            int Padre = -1;
             
             boolean derecho = false;
             
             for (int i = 0; i < nodos.size(); i++) {
-                if(nodos.get(i).getDerecho() == nodo.getPosicion()){
+                if(nodos.get(i).getDerecho() == (nodo + 1)){
                     derecho = true;
-                    Padre = nodos.get(i);
+                    Padre = i;
                 }
-                else if(nodos.get(i).getIzquierdo() == nodo.getPosicion()){
+                else if(nodos.get(i).getIzquierdo() == (nodo + 1)){
                     derecho = false;
-                    Padre = nodos.get(i);
+                    Padre = i;
                 }
             }
 
-            while (aux.getDerecho() != -1)
+            while (nodos.get(aux).getDerecho() != -1)
             {
                 Padre = aux;
-                aux = nodos.get(aux.getDerecho() - 1);                                
+                aux = nodos.get(aux).getDerecho() - 1;                                
             }
 
-            if (nodo.getDerecho() != aux.getPosicion() && nodo.getIzquierdo() != aux.getPosicion())
+            if (nodos.get(nodo).getDerecho() != (aux + 1) && nodos.get(nodo).getIzquierdo() != (aux + 1))
             {
                 for (int i = 0; i < nodos.size(); i++) {
-                    if(nodos.get(i).getDerecho() == aux.getPosicion()){
-                        nodos.get(i).setDerecho(aux.getIzquierdo());
+                    if(nodos.get(i).getDerecho() == (aux + 1)){
+                        nodos.get(i).setDerecho(nodos.get(aux).getIzquierdo());
                         break;
                     }
                 }                
@@ -251,29 +251,29 @@ public class ArchivoArbolBinario {
             else
             {
                 for (int i = 0; i < nodos.size(); i++) {
-                    if(nodos.get(i).getDerecho() == aux.getPosicion()){
-                        nodos.get(i).setIzquierdo(aux.getIzquierdo());
+                    if(nodos.get(i).getDerecho() == (aux + 1)){
+                        nodos.get(i).setIzquierdo(nodos.get(aux).getIzquierdo());
                         break;
                     }
                 }                             
             }                            
 
-            aux.setDerecho(nodo.getDerecho());            
-            aux.setIzquierdo(nodo.getIzquierdo());                        
+            nodos.get(aux).setDerecho(nodos.get(nodo).getDerecho());            
+            nodos.get(aux).setIzquierdo(nodos.get(nodo).getIzquierdo());                        
 
-            if (nodo.getPosicion() != descriptorCorreo.getRaiz())
+            if ((nodo + 1) != descriptorCorreo.getRaiz())
             {                                
                 if (derecho)
-                    Padre.setDerecho(aux.getPosicion());
+                    nodos.get(Padre).setDerecho(aux + 1);
                 else
-                    Padre.setIzquierdo(aux.getPosicion());
+                    nodos.get(Padre).setIzquierdo(aux + 1);
             }
             else
             {                
-                descriptorCorreo.setRaiz(aux.getPosicion());
+                descriptorCorreo.setRaiz(aux + 1);
             }
             
-            nodos.get(nodo.getPosicion() - 1).getCorreo().setEstatus(0);
+            nodos.get(nodo).getCorreo().setEstatus(0);
             descriptorCorreo.setActivos(descriptorCorreo.getActivos() - 1);
             descriptorCorreo.setInactivos(descriptorCorreo.getInactivos() + 1);        
             rellenarDescriptorCorreo(descriptorCorreo);
