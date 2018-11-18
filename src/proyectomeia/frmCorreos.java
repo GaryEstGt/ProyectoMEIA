@@ -29,6 +29,8 @@ public class frmCorreos extends javax.swing.JFrame {
     public frmCorreos() {
         initComponents();
         cmbSeleccionarLocal.setEnabled(false);
+        txtEliminarEntrada.setDocument(new LimitarNumeros());
+        txtEliminarSalida.setDocument(new LimitarNumeros());
     }
 
     /**
@@ -45,10 +47,21 @@ public class frmCorreos extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txtBandejaEntrada = new javax.swing.JTextArea();
         btnActualizarEntrada = new javax.swing.JButton();
+        btnEliminarEntrada = new javax.swing.JButton();
+        btnBuscarEntrada = new javax.swing.JButton();
+        txtEliminarEntrada = new javax.swing.JTextField();
+        txtBuscarEntrada = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnActualizarSalida = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         txtBandejaSalida = new javax.swing.JTextArea();
+        btnEliminarSalida = new javax.swing.JButton();
+        btnBuscarSalida = new javax.swing.JButton();
+        txtEliminarEntrada1 = new javax.swing.JTextField();
+        txtEliminarSalida = new javax.swing.JTextField();
+        txtBuscarSalida = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnEnviarUsuarioLocal = new javax.swing.JButton();
         btnEnviarListaLocal = new javax.swing.JButton();
@@ -90,6 +103,22 @@ public class frmCorreos extends javax.swing.JFrame {
             }
         });
 
+        btnEliminarEntrada.setText("Eliminar");
+        btnEliminarEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEntradaActionPerformed(evt);
+            }
+        });
+
+        btnBuscarEntrada.setText("Buscar");
+        btnBuscarEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarEntradaActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Ingrese el número de registro");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -99,17 +128,35 @@ public class frmCorreos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnActualizarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEliminarEntrada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtEliminarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscarEntrada)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBuscarEntrada)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnActualizarEntrada)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizarEntrada)
+                    .addComponent(btnEliminarEntrada)
+                    .addComponent(btnBuscarEntrada)
+                    .addComponent(txtEliminarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -127,6 +174,24 @@ public class frmCorreos extends javax.swing.JFrame {
         txtBandejaSalida.setRows(5);
         jScrollPane5.setViewportView(txtBandejaSalida);
 
+        btnEliminarSalida.setText("Eliminar");
+        btnEliminarSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarSalidaActionPerformed(evt);
+            }
+        });
+
+        btnBuscarSalida.setText("Buscar");
+        btnBuscarSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarSalidaActionPerformed(evt);
+            }
+        });
+
+        txtEliminarEntrada1.setText("Ingrese el número de registro");
+
+        jLabel8.setText("Ingrese el número de registro");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -136,18 +201,46 @@ public class frmCorreos extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnActualizarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEliminarSalida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtEliminarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscarSalida)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBuscarSalida)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(248, 248, 248)
+                    .addComponent(txtEliminarEntrada1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(248, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnActualizarSalida)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizarSalida)
+                    .addComponent(btnEliminarSalida)
+                    .addComponent(btnBuscarSalida)
+                    .addComponent(txtEliminarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(253, 253, 253)
+                    .addComponent(txtEliminarEntrada1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(262, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Bandeja de salida", jPanel2);
@@ -262,7 +355,7 @@ public class frmCorreos extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Enviar correo (Local)", jPanel3);
 
-        cmbGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13" }));
+        cmbGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14" }));
 
         jLabel4.setText("Asunto");
 
@@ -486,7 +579,7 @@ public class frmCorreos extends javax.swing.JFrame {
             for (int i = 0; i < nodos.size(); i++) {
                 if(nodos.get(i).getCorreo().getReceptor().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
                     encontrado = true;
-                    correos += "Emisor: " + nodos.get(i).getCorreo().getEmisor() + "  Asunto: " + nodos.get(i).getCorreo().getAsunto() + "  Mensaje: " + nodos.get(i).getCorreo().getMensaje() + "\n";
+                    correos += (i + 1) + ": " + "Emisor: " + nodos.get(i).getCorreo().getEmisor() + "  Asunto: " + nodos.get(i).getCorreo().getAsunto() + "  Mensaje: " + nodos.get(i).getCorreo().getMensaje() + "\n";
                 }
             }
             
@@ -512,7 +605,7 @@ public class frmCorreos extends javax.swing.JFrame {
             for (int i = 0; i < nodos.size(); i++) {
                 if(nodos.get(i).getCorreo().getEmisor().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
                     encontrado = true;
-                    correos += "Receptor: " + nodos.get(i).getCorreo().getReceptor()+ "  Asunto: " + nodos.get(i).getCorreo().getAsunto() + "  Mensaje: " + nodos.get(i).getCorreo().getMensaje() + "\n";
+                    correos += (i + 1) + ": " + "Receptor: " + nodos.get(i).getCorreo().getReceptor()+ "  Asunto: " + nodos.get(i).getCorreo().getAsunto() + "  Mensaje: " + nodos.get(i).getCorreo().getMensaje() + "\n";
                 }
             }
             
@@ -526,6 +619,91 @@ public class frmCorreos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No hay correos en la bandeja de salida");
         }
     }//GEN-LAST:event_btnActualizarSalidaActionPerformed
+
+    private void btnEliminarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSalidaActionPerformed
+        // TODO add your handling code here:
+        try{
+            if(!txtEliminarSalida.getText().toString().isEmpty() && txtEliminarSalida.getText().toString() != "Ingrese el número de registro"){                
+                LinkedList<Nodo> nodos = ArchivoArbolBinario.obtenerNodos();
+        
+                ArchivoArbolBinario.eliminarCorreo(nodos.get(Integer.parseInt(txtEliminarSalida.getText().toString()) - 1).getCorreo());
+                JOptionPane.showMessageDialog(null, "Correo eliminado");
+            
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Debe ingresar el número de correo que desea eliminar");
+            }
+        }            
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Debe ingresar un número de registro valido");
+        }        
+    }//GEN-LAST:event_btnEliminarSalidaActionPerformed
+
+    private void btnEliminarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEntradaActionPerformed
+        // TODO add your handling code here:
+        try{
+            if(!txtEliminarEntrada.getText().toString().isEmpty() && txtEliminarEntrada.getText().toString() != "Ingrese el número de registro"){                
+                LinkedList<Nodo> nodos = ArchivoArbolBinario.obtenerNodos();
+        
+                ArchivoArbolBinario.eliminarCorreo(nodos.get(Integer.parseInt(txtEliminarEntrada.getText().toString()) - 1).getCorreo());
+                JOptionPane.showMessageDialog(null, "Correo eliminado");
+            
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Debe ingresar el número de correo que desea eliminar");
+            }
+        }            
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Debe ingresar un número de registro valido");
+        }        
+    }//GEN-LAST:event_btnEliminarEntradaActionPerformed
+
+    private void btnBuscarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEntradaActionPerformed
+        // TODO add your handling code here:
+        try {
+            if(!txtBuscarEntrada.getText().toString().isEmpty()){
+                LinkedList<Nodo> nodos = ArchivoArbolBinario.obtenerNodos();
+                String correo = "";
+        
+                for (int i = 0; i < nodos.size(); i++) {
+                    if(nodos.get(i).getCorreo().toString().contains(txtBuscarEntrada.getText().toString())){
+                        correo += (i + 1) + ": " + "Emisor: " + nodos.get(i).getCorreo().getEmisor() + "  Asunto: " + nodos.get(i).getCorreo().getAsunto() + "  Mensaje: " + nodos.get(i).getCorreo().getMensaje() + "\n";
+                    }
+                }
+                
+                txtBandejaEntrada.setText(correo);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Debe ingresar lo que desea buscar");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar");
+        }
+        
+    }//GEN-LAST:event_btnBuscarEntradaActionPerformed
+
+    private void btnBuscarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarSalidaActionPerformed
+        // TODO add your handling code here:
+        try {
+            if(!txtBuscarSalida.getText().toString().isEmpty()){
+                LinkedList<Nodo> nodos = ArchivoArbolBinario.obtenerNodos();
+                String correo = "";
+        
+                for (int i = 0; i < nodos.size(); i++) {
+                    if(nodos.get(i).getCorreo().toString().contains(txtBuscarSalida.getText().toString())){
+                        correo += (i + 1) + ": " + "Emisor: " + nodos.get(i).getCorreo().getEmisor() + "  Asunto: " + nodos.get(i).getCorreo().getAsunto() + "  Mensaje: " + nodos.get(i).getCorreo().getMensaje() + "\n";
+                    }
+                }
+                
+                txtBandejaSalida.setText(correo);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Debe ingresar lo que desea buscar");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar");
+        }
+    }//GEN-LAST:event_btnBuscarSalidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -565,6 +743,10 @@ public class frmCorreos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarEntrada;
     private javax.swing.JButton btnActualizarSalida;
+    private javax.swing.JButton btnBuscarEntrada;
+    private javax.swing.JButton btnBuscarSalida;
+    private javax.swing.JButton btnEliminarEntrada;
+    private javax.swing.JButton btnEliminarSalida;
     private javax.swing.JButton btnEnviarGrupos;
     private javax.swing.JButton btnEnviarListaLocal;
     private javax.swing.JButton btnEnviarLocal;
@@ -580,6 +762,8 @@ public class frmCorreos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -595,6 +779,11 @@ public class frmCorreos extends javax.swing.JFrame {
     private javax.swing.JTextField txtAsuntoLocal;
     private javax.swing.JTextArea txtBandejaEntrada;
     private javax.swing.JTextArea txtBandejaSalida;
+    private javax.swing.JTextField txtBuscarEntrada;
+    private javax.swing.JTextField txtBuscarSalida;
+    private javax.swing.JTextField txtEliminarEntrada;
+    private javax.swing.JTextField txtEliminarEntrada1;
+    private javax.swing.JTextField txtEliminarSalida;
     private javax.swing.JTextArea txtMensajeGrupos;
     private javax.swing.JTextArea txtMensajeLocal;
     private javax.swing.JTextField txtUsuarioGrupos;
