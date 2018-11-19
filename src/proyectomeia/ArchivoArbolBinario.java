@@ -289,10 +289,10 @@ public class ArchivoArbolBinario {
             LinkedList<Nodo> lista=new LinkedList<>();
             for (int i = 0; i < datos.length; i++){   
                 String[] campos = datos[i].split("\\|");
-                Nodo nodo = new Nodo(Integer.parseInt(campos[0].trim()), Integer.parseInt(campos[1].trim()),Integer.parseInt(campos[2].trim()),Correo.toCorreo(campos[3]));
-                if(nodo.getCorreo().getEstatus() != 0){
-                    lista.add(nodo);
-                }                
+                Nodo nodo = new Nodo(Integer.parseInt(campos[0].trim()), Integer.parseInt(campos[1].trim()),Integer.parseInt(campos[2].trim()),Correo.toCorreo(campos[3]));                
+                
+                lista.add(nodo);
+                                
             }
             return lista;            
         }   

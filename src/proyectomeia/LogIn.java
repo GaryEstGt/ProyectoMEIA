@@ -390,6 +390,37 @@ public class LogIn extends javax.swing.JFrame {
             Lista_Usuario.rellenarListasUsuario(listaUsuarioLista);
         }
         
+        DescriptorCorreo descriptorCorreo = ArchivoArbolBinario.obtenerDescriptorCorreo();
+        LinkedList<Nodo> nodos = ArchivoArbolBinario.obtenerNodos();
+        
+        for (int i = 0; i < nodos.size(); i++) {                                
+                if(nodos.get(i).getCorreo().getEstatus() == 0){
+                    if(i != nodos.size() - 1){
+                        for (int j = i + 1; j < nodos.size(); j++) {
+                            int posicion = (nodos.get(j).getPosicion());                                                                                    
+                            
+                            for (int k = 0; k < nodos.size(); k++) {
+                                if(nodos.get(k).getDerecho() == posicion){
+                                    nodos.get(k).setDerecho(posicion - 1);
+                                }else if (nodos.get(k).getIzquierdo() == posicion){
+                                    nodos.get(k).setIzquierdo(posicion - 1);
+                                }
+                            }
+                            
+                            nodos.get(j).setPosicion(posicion - 1);                            
+                        }
+                    }
+                    nodos.remove(i);
+                    i = i-1;
+                }
+        }
+        
+        descriptorCorreo.setInactivos(0);
+        descriptorCorreo.setCantidad(nodos.size());
+        descriptorCorreo.setActivos(nodos.size());
+        ArchivoArbolBinario.rellenarDescriptorCorreo(descriptorCorreo);
+        ArchivoArbolBinario.rellenarNodos(nodos);
+        
         System.exit(0); 
         setDefaultCloseOperation(LogIn.EXIT_ON_CLOSE);
     }//GEN-LAST:event_btnSalirActionPerformed
