@@ -26,11 +26,14 @@ public class frmCorreos extends javax.swing.JFrame {
     /**
      * Creates new form frmCorreos
      */
+    boolean usuario, lista;
     public frmCorreos() {
         initComponents();
         cmbSeleccionarLocal.setEnabled(false);
         txtEliminarEntrada.setDocument(new LimitarNumeros());
         txtEliminarSalida.setDocument(new LimitarNumeros());
+        usuario = false;
+        lista = false;
     }
 
     /**
@@ -477,6 +480,8 @@ public class frmCorreos extends javax.swing.JFrame {
         }
         
         cmbSeleccionarLocal.setEnabled(true);
+        usuario = true;
+        lista = false;
     }//GEN-LAST:event_btnEnviarUsuarioLocalActionPerformed
 
     private void btnEnviarListaLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarListaLocalActionPerformed
@@ -497,6 +502,8 @@ public class frmCorreos extends javax.swing.JFrame {
         }
         
         cmbSeleccionarLocal.setEnabled(true);
+        lista = true;
+        usuario = false;
     }//GEN-LAST:event_btnEnviarListaLocalActionPerformed
 
     private void btnExaminarAdjuntoLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExaminarAdjuntoLocalActionPerformed
@@ -516,14 +523,36 @@ public class frmCorreos extends javax.swing.JFrame {
 
     private void btnEnviarLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarLocalActionPerformed
         // TODO add your handling code here:
-        if(!txtAsuntoLocal.getText().isEmpty() && !txtMensajeLocal.getText().isEmpty() && !cmbSeleccionarLocal.getSelectedItem().toString().isEmpty()){
-            Date fecha = new Date();
+        if((!txtAsuntoLocal.getText().isEmpty() && !txtMensajeLocal.getText().isEmpty() && !cmbSeleccionarLocal.getSelectedItem().toString().isEmpty()) ||
+                (!usuario && !lista)){
             
-            Correo correo = new Correo(ProyectoMEIA.usuarioEnUso.getUsuario(), cmbSeleccionarLocal.getSelectedItem().toString(), fecha.toGMTString(),
+            if(usuario){
+                Date fecha = new Date();
+            
+                Correo correo = new Correo(ProyectoMEIA.usuarioEnUso.getUsuario(), cmbSeleccionarLocal.getSelectedItem().toString(), fecha.toGMTString(),
                     txtAsuntoLocal.getText().toString(),txtMensajeLocal.getText().toString(), txtAdjuntoLocal.getText().toString(), 1);
             
-            ArchivoArbolBinario.EnviarCorreo(correo);
-            JOptionPane.showMessageDialog(null, "Correo enviado con éxito");
+                ArchivoArbolBinario.EnviarCorreo(correo);
+                JOptionPane.showMessageDialog(null, "Correo enviado con éxito");                
+            }
+            else if (lista){
+                LinkedList<UsuarioLista> listas = Lista_Usuario.obtenerListasUsuario();                
+                
+                for (int i = 0; i < listas.size(); i++) {
+                    if(listas.get(i).getNombreLista().equals(cmbSeleccionarLocal.getSelectedItem().toString()) && 
+                            listas.get(i).getUsuario().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
+                        
+                        Date fecha = new Date();
+                        
+                        Correo correo = new Correo(ProyectoMEIA.usuarioEnUso.getUsuario(), listas.get(i).getUsuarioAsociado(), fecha.toGMTString(),
+                    txtAsuntoLocal.getText().toString(),txtMensajeLocal.getText().toString(), txtAdjuntoLocal.getText().toString(), 1);
+                        
+                        ArchivoArbolBinario.EnviarCorreo(correo);
+                    }                        
+                }
+                
+                JOptionPane.showMessageDialog(null, "Correo enviado con éxito");                
+            }            
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe ingresar el asunto, mensaje, y el destinatario");
@@ -577,7 +606,7 @@ public class frmCorreos extends javax.swing.JFrame {
             String correos = "";
             
             for (int i = 0; i < nodos.size(); i++) {
-                if(nodos.get(i).getCorreo().getReceptor().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
+                if(nodos.get(i).getCorreo().getReceptor().equals(ProyectoMEIA.usuarioEnUso.getUsuario()) && nodos.get(i).getCorreo().getEstatus() != 0){
                     encontrado = true;
                     correos += (i + 1) + ": " + "Emisor: " + nodos.get(i).getCorreo().getEmisor() + "  Asunto: " + nodos.get(i).getCorreo().getAsunto() + "  Mensaje: " + nodos.get(i).getCorreo().getMensaje() + "\n";
                 }
@@ -603,7 +632,7 @@ public class frmCorreos extends javax.swing.JFrame {
             String correos = "";
             
             for (int i = 0; i < nodos.size(); i++) {
-                if(nodos.get(i).getCorreo().getEmisor().equals(ProyectoMEIA.usuarioEnUso.getUsuario())){
+                if(nodos.get(i).getCorreo().getEmisor().equals(ProyectoMEIA.usuarioEnUso.getUsuario()) && nodos.get(i).getCorreo().getEstatus() != 0){
                     encontrado = true;
                     correos += (i + 1) + ": " + "Receptor: " + nodos.get(i).getCorreo().getReceptor()+ "  Asunto: " + nodos.get(i).getCorreo().getAsunto() + "  Mensaje: " + nodos.get(i).getCorreo().getMensaje() + "\n";
                 }
